@@ -30,3 +30,9 @@
 4. BAZA
  - instalirati MongoDB
  - instalirati Robo3T
+
+
+ 5. Korisne instrukcije
+
+ ng gc imeKomponente - generisanje komponente
+ ng generate @angular/material:material-nav --name=main-nav - generisanje main-nava
