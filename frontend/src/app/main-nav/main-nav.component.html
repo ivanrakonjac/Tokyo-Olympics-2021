@@ -25,16 +25,11 @@
       </button>
       <span>Tokyo Olympics 2021 </span>
       <span class="spacer"></span>
-      <a mat-list-item href="#">LOGIN</a>
+      <a mat-list-item href="/login">LOGIN</a>
     </mat-toolbar>
     <!-- Add Content Here -->
- 
-    <div>
-      <a routerLink='organizator'>Organizator</a>
-      <a routerLink='delegat'>Delegat</a>
-      <a routerLink='vodjaDelegacije'>Vodja delegacije</a>
-      <router-outlet></router-outlet>
-    </div>
+
+    <router-outlet></router-outlet>
 
   </mat-sidenav-content>
 </mat-sidenav-container>
