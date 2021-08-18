@@ -20,13 +20,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoggedInNavComponent } from './logged-in-nav/logged-in-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrganizatorComponent,
     MainNavComponent,
-    LoginComponent
+    LoginComponent,
+    LoggedInNavComponent
   ],
   imports: [
     BrowserModule,

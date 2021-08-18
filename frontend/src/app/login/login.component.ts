@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
+import { UserServiceService } from '../services/user-service.service';
+import { Router } from '@angular/router';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +13,14 @@ export class LoginComponent implements OnInit {
 
   hide: boolean = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private userService: UserServiceService, private router: Router) { }
 
   ngOnInit(): void {
   }
+
+  email: string;
+  username: string;
+  password: string;
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -24,7 +31,24 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    console.log(this.loginForm.value);
+
+    this.email = this.loginForm.value.email
+    this.password = this.loginForm.value.password
+
+    this.userService.login(this.email, this.password).subscribe((user: User)=>{
+
+      console.log(user);
+
+      if(user){
+        localStorage.setItem('user', user.username);
+        if(user.type==0) this.router.navigate(['/organizator']);
+        else if(user.type==1) this.router.navigate(['/delegat']);
+        else if(user.type==2) this.router.navigate(['/vodjaDelegacije']);
+      }
+      else{
+        alert("Bad data");
+      }
+    });
   }
 
 

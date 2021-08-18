@@ -10,14 +10,14 @@ export class UserServiceService {
 
   uri = 'http://localhost:4000'
 
-  login(username, password){
+  login(email, password){
     
     const data = {
-      username: username,
+      email: email,
       password: password
     }
 
-    this.http.post(`${this.uri}/login`, data);
+    return this.http.post(`${this.uri}/login`, data);
 
   }
 
