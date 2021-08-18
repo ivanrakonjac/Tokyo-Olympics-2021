@@ -19,5 +19,18 @@ conn.once('open', ()=>{
 
 const router = express.Router();
 
+router.route('/login').post((req, res)=>{
+    let username = req.body.username;
+    let password = req.body.password;
+
+    console.log(username);
+    console.log(password);
+
+    user.findOne({'username':username, 'password': password}, (err, user)=>{
+        if(err) console.log(err);
+        else res.json(user);
+    } )
+});
+
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
