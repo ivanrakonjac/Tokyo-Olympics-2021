@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/MEAN_STACK');
+mongoose.connect('mongodb://localhost:27017/Tokyo_2021');
 
 const conn = mongoose.connection;
 
@@ -20,13 +20,13 @@ conn.once('open', ()=>{
 const router = express.Router();
 
 router.route('/login').post((req, res)=>{
-    let username = req.body.username;
+    let email = req.body.email;
     let password = req.body.password;
 
-    console.log(username);
+    console.log(email);
     console.log(password);
 
-    user.findOne({'username':username, 'password': password}, (err, user)=>{
+    user.findOne({'email':email, 'password': password}, (err, user)=>{
         if(err) console.log(err);
         else res.json(user);
     } )

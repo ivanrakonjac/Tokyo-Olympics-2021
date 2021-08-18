@@ -18,7 +18,7 @@ let User = new Schema({
     country: {
         type: String
     },
-    mail: {
+    email: {
         type: String
     },
     type:{

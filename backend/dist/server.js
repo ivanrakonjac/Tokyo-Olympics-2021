@@ -11,18 +11,18 @@ const user_1 = __importDefault(require("./model/user"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
-mongoose_1.default.connect('mongodb://localhost:27017/MEAN_STACK');
+mongoose_1.default.connect('mongodb://localhost:27017/Tokyo_2021');
 const conn = mongoose_1.default.connection;
 conn.once('open', () => {
     console.log('mongo open');
 });
 const router = express_1.default.Router();
 router.route('/login').post((req, res) => {
-    let username = req.body.username;
+    let email = req.body.email;
     let password = req.body.password;
-    console.log(username);
+    console.log(email);
     console.log(password);
-    user_1.default.findOne({ 'username': username, 'password': password }, (err, user) => {
+    user_1.default.findOne({ 'email': email, 'password': password }, (err, user) => {
         if (err)
             console.log(err);
         else
