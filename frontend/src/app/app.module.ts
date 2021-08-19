@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UnregisterUserComponent } from './unregister-user/unregister-user.component';
 import { RegistrationComponent } from './registration/registration.component';
+import {MatSelectModule} from '@angular/material/select'; 
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RegistrationComponent } from './registration/registration.component';
     MatFormFieldModule,
     MatCardModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
