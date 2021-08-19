@@ -20,7 +20,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoggedInNavComponent } from './logged-in-nav/logged-in-nav.component';
+import { UnregisterUserComponent } from './unregister-user/unregister-user.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoggedInNavComponent } from './logged-in-nav/logged-in-nav.component';
     OrganizatorComponent,
     MainNavComponent,
     LoginComponent,
-    LoggedInNavComponent
+    UnregisterUserComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -50,4 +52,6 @@ import { LoggedInNavComponent } from './logged-in-nav/logged-in-nav.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }

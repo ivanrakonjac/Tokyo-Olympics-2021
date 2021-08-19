@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import { UserServiceService } from '../services/user-service.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
 
   hide: boolean = false;
 
+  @Output() newItemEvent = new EventEmitter<string>();
+
   constructor(private fb: FormBuilder, private userService: UserServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(2)]]
   })
 
   onLogin() {
@@ -41,6 +43,10 @@ export class LoginComponent implements OnInit {
 
       if(user){
         localStorage.setItem('user', user.username);
+        localStorage.setItem('type', user.type + "");
+
+        this.userService.changeMessage(user.type + "");
+
         if(user.type==0) this.router.navigate(['/organizator']);
         else if(user.type==1) this.router.navigate(['/delegat']);
         else if(user.type==2) this.router.navigate(['/vodjaDelegacije']);
@@ -49,6 +55,10 @@ export class LoginComponent implements OnInit {
         alert("Bad data");
       }
     });
+  }
+
+  addNewItem(value: string) {
+    this.newItemEvent.emit(value);
   }
 
 

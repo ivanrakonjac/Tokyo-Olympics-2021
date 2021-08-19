@@ -1,9 +1,69 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" [ngSwitch]="currentUserType">
+  <mat-sidenav 
+      #drawer 
+      class="sidenav" 
+      fixedInViewport="false"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false"
+      *ngSwitchCase="0">
+    <mat-toolbar>Admin Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">REGISTRACIJA DELEGATA</a>
+      <a mat-list-item href="#">REGISTRACIJA VODJE</a>
+      <a mat-list-item href="#">UNOS DISCIPLINE</a>
+      <a mat-list-item href="#">UNOS TAKMICENJA</a>
+      <a mat-list-item href="#">UNOS FORMATA</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav 
+      #drawer 
+      class="sidenav" 
+      fixedInViewport="false"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false"
+      *ngSwitchCase="1">
+    <mat-toolbar>Delegat Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">UNOS RASPOREDA</a>
+      <a mat-list-item href="#">RASPOREDJIVANJE</a>
+      <a mat-list-item href="#">INDIV SPORTOVI REZ</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav 
+      #drawer 
+      class="sidenav" 
+      fixedInViewport="false"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false"
+      *ngSwitchCase="2">
+    <mat-toolbar>Vodja Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">PRIJAVA SPORTISTE</a>
+      <a mat-list-item href="#">JSON/XLS</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  
+
+
   <mat-sidenav-content>
     <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
       <a mat-list-item href="/">Tokyo Olympics 2021</a>
       <span class="spacer"></span>
-      <a mat-list-item href="/login">LOGIN</a>
+      <a mat-list-item href="/login" *ngIf="currentUserType!=0 && currentUserType!=1 && currentUserType!=2">LOGIN</a>
+      <a mat-list-item href="/" (click)="logout()" *ngIf="currentUserType==0 || currentUserType==1 || currentUserType==2">LOG OUT</a>
     </mat-toolbar>
     <!-- Add Content Here -->
 
@@ -11,3 +71,21 @@
 
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<div id="footer"  class="bg-light text-center text-lg-start">
+
+  <div class="text-center p-3">
+    © 2021 Copyright: Nikola Krstić 2017/0265
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
