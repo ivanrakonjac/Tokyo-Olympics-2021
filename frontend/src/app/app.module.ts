@@ -22,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UnregisterUserComponent } from './unregister-user/unregister-user.component';
 import { RegistrationComponent } from './registration/registration.component';
-import {MatSelectModule} from '@angular/material/select'; 
+import {MatSelectModule} from '@angular/material/select';
+import { AddSportComponent } from './add-sport/add-sport.component'; 
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatSelectModule} from '@angular/material/select';
     MainNavComponent,
     LoginComponent,
     UnregisterUserComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    AddSportComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,30 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>DODAJ SPORT</P>
+      </div>
+      
+      <form (ngSubmit)="onRegister()" name="registrationForm" [formGroup]="registrationForm">
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Sport name</mat-label>
+              <input
+                formControlName="sport"
+                matInput
+                placeholder="Enter sport name" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['sport'].valid">
+                Sport name is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary">Add</button>
+      </form>
+
+      <div class="button-row">
+        <p>Add new sport</p>
+      </div>
+    </mat-card-content>
+  </mat-card>

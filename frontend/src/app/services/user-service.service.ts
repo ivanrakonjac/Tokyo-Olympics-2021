@@ -19,6 +19,13 @@ export class UserServiceService {
 
   uri = 'http://localhost:4000'
 
+  /**
+   * Login korisnika
+   * 
+   * @param email 
+   * @param password 
+   * @returns 
+   */
   login(email, password){
     
     const data = {
@@ -30,6 +37,12 @@ export class UserServiceService {
 
   }
 
+  /**
+   * Proverava da li za prosledjenu zemlju vodja delegacije vec postoji u bazi
+   * 
+   * @param country 
+   * @returns 
+   */
   vodjaDelegacijePostoji(country){
     
     const data = {
@@ -40,8 +53,49 @@ export class UserServiceService {
 
   }
 
+  /**
+   * Registruje novog korisnika
+   * 
+   * @param newUser 
+   * @returns is user added or not
+   */
   register(newUser){
     return this.http.post(`${this.uri}/register`, newUser);
+  }
+  
+  /**
+   * Dohvata imena svih sportova
+   * 
+   * @returns collection of all sports names
+   */
+  getAllSports(){
+    return this.http.get(`${this.uri}/getAllSports`);
+  }
+
+  /**
+   * Proverava da li postoji prosledjeni sport
+   * 
+   * @param sportName 
+   * @returns true-sport postoji, false ne postoji 
+   */
+  sportPostoji(sportName){
+
+    const data = {
+      sportName: sportName
+    }
+
+    return this.http.post(`${this.uri}/sportPostoji`, data);
+
+  }
+
+  /**
+   * Dodavanje sporta u bazu
+   * 
+   * @param sport 
+   * @returns 
+   */
+  addSport(sport){
+    return this.http.post(`${this.uri}/addSport`, sport);
   }
 
 }
