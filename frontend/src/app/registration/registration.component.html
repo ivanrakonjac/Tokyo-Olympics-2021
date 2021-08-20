@@ -1,10 +1,10 @@
 <mat-card>
     <mat-card-content>
       <div class="header">
-        <P>Registracija DELEGATA/VODJE</P>
+        <P>Podaci DELEGATA/VODJE</P>
       </div>
       
-      <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+      <form (ngSubmit)="onRegister()" name="registrationForm" [formGroup]="registrationForm">
 
         <div class="inputFiled">
             <mat-form-field class="full-width" appearance="outline">
@@ -14,7 +14,7 @@
                 matInput
                 placeholder="Enter username" required
               />
-              <mat-error *ngIf="!loginForm.controls['username'].valid">
+              <mat-error *ngIf="!registrationForm.controls['username'].valid">
                   Username is required
                 </mat-error>
             </mat-form-field>
@@ -28,7 +28,7 @@
               matInput
               placeholder="Enter email address" required
             />
-            <mat-error *ngIf="!loginForm.controls['email'].valid">
+            <mat-error *ngIf="!registrationForm.controls['email'].valid">
                 Email is required
               </mat-error>
           </mat-form-field>
@@ -42,7 +42,7 @@
                 matInput
                 placeholder="Enter firstName" required
                 />
-                <mat-error *ngIf="!loginForm.controls['firstName'].valid">
+                <mat-error *ngIf="!registrationForm.controls['firstName'].valid">
                     Firstname is required
                 </mat-error>
             </mat-form-field>
@@ -56,7 +56,7 @@
             matInput
             placeholder="Enter lastname" required
             />
-            <mat-error *ngIf="!loginForm.controls['lastName'].valid">
+            <mat-error *ngIf="!registrationForm.controls['lastName'].valid">
                 Lastname is required
             </mat-error>
         </mat-form-field>
@@ -70,7 +70,7 @@
                 matInput
                 placeholder="Enter country" required
                 />
-                <mat-error *ngIf="!loginForm.controls['country'].valid">
+                <mat-error *ngIf="!registrationForm.controls['country'].valid">
                     Country is required
                 </mat-error>
             </mat-form-field>
@@ -88,7 +88,7 @@
                     {{userType.viewValue}}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="!loginForm.controls['country'].valid">
+                <mat-error *ngIf="!registrationForm.controls['country'].valid">
                     Country is required
                 </mat-error>
             </mat-form-field>
@@ -96,7 +96,7 @@
 
 
 
-        <div>
+        <div class="inputFiled">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Password</mat-label>
             <input formControlName="password" matInput [type]=" hide ? 'password' : 'text'" required />
@@ -106,13 +106,13 @@
                 {{hide ? 'visibility_off' : 'visibility'}}
             </mat-icon>
         </button>
-        <mat-error *ngIf="!loginForm.controls['password'].valid">
-            Password is required
+        <mat-error *ngIf="!registrationForm.controls['password'].valid">
+            Password is required (At least 1 upper case letter, 3 lower case, 2 digits, 2 special characters, 8-12 length and first character must be a letter)
           </mat-error>
         </mat-form-field>
         </div>
 
-        <div>
+        <div class="inputFiled">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Password confirmation</mat-label>
             <input formControlName="passwordConfirmation" matInput [type]=" hide ? 'passwordConfirmation' : 'text'" required />
@@ -122,13 +122,13 @@
                 {{hide ? 'visibility_off' : 'visibility'}}
             </mat-icon>
         </button>
-        <mat-error *ngIf="!loginForm.controls['passwordConfirmation'].valid">
-            Password is required
+        <mat-error *ngIf="!registrationForm.controls['passwordConfirmation'].valid">
+            Confirmed password is required and must be same as password
           </mat-error>
         </mat-form-field>
         </div>
 
-        <button mat-flat-button color="primary">Login</button>
+        <button mat-flat-button color="primary">Register</button>
       </form>
 
       <div class="button-row">

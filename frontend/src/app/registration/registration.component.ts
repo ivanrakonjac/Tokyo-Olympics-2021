@@ -31,61 +31,86 @@ export class RegistrationComponent implements OnInit {
   firstName: string;
   lastName: string;
   country: string;
-  userType: string;
+  type: string;
   passwordConfirmation: string;
 
-  loginForm: FormGroup = this.fb.group({
-    passwordConfirmation: ['', [Validators.required]],
+
+  registrationForm: FormGroup = this.fb.group({
+    passwordConfirmation: ['', [Validators.required, Validators.minLength(2), , Validators.maxLength(12)]],
     userType: ['', [Validators.required]],
     country: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
     username: ['', [Validators.required]],
-    email: ['', [/*Validators.required, Validators.email*/]],
-    password: ['', [Validators.required, Validators.minLength(2), , Validators.maxLength(12)]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8), , Validators.maxLength(12), Validators.pattern("^(?=.*?[A-Z])(?=(.*[a-z]){3,})(?=(.*[\\d]){2,})(?=(.*[\\W]){2,})(?!.*\\s)[a-zA-Z].{7,11}$")]]
   })
 
-  onLogin() {
-    if (!this.loginForm.valid) {
+  onRegister() {
+    if (!this.registrationForm.valid) {
       return;
     }
 
-    this.username = this.loginForm.value.username;
-    this.email = this.loginForm.value.email;
-    this.password = this.loginForm.value.password;
-    this.passwordConfirmation = this.loginForm.value.passwordConfirmation;
-    this.userType = this.loginForm.value.userType;
-    this.firstName = this.loginForm.value.firstName;
-    this.lastName = this.loginForm.value.lastName;
-    this.country = this.loginForm.value.country;
-    this.userType = this.loginForm.value.userType;
+    this.username = this.registrationForm.value.username;
+    this.email = this.registrationForm.value.email;
+    this.password = this.registrationForm.value.password;
+    this.passwordConfirmation = this.registrationForm.value.passwordConfirmation;
+    this.type = this.registrationForm.value.userType;
+    this.firstName = this.registrationForm.value.firstName;
+    this.lastName = this.registrationForm.value.lastName;
+    this.country = this.registrationForm.value.country;
 
-    // this.userService.login(this.email, this.password).subscribe((user: User)=>{
+    if (this.registrationForm.value.password != this.registrationForm.value.passwordConfirmation) {
+      this.registrationForm.controls['passwordConfirmation'].setErrors({'incorrect': true});
+      return;
+    }
 
-      console.log(this.username);
-      console.log(this.email);
-      console.log(this.firstName);
-      console.log(this.lastName);
-      console.log(this.country);
-      console.log(this.userType);
-      console.log(this.password);
-      console.log(this.passwordConfirmation);
-    
+    const newUser = {
+      username:  this.username,
+      email: this.email,
+      password: this.password,
+      firstName:  this.firstName,
+      lastName: this.lastName,
+      country: this.country,
+      type:  this.type
+    }
 
-      // if(user){
-      //   localStorage.setItem('user', user.username);
-      //   localStorage.setItem('type', user.type + "");
+    if(this.type == "1"){
+      //newUser je Delegat
+      this.registerNewUser(newUser);
+    }
+    else if(this.type == "2"){
+        //newUser je Vodja delegacije
+        this.userService.vodjaDelegacijePostoji(this.country).subscribe((exists: boolean)=>{
 
-      //   this.userService.changeMessage(user.type + "");
+          if(exists){
+            alert("Vodja za ovu delegaciju je vec registrovan");
+            return;
+          }else{
+            this.registerNewUser(newUser);
+          }
 
-      //   if(user.type==0) this.router.navigate(['/organizator']);
-      //   else if(user.type==1) this.router.navigate(['/delegat']);
-      //   else if(user.type==2) this.router.navigate(['/vodjaDelegacije']);
-      // }
-      // else{
-      //   alert("Bad data");
-      // }
-    // });
+        });
+    }else{
+      alert("Something went wrong...");
+      this.router.navigate(['/organizator']);
+    }
+
+  }
+
+  registerNewUser(newUser){
+    this.userService.register(newUser).subscribe((user: User)=>{
+
+      console.log(user);
+
+      if(user){
+        alert("New user added!");
+        this.router.navigate(['/organizator']);
+      }
+      else{
+        alert("Something went wrong...");
+      }
+    });
   }
 
   addNewItem(value: string) {

@@ -37,3 +37,4 @@
  ng gc imeKomponente - generisanje komponente
  ng generate @angular/material:material-nav --name=main-nav - generisanje main-nava
  ng g s UserService - generisanje servisa
+

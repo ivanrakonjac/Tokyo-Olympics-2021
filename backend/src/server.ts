@@ -32,5 +32,35 @@ router.route('/login').post((req, res)=>{
     } )
 });
 
+/**
+ * Provera ima li vec vodje za prosledjenu zemlju
+ * 
+ * @returns res.json()
+ * false - ne postoji
+ * true - postoji
+ */
+router.route('/vodjaDelegacijePostoji').post((req, res)=>{
+    let country = req.body.country;
+
+    console.log(country);
+
+    user.findOne({'country':country}, (err, user)=>{
+        if(err) console.log(err);
+        else{
+            if (user == null) return res.json(false);
+            else res.json(true);;
+        }
+    } )
+});
+
+router.route('/register').post((req, res)=>{
+    let u = new user(req.body);
+    u.save().then(u=>{
+        res.status(200).json({'user':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'user':'no'});
+    })
+});
+
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

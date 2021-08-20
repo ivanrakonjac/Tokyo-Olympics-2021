@@ -30,6 +30,18 @@ export class UserServiceService {
 
   }
 
- 
+  vodjaDelegacijePostoji(country){
+    
+    const data = {
+      country: country
+    }
+
+    return this.http.post(`${this.uri}/vodjaDelegacijePostoji`, data);
+
+  }
+
+  register(newUser){
+    return this.http.post(`${this.uri}/register`, newUser);
+  }
 
 }
