@@ -4,6 +4,7 @@ import bodyParser, { json } from 'body-parser';
 import mongoose from 'mongoose';
 import user from './model/user';
 import sport from './model/sport';
+import discipline from './model/discipline';
 
 const app = express();
 
@@ -104,16 +105,52 @@ router.route('/getAllSports').get((req, res)=>{
    * Dodavanje sporta u bazu
    * 
    * @req sport 
-   * @res 200 ok /400 not ok
+   * @res 200 ok / 400 not ok
    */
 router.route('/addSport').post((req, res)=>{
     let s = new sport(req.body);
-    s.save().then(u=>{
+    s.save().then(s=>{
         res.status(200).json({'sport':'ok'});
     }).catch(err=>{
         res.status(400).json({'sport':'no'});
     })
 });
 
+/**
+ * Proverava da li postoji prosledjena disciplina
+ * 
+ * @req sportDisciplineName 
+ * @res true - postoji, false - ne postoji 
+ */
+ router.route('/sportDisciplinaPostoji').post((req, res)=>{
+    let name = req.body.name;
+
+    console.log(name);
+
+    discipline.findOne({'name':name}, (err, discipline)=>{
+        if(err) console.log(err);
+        else{
+            if (discipline == null) return res.json(false);
+            else res.json(true);;
+        }
+    } )
+});
+
+  /**
+   * Dodavanje discipline u bazu
+   * 
+   * @req discipline 
+   * @res 200 ok / 400 not ok
+   */
+   router.route('/addSportDiscipline').post((req, res)=>{
+    let d = new discipline(req.body);
+    d.save().then(d=>{
+        res.status(200).json({'discipline':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'discipline':'no'});
+    })
+});
+
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
+

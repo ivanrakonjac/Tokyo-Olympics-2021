@@ -23,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UnregisterUserComponent } from './unregister-user/unregister-user.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {MatSelectModule} from '@angular/material/select';
-import { AddSportComponent } from './add-sport/add-sport.component'; 
+import { AddSportComponent } from './add-sport/add-sport.component';
+import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component'; 
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AddSportComponent } from './add-sport/add-sport.component';
     LoginComponent,
     UnregisterUserComponent,
     RegistrationComponent,
-    AddSportComponent
+    AddSportComponent,
+    AddSportDisciplineComponent
   ],
   imports: [
     BrowserModule,

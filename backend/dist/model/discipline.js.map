@@ -1,0 +1,1 @@
+{"version":3,"file":"discipline.js","sourceRoot":"","sources":["../../src/model/discipline.ts"],"names":[],"mappings":";;;;;AAAA,wDAAgC;AAEhC,MAAM,MAAM,GAAG,kBAAQ,CAAC,MAAM,CAAC;AAE/B,IAAI,UAAU,GAAG,IAAI,MAAM,CAAC;IACxB,IAAI,EAAE;QACF,IAAI,EAAE,MAAM;KACf;IACD,KAAK,EAAE;QACH,IAAI,EAAE,MAAM;KACf;CACJ,CAAC,CAAC;AAEH,kBAAe,kBAAQ,CAAC,KAAK,CAAC,YAAY,EAAC,UAAU,EAAC,aAAa,CAAC,CAAC"}

@@ -18,8 +18,6 @@ export class AddSportComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sports: any [] = [];
-
   sport: string;
 
   registrationForm: FormGroup = this.fb.group({

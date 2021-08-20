@@ -1,0 +1,48 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>DODAJ SPORTSKU DISCIPLINU</P>
+      </div>
+      
+      <form (ngSubmit)="onRegister()" name="registrationForm" [formGroup]="registrationForm">
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Discipline name</mat-label>
+              <input
+                formControlName="disciplineName"
+                matInput
+                placeholder="Enter discipline name" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['disciplineName'].valid">
+                Discipline name is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Sport</mat-label>
+                <mat-select
+                formControlName="sport"
+                matSelect
+                placeholder="Choose sport" required
+                >
+                    <mat-option *ngFor="let sport of sports" [value]="sport.name">
+                    {{sport.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['sport'].valid">
+                    Sport is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary">Add</button>
+      </form>
+
+      <div class="button-row">
+        <p>Add new sport discipline</p>
+      </div>
+    </mat-card-content>
+  </mat-card>

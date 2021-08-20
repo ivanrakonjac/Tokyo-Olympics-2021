@@ -92,10 +92,36 @@ export class UserServiceService {
    * Dodavanje sporta u bazu
    * 
    * @param sport 
-   * @returns 
+   * @returns 200 ok / 400 not ok
    */
   addSport(sport){
     return this.http.post(`${this.uri}/addSport`, sport);
+  }
+
+  /**
+   * Provara da li je disciplina vec u bazi
+   * 
+   * @param disciplineName 
+   * @returns true-postoji, false - ne postoji
+   */
+   sportDisciplinaPostoji(disciplineName){
+
+    const data = {
+      name: disciplineName,
+    }
+
+    return this.http.post(`${this.uri}/sportDisciplinaPostoji`, data);
+
+  }
+
+  /**
+   * Dodavanje sportske discipline u bazu
+   * 
+   * @param discipline 
+   * @returns 200 ok / 400 not ok
+   */
+   addSportDiscipline(discipline){
+    return this.http.post(`${this.uri}/addSportDiscipline`, discipline);
   }
 
 }
