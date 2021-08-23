@@ -1,0 +1,166 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Podaci TAKMICENJA</P>
+      </div>
+      
+      <form (ngSubmit)="onRegister()" name="registrationForm" [formGroup]="registrationForm">
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Competition name</mat-label>
+              <input
+                formControlName="competitionName"
+                matInput
+                placeholder="Enter name for competition" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['competitionName'].valid">
+                  Username is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Sport</mat-label>
+                <mat-select
+                formControlName="sport"
+                matSelect
+                placeholder="Choose sport" required
+                >
+                    <mat-option *ngFor="let sport of sports" [value]="sport.name">
+                    {{sport.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['sport'].valid">
+                    Sport is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Discipline</mat-label>
+                <mat-select
+                formControlName="discipline"
+                matSelect
+                placeholder="Choose discipline" required
+                >
+                    <mat-option *ngFor="let discipline of disciplines" [value]="discipline.name"> 
+                    {{discipline.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['discipline'].valid">
+                    Discipline is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Format</mat-label>
+                <mat-select
+                formControlName="format"
+                matSelect
+                placeholder="Choose format" required
+                >
+                    <mat-option *ngFor="let format of formats" [value]="format.value"> 
+                    {{format.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['format'].valid">
+                    Format is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Sex</mat-label>
+                <mat-select
+                formControlName="sex"
+                matSelect
+                placeholder="Choose sex" required
+                >
+                    <mat-option *ngFor="let sex of sexes" [value]="sex.value"> 
+                    {{sex.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['sex'].valid">
+                    Sex is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select
+                formControlName="type"
+                matSelect
+                placeholder="Choose type" required
+                >
+                    <mat-option *ngFor="let type of types" [value]="type.value"> 
+                    {{type.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['type'].valid">
+                    Type is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Start date</mat-label>
+              <input
+                type = 'date'
+                formControlName="startDate"
+                matInput
+                placeholder="Enter start date" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['startDate'].valid">
+                  Start date is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>End date</mat-label>
+              <input
+                type = 'date'
+                formControlName="endDate"
+                matInput
+                placeholder="Enter end date" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['endDate'].valid">
+                  End date is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Location</mat-label>
+              <input
+                formControlName="location"
+                matInput
+                placeholder="Enter location" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['location'].valid">
+                  Location is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <button mat-flat-button color="primary">Add</button>
+      </form>
+
+      <div class="button-row">
+        <p>Add New Competition</p>
+      </div>
+    </mat-card-content>
+  </mat-card>

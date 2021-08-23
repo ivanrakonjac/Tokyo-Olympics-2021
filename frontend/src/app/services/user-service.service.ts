@@ -124,4 +124,23 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/addSportDiscipline`, discipline);
   }
 
+  /**
+   * Dohvata imena svih disciplina
+   * 
+   * @returns collection of all disciplines names
+   */
+    getAllDisciplinesNames(){
+      return this.http.get(`${this.uri}/getAllDisciplinesNames`);
+    }
+
+  /**
+   * Dodavanje takmicenja u bazu
+   * 
+   * @param competition (json) 
+   * @returns 200 ok / 400 not ok
+   */
+   addCompetition(competition){
+    return this.http.post(`${this.uri}/addCompetition`, competition);
+  }
+
 }

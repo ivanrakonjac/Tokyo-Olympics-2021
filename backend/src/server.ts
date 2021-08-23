@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import user from './model/user';
 import sport from './model/sport';
 import discipline from './model/discipline';
+import competition from './model/competition';
 
 const app = express();
 
@@ -148,6 +149,35 @@ router.route('/addSport').post((req, res)=>{
         res.status(200).json({'discipline':'ok'});
     }).catch(err=>{
         res.status(400).json({'discipline':'no'});
+    })
+});
+
+/**
+ * Dohvata imena svih disciplina
+ *
+ * @returns collection of all disciplines names
+ */
+ router.route('/getAllDisciplinesNames').get((req, res) => {
+    discipline.find({}, { name: 1, _id: 0 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+
+  /**
+   * Dodavanje takmicenja u bazu
+   * 
+   * @req competition 
+   * @res 200 ok / 400 not ok
+   */
+   router.route('/addCompetition').post((req, res)=>{
+    let c = new competition(req.body);
+    c.save().then(c=>{
+        res.status(200).json({'competition':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'competition':'no'});
     })
 });
 

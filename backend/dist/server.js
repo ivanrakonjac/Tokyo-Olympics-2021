@@ -10,6 +10,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("./model/user"));
 const sport_1 = __importDefault(require("./model/sport"));
 const discipline_1 = __importDefault(require("./model/discipline"));
+const competition_1 = __importDefault(require("./model/competition"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -147,6 +148,33 @@ router.route('/addSportDiscipline').post((req, res) => {
         res.status(200).json({ 'discipline': 'ok' });
     }).catch(err => {
         res.status(400).json({ 'discipline': 'no' });
+    });
+});
+/**
+ * Dohvata imena svih disciplina
+ *
+ * @returns collection of all disciplines names
+ */
+router.route('/getAllDisciplinesNames').get((req, res) => {
+    discipline_1.default.find({}, { name: 1, _id: 0 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+/**
+ * Dodavanje takmicenja u bazu
+ *
+ * @req competition
+ * @res 200 ok / 400 not ok
+ */
+router.route('/addCompetition').post((req, res) => {
+    let c = new competition_1.default(req.body);
+    c.save().then(c => {
+        res.status(200).json({ 'competition': 'ok' });
+    }).catch(err => {
+        res.status(400).json({ 'competition': 'no' });
     });
 });
 app.use('/', router);
