@@ -1,0 +1,114 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Podaci Takmicara</P>
+      </div>
+      
+      <form (ngSubmit)="onRegister()" name="registrationForm" [formGroup]="registrationForm">
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Firstname</mat-label>
+              <input
+                formControlName="firstname"
+                matInput
+                placeholder="Enter firstname" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['firstname'].valid">
+                Firstname is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Lastname</mat-label>
+              <input
+                formControlName="lastname"
+                matInput
+                placeholder="Enter lastname" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['lastname'].valid">
+                Lastname is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Sport</mat-label>
+                <mat-select
+                formControlName="sport"
+                matSelect
+                placeholder="Choose sport" required
+                (valueChange)="selectChangeHandler($event)"
+                >
+                    <mat-option *ngFor="let sport of sports" [value]="sport.name">
+                    {{sport.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['sport'].valid">
+                    Sport is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Discipline</mat-label>
+                <mat-select
+                formControlName="discipline"
+                matSelect
+                placeholder="Choose sport" required
+                multiple
+                >
+                    <mat-option *ngFor="let discipline of disciplines" [value]="discipline.name">
+                    {{discipline.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['discipline'].valid">
+                    Discipline is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Sex</mat-label>
+                <mat-select
+                formControlName="sex"
+                matSelect
+                placeholder="Choose sex" required
+                >
+                    <mat-option *ngFor="let sex of sexes" [value]="sex.value"> 
+                    {{sex.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['sex'].valid">
+                    Sex is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Country</mat-label>
+              <input
+                formControlName="country"
+                matInput
+                placeholder="Enter country" required
+              />
+              <mat-error *ngIf="!registrationForm.controls['country'].valid">
+                Country is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <button mat-flat-button color="primary">Register athlete</button>
+      </form>
+
+      <div class="button-row">
+        <p>Register New Athlete</p>
+      </div>
+    </mat-card-content>
+  </mat-card>

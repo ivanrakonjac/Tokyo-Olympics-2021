@@ -165,6 +165,21 @@ router.route('/getAllDisciplinesNames').get((req, res) => {
     });
 });
 /**
+ * Dohvata imena svih disciplina za prosledjeni sport
+ *
+ * @param sport
+ * @returns collection of all disciplines names
+ */
+router.route('/getAllDisciplinesForSport').post((req, res) => {
+    let sport = req.body.sport;
+    discipline_1.default.find({ 'sport': sport }, { name: 1, _id: 0 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+/**
  * Dodavanje takmicenja u bazu
  *
  * @req competition
@@ -176,6 +191,23 @@ router.route('/addCompetition').post((req, res) => {
         res.status(200).json({ 'competition': 'ok' });
     }).catch(err => {
         res.status(400).json({ 'competition': 'no' });
+    });
+});
+/**
+ * Dohvatanje imena takmicenja za prosledjene parametre
+ *
+ * @param discipline
+ * @param sex
+ * @res competition name
+ */
+router.route('/getCompetitionName').post((req, res) => {
+    let discipline = req.body.discipline;
+    let sex = req.body.sex;
+    competition_1.default.findOne({ 'discipline': discipline, 'sex': sex }, { competitionName: 1, _id: 0 }, (err, competition) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(competition);
     });
 });
 /**

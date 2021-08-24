@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import { UserServiceService } from '../services/user-service.service';
 import { Router } from '@angular/router';
-import { Sport } from '../model/sport';
-import { Discipline } from '../model/discipline';
 import { Competition } from '../model/competition';
 
 @Component({
@@ -17,19 +15,7 @@ export class AddAthleteComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private userService: UserServiceService, private router: Router) { }
 
-  sport: string;
-  discipline: string;
   competitions: Competition[];
-
-  sexes: any [] = [
-    {value: 'Muski'},
-    {value: 'Zenski'}
-  ];
-
-  types: any [] = [
-    {value: 'Ekipno'},
-    {value: 'Pojedinacno'}
-  ];
 
   ngOnInit(): void {
     this.userService.getAllUnformedCompetitions().subscribe((competitions: Competition[])=>{
@@ -91,9 +77,6 @@ export class AddAthleteComponent implements OnInit {
             });
         }
     });
-
-
-
   }
 
 

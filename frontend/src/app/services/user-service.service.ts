@@ -134,6 +134,19 @@ export class UserServiceService {
     }
 
   /**
+   * Dohvata imena svih disciplina za prosledjeni sport
+   *
+   * @param sport
+   * @returns collection of all disciplines names
+   */
+   getAllDisciplinesForSport(sportName){
+     const data = {
+       'sport' : sportName
+     }
+    return this.http.post(`${this.uri}/getAllDisciplinesForSport`, data);
+  }
+
+  /**
    * Dodavanje takmicenja u bazu
    * 
    * @param competition (json) 
@@ -142,5 +155,58 @@ export class UserServiceService {
    addCompetition(competition){
     return this.http.post(`${this.uri}/addCompetition`, competition);
   }
+
+  /**
+   * Dohvatanje imena takmicenja za prosledjene parametre
+   * 
+   * @param discipline
+   * @param sex 
+   * @res competition name
+   */
+   getCompetitionName(discipline, sex){
+
+      const data = {
+        "discipline" : discipline,
+        "sex" : sex
+      }
+
+      return this.http.post(`${this.uri}/getCompetitionName`, data);
+    }
+
+  /**
+   * Dohvata ime, sport, disciplinu, pol svih neformiranih takmicenja
+   *
+   * @returns collection of all unformed competitions
+ */
+   getAllUnformedCompetitions(){
+      return this.http.get(`${this.uri}/getAllUnformedCompetitions`);
+    }
+
+  /**
+   * Dodavanje sportiste u bazu
+   * 
+   * @param competition (json) 
+   * @returns 200 ok / 400 not ok
+   */
+   addAthlete(athlete){
+    return this.http.post(`${this.uri}/addAthlete`, athlete);
+  }
+
+/**
+ * Dohvata ime sport za koji je sportista prijavljen (ako nije vraca null)
+ * 
+ * @param athleteFirstname 
+ * @param athleteLastname
+ * @returns sport of athlete
+ */
+  getSportOfAthlete(athleteFirstname,athleteLastname){
+
+    const data = {
+      "athleteFirstname" : athleteFirstname,
+      "athleteLastname" : athleteLastname
+    }
+
+      return this.http.post(`${this.uri}/getSportOfAthlete`, data);
+    }
 
 }
