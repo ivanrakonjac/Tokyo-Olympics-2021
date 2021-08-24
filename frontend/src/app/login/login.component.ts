@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
       if(user){
         localStorage.setItem('user', user.username);
         localStorage.setItem('type', user.type + "");
+        localStorage.setItem('country', user.country);
 
         this.userService.changeMessage(user.type + "");
 

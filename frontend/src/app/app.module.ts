@@ -25,7 +25,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import {MatSelectModule} from '@angular/material/select';
 import { AddSportComponent } from './add-sport/add-sport.component';
 import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component';
-import { AddCompetitionComponent } from './add-competition/add-competition.component'; 
+import { AddCompetitionComponent } from './add-competition/add-competition.component';
+import { AddAthleteComponent } from './add-athlete/add-athlete.component'; 
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AddCompetitionComponent } from './add-competition/add-competition.compo
     RegistrationComponent,
     AddSportComponent,
     AddSportDisciplineComponent,
-    AddCompetitionComponent
+    AddCompetitionComponent,
+    AddAthleteComponent
   ],
   imports: [
     BrowserModule,

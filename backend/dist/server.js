@@ -11,6 +11,7 @@ const user_1 = __importDefault(require("./model/user"));
 const sport_1 = __importDefault(require("./model/sport"));
 const discipline_1 = __importDefault(require("./model/discipline"));
 const competition_1 = __importDefault(require("./model/competition"));
+const athlete_1 = __importDefault(require("./model/athlete"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -175,6 +176,50 @@ router.route('/addCompetition').post((req, res) => {
         res.status(200).json({ 'competition': 'ok' });
     }).catch(err => {
         res.status(400).json({ 'competition': 'no' });
+    });
+});
+/**
+ * Dohvata ime, sport, disciplinu, pol svih neformiranih takmicenja
+ *
+ * @returns collection of all unformed competitions
+ */
+router.route('/getAllUnformedCompetitions').get((req, res) => {
+    competition_1.default.find({ 'formirano': 0 }, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 0 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+/**
+ * Dohvata ime sport za koji je sportista prijavljen (ako nije vraca null)
+ *
+ * @param athleteFirstname
+ * @param athleteLastname
+ * @returns sport of athlete
+ */
+router.route('/getSportOfAthlete').post((req, res) => {
+    let athleteFirstname = req.body.athleteFirstname;
+    let athleteLastname = req.body.athleteLastname;
+    athlete_1.default.findOne({ 'firstname': athleteFirstname, 'lastname': athleteLastname }, { sport: 1, _id: 0 }, (err, sport) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(sport);
+    });
+});
+/**
+ * Dodavanje sportiste u bazu
+ *
+ * @req athlete
+ * @res 200 ok / 400 not ok
+ */
+router.route('/addAthlete').post((req, res) => {
+    let a = new athlete_1.default(req.body);
+    a.save().then(a => {
+        res.status(200).json({ 'athlete': 'ok' });
+    }).catch(err => {
+        res.status(400).json({ 'athlete': 'no' });
     });
 });
 app.use('/', router);
