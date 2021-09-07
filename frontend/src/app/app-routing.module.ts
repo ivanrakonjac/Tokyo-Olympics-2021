@@ -5,11 +5,13 @@ import { AddAthleteComponent } from './add-athlete/add-athlete.component';
 import { AddCompetitionComponent } from './add-competition/add-competition.component';
 import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component';
 import { AddSportComponent } from './add-sport/add-sport.component';
+import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
 import { LoginComponent } from './login/login.component';
 import { OrganizatorComponent } from './organizator/organizator.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
+  {path:"formCompetition", component: FormCompetitionTableComponent},
   {path:"addAthleteToDisciplines", component: AddAthleteToDisciplinesComponent},
   {path:"addAthleteOnCompetition", component: AddAthleteComponent},
   {path:"addCompetition", component: AddCompetitionComponent},
@@ -27,3 +29,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

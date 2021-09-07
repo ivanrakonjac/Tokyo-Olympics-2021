@@ -209,4 +209,21 @@ export class UserServiceService {
       return this.http.post(`${this.uri}/getSportOfAthlete`, data);
     }
 
+  /**
+   * Formira takmicenje za prosledjeni id
+   *
+   * @param {String} id
+   * @returns status
+   */
+   setCompetitionAsFormed(id){
+
+      const data = {
+        "id" : id
+      }
+
+        return this.http.post(`${this.uri}/setCompetitionAsFormed`, data);
+      }
+
 }
+
+

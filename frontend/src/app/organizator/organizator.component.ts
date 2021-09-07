@@ -10,6 +10,8 @@ export class OrganizatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+   
   }
+
 
 }

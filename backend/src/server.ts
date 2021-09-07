@@ -225,12 +225,29 @@ let c = new competition(req.body);
  * @returns collection of all unformed competitions
  */
  router.route('/getAllUnformedCompetitions').get((req, res) => {
-    competition.find({'formirano':0}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 0 }, (err, disc) => {
+    competition.find({'formirano':0}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
         if (err)
             console.log(err);
         else
             res.json(disc);
     });
+});
+
+/**
+ * Formira takmicenje za prosledjeni id
+ *
+ * @param {String} id
+ * @returns status
+ */
+ router.route('/setCompetitionAsFormed').post((req, res) => {
+    let id = req.body.id;
+
+    competition.collection.updateOne({'_id': mongoose.Types.ObjectId(id)}, {$set: {'formirano': 1}}).then(a=>{
+        res.status(200).json({'setCompetitionAsFormed':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'setCompetitionAsFormed':'no'});
+    })
+   
 });
 
 /**

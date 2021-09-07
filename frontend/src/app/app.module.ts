@@ -27,7 +27,11 @@ import { AddSportComponent } from './add-sport/add-sport.component';
 import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component';
 import { AddCompetitionComponent } from './add-competition/add-competition.component';
 import { AddAthleteComponent } from './add-athlete/add-athlete.component';
-import { AddAthleteToDisciplinesComponent } from './add-athlete-to-disciplines/add-athlete-to-disciplines.component'; 
+import { AddAthleteToDisciplinesComponent } from './add-athlete-to-disciplines/add-athlete-to-disciplines.component';
+import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort'; 
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { AddAthleteToDisciplinesComponent } from './add-athlete-to-disciplines/a
     AddSportDisciplineComponent,
     AddCompetitionComponent,
     AddAthleteComponent,
-    AddAthleteToDisciplinesComponent
+    AddAthleteToDisciplinesComponent,
+    FormCompetitionTableComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,10 @@ import { AddAthleteToDisciplinesComponent } from './add-athlete-to-disciplines/a
     MatCardModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 export class Competition{
-
+    _id: Object;
     competitionName: string;
     sport: string;
     discipline: string;
