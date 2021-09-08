@@ -4,6 +4,7 @@ import { UserServiceService } from '../services/user-service.service';
 import { Router } from '@angular/router';
 import { Sport } from '../model/sport';
 import { Discipline } from '../model/discipline';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-add-competition',
@@ -18,6 +19,7 @@ export class AddCompetitionComponent implements OnInit {
 
   sports: Sport[];
   disciplines: Discipline[];
+  delegates: User[];
 
   formats: any [] = [
     {value: '1', viewValue: 'Ekipno - 2 grupe - po 6 ekipa'},
@@ -51,6 +53,11 @@ export class AddCompetitionComponent implements OnInit {
     this.userService.getAllDisciplinesNames().subscribe((disc: Discipline[])=>{
       this.disciplines = disc;
     })
+
+    this.userService.getAllDelegates().subscribe((del: User[])=>{
+      this.delegates = del;
+      console.log(this.delegates);
+    })
   }
 
   registrationForm: FormGroup = this.fb.group({
@@ -62,7 +69,8 @@ export class AddCompetitionComponent implements OnInit {
     type: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
-    location: ['', [Validators.required]]
+    location: ['', [Validators.required]],
+    delegate: ['', [Validators.required]]
   })
 
   onRegister() {
@@ -79,10 +87,12 @@ export class AddCompetitionComponent implements OnInit {
     console.log(this.registrationForm.value.startDate);
     console.log(this.registrationForm.value.endDate);
     console.log(this.registrationForm.value.location);
+    console.log(this.registrationForm.value.delegate);
 
 
 
     const newCompetition = {
+      _id: null,
       competitionName:  this.registrationForm.value.competitionName,
       sport: this.registrationForm.value.sport,
       discipline: this.registrationForm.value.discipline,
@@ -92,7 +102,7 @@ export class AddCompetitionComponent implements OnInit {
       startDate: this.registrationForm.value.startDate,
       endDate:  this.registrationForm.value.endDate,
       location:  this.registrationForm.value.location,
-      delegat:  '',
+      delegat:  this.registrationForm.value.delegate,
       formirano: 0
     }
 
@@ -110,5 +120,26 @@ export class AddCompetitionComponent implements OnInit {
     });
 
   }
+
+  selectChangeHandlerSport(event: any){
+    this.userService.getAllDisciplinesForSport(event).subscribe((disc: Discipline[])=>{
+      this.disciplines = disc;
+    })
+  }
+
+  // selectChangeHandlerDiscipline(event: any){
+  //   console.log("selectChangeHandlerDiscipline");
+  //   console.log(event);
+  //   let sportName;
+
+  //   this.userService.getSportNameOfDiscipline(event).subscribe((sportName: any)=>{
+  //     console.log(sportName.sport);
+
+  //     this.userService.sportByName(sportName.sport).subscribe((sp: Sport[])=>{
+  //       this.registrationForm.value.sport = sp[0].name;
+  //     });
+
+  //   });
+  // }
 
 }

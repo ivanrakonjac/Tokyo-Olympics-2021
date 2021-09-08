@@ -12,6 +12,7 @@ const sport_1 = __importDefault(require("./model/sport"));
 const discipline_1 = __importDefault(require("./model/discipline"));
 const competition_1 = __importDefault(require("./model/competition"));
 const athlete_1 = __importDefault(require("./model/athlete"));
+const country_1 = __importDefault(require("./model/country"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -115,6 +116,24 @@ router.route('/register').post((req, res) => {
     });
 });
 /**
+ * Get sve delegate
+ *
+ * @returns collection of delegates
+ */
+router.route('/getAllDelegates').get((req, res) => {
+    user_1.default.find({ 'type': 1, 'brojTakmicenja': { $lt: 3 } }, (err, delegates) => {
+        if (err)
+            console.log(err);
+        else {
+            if (delegates == null)
+                return res.json(null);
+            else
+                res.json(delegates);
+            ;
+        }
+    });
+});
+/**
  * Dohvata imena svih sportova
  *
  * @returns collection of all sports names
@@ -145,6 +164,23 @@ router.route('/sportPostoji').post((req, res) => {
             else
                 res.json(true);
             ;
+        }
+    });
+});
+/**
+ * Get sport obj by name
+ *
+ * @req sportName
+ * @res sport obj
+ */
+router.route('/sportByName').post((req, res) => {
+    let sportName = req.body.sportName;
+    console.log(sportName);
+    sport_1.default.find({ 'name': sportName }, (err, sport) => {
+        if (err)
+            console.log(err);
+        else {
+            res.json(sport);
         }
     });
 });
@@ -219,6 +255,21 @@ router.route('/getAllDisciplinesNames').get((req, res) => {
 router.route('/getAllDisciplinesForSport').post((req, res) => {
     let sport = req.body.sport;
     discipline_1.default.find({ 'sport': sport }, { name: 1, _id: 0 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+/**
+ * Get sportName of discipline
+ *
+ * @param discipline
+ * @returns sport
+ */
+router.route('/getSportNameOfDiscipline').post((req, res) => {
+    let disciplineName = req.body.disciplineName;
+    discipline_1.default.findOne({ 'name': disciplineName }, { sport: 1, _id: 0 }, (err, disc) => {
         if (err)
             console.log(err);
         else
@@ -325,6 +376,19 @@ router.route('/addAthlete').post((req, res) => {
         res.status(200).json({ 'athlete': 'ok' });
     }).catch(err => {
         res.status(400).json({ 'athlete': 'no' });
+    });
+});
+/**
+ * Dodaj zemlju
+ * @param country
+ * @returns res.json()
+ */
+router.route('/addCountry').post((req, res) => {
+    let c = new country_1.default(req.body);
+    c.save().then(c => {
+        res.status(200).json({ 'country': 'ok' });
+    }).catch(err => {
+        res.status(400).json({ 'country': 'no' });
     });
 });
 app.use('/', router);

@@ -27,6 +27,7 @@
                 formControlName="sport"
                 matSelect
                 placeholder="Choose sport" required
+                (valueChange)="selectChangeHandlerSport($event)"
                 >
                     <mat-option *ngFor="let sport of sports" [value]="sport.name">
                     {{sport.name}}
@@ -152,6 +153,24 @@
               />
               <mat-error *ngIf="!registrationForm.controls['location'].valid">
                   Location is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Delegate</mat-label>
+                <mat-select
+                formControlName="delegate"
+                matSelect
+                placeholder="Choose delegate" required
+                >
+                    <mat-option *ngFor="let delegate of delegates" [value]="delegate._id"> 
+                    {{delegate.firstName}} {{delegate.lastName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!registrationForm.controls['delegate'].valid">
+                    Delegate is required
                 </mat-error>
             </mat-form-field>
         </div>

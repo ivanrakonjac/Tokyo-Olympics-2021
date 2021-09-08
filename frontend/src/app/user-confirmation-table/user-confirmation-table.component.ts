@@ -32,13 +32,36 @@ export class UserConfirmationTableComponent implements AfterViewInit, OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  confirm(id){
+  confirm(id, type, country){
+
+    console.log(id, type, country);
 
     this.userService.setUserStatusAsConfirmed(id).subscribe((res: any) => {
       if(res.setUserStatusAsConfirmed != 'ok'){
         alert("Desila se glreska!");
       }else{
-        window.location.reload();
+
+        // Ako je vodja delegacije dodati zemlju
+        if(type == 2){
+          const newCountry = {
+            "name": country,
+            "brojSportista": 0,
+            "brojZlatnihMedalja": 0,
+            "brojSrebrnihMedalja": 0,
+            "brojBronzanihMedalja": 0
+          }
+          
+          this.userService.addCountry(newCountry).subscribe((res: any) => {
+            if(res.country != "ok"){
+              alert("Problem sa dodavanjem zemlje!");
+            }else{
+              window.location.reload();
+            }
+          })
+
+        }else{
+          window.location.reload();
+        }
       }
     });
   }
@@ -54,3 +77,4 @@ export class UserConfirmationTableComponent implements AfterViewInit, OnInit {
     });
   }
 }
+

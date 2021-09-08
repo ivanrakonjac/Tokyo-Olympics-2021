@@ -102,6 +102,15 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/deleteUser`, data);
   }
 
+  /**
+   * Get sve delegate
+   * 
+   * @returns collection of delegates
+   */
+    getAllDelegates(){
+      return this.http.get(`${this.uri}/getAllDelegates`);
+    }
+
 
   
   /**
@@ -127,6 +136,22 @@ export class UserServiceService {
 
     return this.http.post(`${this.uri}/sportPostoji`, data);
 
+  }
+
+  /**
+   * Get sport obj by name
+   * 
+   * @req sportName 
+   * @res sport obj 
+   */
+   sportByName(sportName){
+
+    const data = {
+      'sportName' : sportName
+    }
+
+    return this.http.post(`${this.uri}/sportByName`, data);
+  
   }
 
   /**
@@ -185,6 +210,22 @@ export class UserServiceService {
        'sport' : sportName
      }
     return this.http.post(`${this.uri}/getAllDisciplinesForSport`, data);
+  }
+
+  /**
+ * Get sport of discipline
+ *
+ * @param discipline
+ * @returns sport name
+ */
+   getSportNameOfDiscipline(disciplineName){
+
+  const data = {
+    'disciplineName' : disciplineName
+  }
+
+    return this.http.post(`${this.uri}/getSportNameOfDiscipline`, data);
+  
   }
 
   /**
@@ -250,20 +291,29 @@ export class UserServiceService {
       return this.http.post(`${this.uri}/getSportOfAthlete`, data);
     }
 
-  /**
-   * Formira takmicenje za prosledjeni id
-   *
-   * @param {String} id
-   * @returns status
-   */
-   setCompetitionAsFormed(id){
+/**
+ * Formira takmicenje za prosledjeni id
+ *
+ * @param {String} id
+ * @returns status
+ */
+  setCompetitionAsFormed(id){
 
       const data = {
         "id" : id
       }
 
-        return this.http.post(`${this.uri}/setCompetitionAsFormed`, data);
-      }
+      return this.http.post(`${this.uri}/setCompetitionAsFormed`, data);
+  }
+
+  /**
+   * Dodaj zemlju
+   * @param country
+   * @returns res.json()
+   */
+  addCountry(country){
+    return this.http.post(`${this.uri}/addCountry`, country);
+  }
 
 }
 

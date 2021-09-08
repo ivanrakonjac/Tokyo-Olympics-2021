@@ -73,7 +73,8 @@ export class RegistrationComponent implements OnInit {
       firstName:  this.firstName,
       lastName: this.lastName,
       country: this.country,
-      type:  this.type
+      type:  this.type, 
+      brojTakmicenja: 0
     }
 
     if(this.type == "1"){

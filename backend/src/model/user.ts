@@ -29,6 +29,9 @@ let User = new Schema({
     },
     status:{
         type: String
+    },
+    brojTakmicenja:{
+        type: Number
     }
 });
 

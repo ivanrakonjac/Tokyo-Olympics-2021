@@ -8,4 +8,5 @@ export class User{
     email: string;
     type: number;
     status: string;
+    brojTakmicenja: number;
 }

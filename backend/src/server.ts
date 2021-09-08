@@ -7,6 +7,7 @@ import sport from './model/sport';
 import discipline from './model/discipline';
 import competition from './model/competition';
 import athlete from './model/athlete';
+import country from './model/country';
 
 const app = express();
 
@@ -122,6 +123,22 @@ router.route('/register').post((req, res)=>{
 });
 
 /**
+ * Get sve delegate
+ * 
+ * @returns collection of delegates
+ */
+ router.route('/getAllDelegates').get((req, res)=>{
+
+    user.find({'type': 1, 'brojTakmicenja' : {$lt: 3} }, (err, delegates)=>{
+        if(err) console.log(err);
+        else{
+            if (delegates == null) return res.json(null);
+            else res.json(delegates);;
+        }
+    } )
+});
+
+/**
  * Dohvata imena svih sportova
  * 
  * @returns collection of all sports names
@@ -149,6 +166,25 @@ router.route('/getAllSports').get((req, res)=>{
         else{
             if (user == null) return res.json(false);
             else res.json(true);;
+        }
+    } )
+});
+
+/**
+ * Get sport obj by name
+ * 
+ * @req sportName 
+ * @res sport obj 
+ */
+ router.route('/sportByName').post((req, res)=>{
+    let sportName = req.body.sportName;
+
+    console.log(sportName);
+
+    sport.find({'name':sportName}, (err, sport)=>{
+        if(err) console.log(err);
+        else{
+            res.json(sport);
         }
     } )
 });
@@ -231,6 +267,25 @@ router.route('/addSport').post((req, res)=>{
             console.log(err);
         else
             res.json(disc);
+    });
+});
+
+/**
+ * Get sportName of discipline
+ *
+ * @param discipline
+ * @returns sport 
+ */
+ router.route('/getSportNameOfDiscipline').post((req, res) => {
+    let disciplineName = req.body.disciplineName;
+
+    discipline.findOne({'name': disciplineName}, { sport: 1, _id: 0 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+
+            
     });
 });
 
@@ -346,6 +401,22 @@ router.route('/getSportOfAthlete').post((req, res)=>{
             res.status(400).json({'athlete':'no'});
         })
     });
+
+/**
+ * Dodaj zemlju
+ * @param country
+ * @returns res.json()
+ */
+ router.route('/addCountry').post((req, res)=>{
+    let c = new country(req.body);
+
+    c.save().then(c=>{
+        res.status(200).json({'country':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'country':'no'});
+    })
+});
+
 
 
 
