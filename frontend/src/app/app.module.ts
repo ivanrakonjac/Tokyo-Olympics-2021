@@ -31,7 +31,8 @@ import { AddAthleteToDisciplinesComponent } from './add-athlete-to-disciplines/a
 import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort'; 
+import { MatSortModule } from '@angular/material/sort';
+import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component'; 
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatSortModule } from '@angular/material/sort';
     AddCompetitionComponent,
     AddAthleteComponent,
     AddAthleteToDisciplinesComponent,
-    FormCompetitionTableComponent
+    FormCompetitionTableComponent,
+    UserConfirmationTableComponent
   ],
   imports: [
     BrowserModule,

@@ -62,6 +62,47 @@ export class UserServiceService {
   register(newUser){
     return this.http.post(`${this.uri}/register`, newUser);
   }
+
+  /**
+ * Vraca sve usere ckojima status nije confirmed
+ * 
+ * @returns collection of users
+ */
+  getUnconfirmedUsers(){
+    return this.http.get(`${this.uri}/getUnconfirmedUsers`);
+  }
+
+  /**
+   * Setuje status usera na confirmed
+   *
+   * @param {String} id usera
+   * @returns status
+   */
+   setUserStatusAsConfirmed(id){
+
+    const data = {
+      id: id
+    }
+
+    return this.http.post(`${this.uri}/setUserStatusAsConfirmed`, data);
+  }
+
+  /**
+   * Delete user request
+   *
+   * @param {String} id usera
+   * @returns status
+   */
+  deleteUser(id){
+
+    const data = {
+      id: id
+    }
+
+    return this.http.post(`${this.uri}/deleteUser`, data);
+  }
+
+
   
   /**
    * Dohvata imena svih sportova

@@ -1,4 +1,5 @@
 export class User{
+    _id: Object;
     username: string;
     password: string;
     firstName: string;
@@ -6,4 +7,5 @@ export class User{
     country: string;
     email: string;
     type: number;
+    status: string;
 }

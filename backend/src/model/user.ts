@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 let User = new Schema({
+    _id: {
+        type: Object
+    },
     username: {
         type: String
     },
@@ -23,6 +26,9 @@ let User = new Schema({
     },
     type:{
         type: Number
+    },
+    status:{
+        type: String
     }
 });
 

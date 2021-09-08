@@ -66,6 +66,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     const newUser = {
+      _id: null,
       username:  this.username,
       email: this.email,
       password: this.password,
@@ -93,7 +94,7 @@ export class RegistrationComponent implements OnInit {
         });
     }else{
       alert("Something went wrong...");
-      this.router.navigate(['/organizator']);
+      this.router.navigate(['/']);
     }
 
   }
@@ -105,7 +106,7 @@ export class RegistrationComponent implements OnInit {
 
       if(user){
         alert("New user added!");
-        this.router.navigate(['/organizator']);
+        this.router.navigate(['/']);
       }
       else{
         alert("Something went wrong...");

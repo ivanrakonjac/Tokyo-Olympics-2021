@@ -30,7 +30,7 @@ router.route('/login').post((req, res)=>{
     console.log(email);
     console.log(password);
 
-    user.findOne({'email':email, 'password': password}, (err, user)=>{
+    user.findOne({'email':email, 'password': password, 'status': 'confirmed'}, (err, user)=>{
         if(err) console.log(err);
         else res.json(user);
     } )
@@ -55,6 +55,56 @@ router.route('/vodjaDelegacijePostoji').post((req, res)=>{
             else res.json(true);;
         }
     } )
+});
+
+/**
+ * Vraca sve usere ckojima status nije confirmed
+ * 
+ * @returns collection of users
+ */
+ router.route('/getUnconfirmedUsers').get((req, res)=>{
+
+    user.find({'status': {$ne: 'confirmed'} }, (err, users)=>{
+        if(err) console.log(err);
+        else{
+            if (users == null) return res.json(null);
+            else res.json(users);;
+        }
+    } )
+});
+
+/**
+ * Setuje status usera na confirmed
+ *
+ * @param {String} id usera
+ * @returns status
+ */
+ router.route('/setUserStatusAsConfirmed').post((req, res) => {
+    let id = req.body.id;
+
+    user.collection.updateOne({'_id': mongoose.Types.ObjectId(id)}, {$set: {'status': 'confirmed'}}).then(a=>{
+        res.status(200).json({'setUserStatusAsConfirmed':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'setUserStatusAsConfirmed':'no'});
+    })
+   
+});
+
+/**
+ * Delete user request
+ *
+ * @param {String} id usera
+ * @returns status
+ */
+ router.route('/deleteUser').post((req, res) => {
+    let id = req.body.id;
+
+    user.collection.deleteOne({'_id': mongoose.Types.ObjectId(id)}).then(a=>{
+        res.status(200).json({'deleteUser':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'deleteUser':'no'});
+    })
+   
 });
 
 /**
@@ -226,6 +276,20 @@ let c = new competition(req.body);
  */
  router.route('/getAllUnformedCompetitions').get((req, res) => {
     competition.find({'formirano':0}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+
+/**
+ * Dohvata ime, sport, disciplinu, pol svih formiranih takmicenja
+ *
+ * @returns collection of all formed competitions
+ */
+ router.route('/getAllFormedCompetitions').get((req, res) => {
+    competition.find({'formirano':1}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
         if (err)
             console.log(err);
         else

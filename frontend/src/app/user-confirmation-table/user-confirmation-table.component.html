@@ -1,0 +1,64 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+    </ng-container>
+
+    <!-- Username Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+      <td mat-cell *matCellDef="let row">{{row.username}}</td>
+    </ng-container>
+
+    <!-- Firstname Column -->
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</th>
+      <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+    </ng-container>
+
+    <!-- Lastname Column -->
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</th>
+      <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+    </ng-container>
+
+    <!-- Country Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+      <td mat-cell *matCellDef="let row">{{row.country}}</td>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <td mat-cell *matCellDef="let row">
+        <b *ngIf="row.type == 1">DELEGAT</b>
+        <b *ngIf="row.type == 2">VODJA  D</b>
+      </td>
+    </ng-container>
+
+    <!-- Confirm user -->
+    <ng-container matColumnDef="confirm">
+      <th mat-header-cell *matHeaderCellDef>Confirm user</th>
+      <td mat-cell *matCellDef="let row"><button id={{row._id}} mat-raised-button color="primary" (click)="confirm(row._id)">POTVRDI</button></td>
+    </ng-container>
+
+    <!-- Deny user -->
+    <ng-container matColumnDef="deny">
+      <th mat-header-cell *matHeaderCellDef>Deny user</th>
+      <td mat-cell *matCellDef="let row"><button id={{row._id}} mat-raised-button color="warn" (click)="deny(row._id)">DENY</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10, 20, 50, 100]">
+  </mat-paginator>
+</div>

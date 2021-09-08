@@ -37,4 +37,6 @@
  ng gc imeKomponente - generisanje komponente
  ng generate @angular/material:material-nav --name=main-nav - generisanje main-nava
  ng g s UserService - generisanje servisa
+ ng generate @angular/material:material-table name==data-table - generisanje tabele
+
 

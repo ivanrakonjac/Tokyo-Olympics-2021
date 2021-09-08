@@ -9,8 +9,10 @@ import { FormCompetitionTableComponent } from './form-competition-table/form-com
 import { LoginComponent } from './login/login.component';
 import { OrganizatorComponent } from './organizator/organizator.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
 
 const routes: Routes = [
+  {path:"userConfirmation", component: UserConfirmationTableComponent},
   {path:"formCompetition", component: FormCompetitionTableComponent},
   {path:"addAthleteToDisciplines", component: AddAthleteToDisciplinesComponent},
   {path:"addAthleteOnCompetition", component: AddAthleteComponent},

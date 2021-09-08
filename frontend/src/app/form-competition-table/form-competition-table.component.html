@@ -30,7 +30,7 @@
         <!-- Form competition Column -->
         <ng-container matColumnDef="form">
           <th mat-header-cell *matHeaderCellDef>Form competition</th>
-          <td mat-cell *matCellDef="let row"><button id={{row._id}} mat-raised-button color="primary" (click)="formiraj(row._id, test)">FORMIRAJ</button></td>
+          <td mat-cell *matCellDef="let row"><button id={{row._id}} mat-raised-button color="primary" (click)="formiraj(row._id)">FORMIRAJ</button></td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

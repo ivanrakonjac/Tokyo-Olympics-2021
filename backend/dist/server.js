@@ -26,7 +26,7 @@ router.route('/login').post((req, res) => {
     let password = req.body.password;
     console.log(email);
     console.log(password);
-    user_1.default.findOne({ 'email': email, 'password': password }, (err, user) => {
+    user_1.default.findOne({ 'email': email, 'password': password, 'status': 'confirmed' }, (err, user) => {
         if (err)
             console.log(err);
         else
@@ -53,6 +53,52 @@ router.route('/vodjaDelegacijePostoji').post((req, res) => {
                 res.json(true);
             ;
         }
+    });
+});
+/**
+ * Vraca sve usere ckojima status nije confirmed
+ *
+ * @returns collection of users
+ */
+router.route('/getUnconfirmedUsers').get((req, res) => {
+    user_1.default.find({ 'status': { $ne: 'confirmed' } }, (err, users) => {
+        if (err)
+            console.log(err);
+        else {
+            if (users == null)
+                return res.json(null);
+            else
+                res.json(users);
+            ;
+        }
+    });
+});
+/**
+ * Setuje status usera na confirmed
+ *
+ * @param {String} id usera
+ * @returns status
+ */
+router.route('/setUserStatusAsConfirmed').post((req, res) => {
+    let id = req.body.id;
+    user_1.default.collection.updateOne({ '_id': mongoose_1.default.Types.ObjectId(id) }, { $set: { 'status': 'confirmed' } }).then(a => {
+        res.status(200).json({ 'setUserStatusAsConfirmed': 'ok' });
+    }).catch(err => {
+        res.status(400).json({ 'setUserStatusAsConfirmed': 'no' });
+    });
+});
+/**
+ * Delete user request
+ *
+ * @param {String} id usera
+ * @returns status
+ */
+router.route('/deleteUser').post((req, res) => {
+    let id = req.body.id;
+    user_1.default.collection.deleteOne({ '_id': mongoose_1.default.Types.ObjectId(id) }).then(a => {
+        res.status(200).json({ 'deleteUser': 'ok' });
+    }).catch(err => {
+        res.status(400).json({ 'deleteUser': 'no' });
     });
 });
 /**
@@ -216,11 +262,38 @@ router.route('/getCompetitionName').post((req, res) => {
  * @returns collection of all unformed competitions
  */
 router.route('/getAllUnformedCompetitions').get((req, res) => {
-    competition_1.default.find({ 'formirano': 0 }, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 0 }, (err, disc) => {
+    competition_1.default.find({ 'formirano': 0 }, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
         if (err)
             console.log(err);
         else
             res.json(disc);
+    });
+});
+/**
+ * Dohvata ime, sport, disciplinu, pol svih formiranih takmicenja
+ *
+ * @returns collection of all formed competitions
+ */
+router.route('/getAllFormedCompetitions').get((req, res) => {
+    competition_1.default.find({ 'formirano': 1 }, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+/**
+ * Formira takmicenje za prosledjeni id
+ *
+ * @param {String} id
+ * @returns status
+ */
+router.route('/setCompetitionAsFormed').post((req, res) => {
+    let id = req.body.id;
+    competition_1.default.collection.updateOne({ '_id': mongoose_1.default.Types.ObjectId(id) }, { $set: { 'formirano': 1 } }).then(a => {
+        res.status(200).json({ 'setCompetitionAsFormed': 'ok' });
+    }).catch(err => {
+        res.status(400).json({ 'setCompetitionAsFormed': 'no' });
     });
 });
 /**
