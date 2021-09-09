@@ -41,6 +41,27 @@ let Competition = new Schema({
     },
     formirano: {
         type: Number
+    },
+    rasporedNapravljen: {
+        type: Number
+    },
+    formatRezultata: {
+        type: String
+    },
+    minTakmicara: {
+        type: Number
+    },
+    maxTakmicara: {
+        type: Number
+    },
+    maxTakmicaraUFinalu: {
+        type: Number
+    },
+    datumFinala: {
+        type: Date
+    },
+    vremeFinala: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('Competition', Competition, 'competitions');

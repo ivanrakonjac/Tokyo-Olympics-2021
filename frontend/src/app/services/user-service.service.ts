@@ -38,6 +38,21 @@ export class UserServiceService {
   }
 
   /**
+ * Vraca id usera
+ * 
+ * @param {string} username
+ */
+   getUserId(username){
+    
+    const data = {
+      username: username
+    }
+
+    return this.http.post(`${this.uri}/getUserId`, data);
+  }
+
+
+  /**
    * Proverava da li za prosledjenu zemlju vodja delegacije vec postoji u bazi
    * 
    * @param country 
@@ -313,6 +328,80 @@ export class UserServiceService {
    */
   addCountry(country){
     return this.http.post(`${this.uri}/addCountry`, country);
+  }
+
+  /**
+   *  Get all competitions for specific delegate
+   *
+   * @param delegateID
+   * @returns collection of competitions
+   */
+   getAllCompetitionsForSpecificDelegate(delegateID){
+
+    const data = {
+      "delegateID" : delegateID
+    }
+
+    return this.http.post(`${this.uri}/getAllCompetitionsForSpecificDelegate`, data);
+  }
+
+ /**
+ * Get all athletes for competition
+ * 
+ * @param compName
+ * @returns collection of athletes
+ */
+  getAllAthletesForCompetition(compName){
+
+    const data = {
+      "compName" : compName
+    }
+
+    return this.http.post(`${this.uri}/getAllAthletesForCompetition`, data);
+  }
+
+  /**
+ * Dodaj individualni rezultat
+ * 
+ * @param resultIndivid
+ * @returns res.json()
+ */
+  addResultIdiv(result){
+    return this.http.post(`${this.uri}/addResultIdiv`, result);
+  }
+
+/**
+ * Setuje rasporedNapravlje na 1
+ *
+ * @param {String} id
+ * @returns status
+ */
+  setRasporedNapravljen(id){
+
+    console.log(id);
+
+    const data = {
+      "id" : id
+    }
+
+    return this.http.post(`${this.uri}/setRasporedNapravljen`, data);
+  }
+
+  /**
+ * Setuje datum i vreme finala
+ *
+ * @param {String} id
+ * @returns status
+ */
+  setDatumVremeFinala(id,datum,vreme){
+
+    const data = {
+      "id" : id,
+      "datumFinala": datum,
+      "vremeFinala": vreme
+    }
+
+    return this.http.post(`${this.uri}/setDatumVremeFinala`, data);
   }
 
 }

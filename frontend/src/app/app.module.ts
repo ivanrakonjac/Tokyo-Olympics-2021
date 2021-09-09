@@ -32,7 +32,8 @@ import { FormCompetitionTableComponent } from './form-competition-table/form-com
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component'; 
+import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
+import { TakmicenjeRasporedComponent } from './takmicenje-raspored/takmicenje-raspored.component'; 
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { UserConfirmationTableComponent } from './user-confirmation-table/user-c
     AddAthleteComponent,
     AddAthleteToDisciplinesComponent,
     FormCompetitionTableComponent,
-    UserConfirmationTableComponent
+    UserConfirmationTableComponent,
+    TakmicenjeRasporedComponent
   ],
   imports: [
     BrowserModule,

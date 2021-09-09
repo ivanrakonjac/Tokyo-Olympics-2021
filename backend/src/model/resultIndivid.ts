@@ -2,31 +2,37 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-let Athlete = new Schema({
+let ResultIndivid = new Schema({
     _id: {
         type: Object
-    },
-    firstname: {
-        type: String
-    },
-    lastname:{
-        type: String
     },
     competition: {
         type: String
     },
-    sex:{
+    athlete: {
         type: String
     },
-    sport: {
+    res1: {
         type: String
     },
-    discipline: {
+    res2: {
         type: String
     },
-    country: {
+    res3: {
         type: String
-    }
+    },
+    res4: {
+        type: String
+    },
+    res5: {
+        type: String
+    },
+    res6: {
+        type: String
+    },
+    sum: {
+        type: Number
+    },
 });
 
-export default mongoose.model('Athlete', Athlete, 'athletes');
+export default mongoose.model('ResultIndivid',ResultIndivid,'results');

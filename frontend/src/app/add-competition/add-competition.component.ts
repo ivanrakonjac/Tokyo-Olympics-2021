@@ -70,7 +70,13 @@ export class AddCompetitionComponent implements OnInit {
     startDate: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
     location: ['', [Validators.required]],
-    delegate: ['', [Validators.required]]
+    delegate: ['', [Validators.required]],
+    formatRezultata: ['', [Validators.required]],
+    minTakmicara: [''],
+    maxTakmicara: [''],
+    maxTakmicaraUFinalu: [''],
+    datumFinala: ['', [Validators.required]],
+    vremeFinala: ['', [Validators.required]]
   })
 
   onRegister() {
@@ -78,18 +84,22 @@ export class AddCompetitionComponent implements OnInit {
       return;
     }
 
-    console.log(this.registrationForm.value.competitionName);
-    console.log(this.registrationForm.value.sport);
-    console.log(this.registrationForm.value.discipline);
-    console.log(this.registrationForm.value.format);
-    console.log(this.registrationForm.value.sex);
-    console.log(this.registrationForm.value.type);
-    console.log(this.registrationForm.value.startDate);
-    console.log(this.registrationForm.value.endDate);
-    console.log(this.registrationForm.value.location);
-    console.log(this.registrationForm.value.delegate);
-
-
+    // console.log(this.registrationForm.value.competitionName);
+    // console.log(this.registrationForm.value.sport);
+    // console.log(this.registrationForm.value.discipline);
+    // console.log(this.registrationForm.value.format);
+    // console.log(this.registrationForm.value.sex);
+    // console.log(this.registrationForm.value.type);
+    // console.log(this.registrationForm.value.startDate);
+    // console.log(this.registrationForm.value.endDate);
+    // console.log(this.registrationForm.value.location);
+    // console.log(this.registrationForm.value.delegate);
+    // console.log(this.registrationForm.value.formatRezultata);
+    // console.log(this.registrationForm.value.minTakmicara);
+    // console.log(this.registrationForm.value.maxTakmicara);
+    // console.log(this.registrationForm.value.maxTakmicaraUFinalu);
+    // console.log(this.registrationForm.value.datumFinala);
+    // console.log(this.registrationForm.value.vremeFinala);
 
     const newCompetition = {
       _id: null,
@@ -103,7 +113,14 @@ export class AddCompetitionComponent implements OnInit {
       endDate:  this.registrationForm.value.endDate,
       location:  this.registrationForm.value.location,
       delegat:  this.registrationForm.value.delegate,
-      formirano: 0
+      formirano: 0,
+      rasporedNapravljen: 0,
+      formatRezultata: this.registrationForm.value.formatRezultata,
+      minTakmicara:this.registrationForm.value.minTakmicara,
+      maxTakmicara: this.registrationForm.value.maxTakmicara,
+      maxTakmicaraUFinalu: this.registrationForm.value.maxTakmicaraUFinalu,
+      datumFinala: this.registrationForm.value.datumFinala,
+      vremeFinala: this.registrationForm.value.vremeFinala
     }
 
     this.userService.addCompetition(newCompetition).subscribe((competition: any)=>{

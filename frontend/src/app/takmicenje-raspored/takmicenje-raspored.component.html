@@ -1,0 +1,64 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>NAPRAVI RASPORED</P>
+      </div>
+      
+      <form (ngSubmit)="napraviRaspored()" name="competitionForm" [formGroup]="competitionForm">
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Competition</mat-label>
+                <mat-select
+                formControlName="competition"
+                matSelect
+                placeholder="Choose competition" required
+                >
+                    <mat-option *ngFor="let com of competitions" [value]="com.competitionName">
+                    {{com.competitionName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!competitionForm.controls['competition'].valid">
+                    Competition is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Finals date</mat-label>
+              <input
+                type = 'date'
+                formControlName="finalsDate"
+                matInput
+                placeholder="Enter finals date" required
+              />
+              <mat-error *ngIf="!competitionForm.controls['finalsDate'].valid">
+                Finals date is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Finals time</mat-label>
+              <input
+                type = 'time'
+                formControlName="finalsTime"
+                matInput
+                placeholder="Enter finals time" required
+              />
+              <mat-error *ngIf="!competitionForm.controls['finalsTime'].valid">
+                Finals time is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary">POTVRDI</button>
+      </form>
+
+      <div class="button-row">
+        <p>Napravi raspored</p>
+      </div>
+    </mat-card-content>
+  </mat-card>

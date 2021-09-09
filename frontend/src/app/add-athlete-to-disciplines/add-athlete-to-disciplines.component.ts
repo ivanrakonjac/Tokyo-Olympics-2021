@@ -78,6 +78,7 @@ export class AddAthleteToDisciplinesComponent implements OnInit {
                 console.log(competitionName);
 
                 const newAthlete = {
+                  _id: null,
                   firstname:  this.registrationForm.value.firstname,
                   lastname: this.registrationForm.value.lastname,
                   competition: competitionName.competitionName,

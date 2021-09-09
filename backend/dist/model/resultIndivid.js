@@ -5,31 +5,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-let Athlete = new Schema({
+let ResultIndivid = new Schema({
     _id: {
         type: Object
-    },
-    firstname: {
-        type: String
-    },
-    lastname: {
-        type: String
     },
     competition: {
         type: String
     },
-    sex: {
+    athlete: {
         type: String
     },
-    sport: {
+    res1: {
         type: String
     },
-    discipline: {
+    res2: {
         type: String
     },
-    country: {
+    res3: {
         type: String
-    }
+    },
+    res4: {
+        type: String
+    },
+    res5: {
+        type: String
+    },
+    res6: {
+        type: String
+    },
+    sum: {
+        type: Number
+    },
 });
-exports.default = mongoose_1.default.model('Athlete', Athlete, 'athletes');
-//# sourceMappingURL=athlete.js.map
+exports.default = mongoose_1.default.model('ResultIndivid', ResultIndivid, 'results');
+//# sourceMappingURL=resultIndivid.js.map

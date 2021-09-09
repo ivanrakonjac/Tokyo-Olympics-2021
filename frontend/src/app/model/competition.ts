@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export class Competition{
     _id: Object;
     competitionName: string;
@@ -11,5 +13,11 @@ export class Competition{
     location: string;
     delegat: string;
     formirano: number;
-
+    rasporedNapravljen : number;
+    formatRezultata: string;
+    minTakmicara: number;
+    maxTakmicara: number;
+    maxTakmicaraUFinalu: number;
+    datumFinala: Date;
+    vremeFinala: Time;
 }

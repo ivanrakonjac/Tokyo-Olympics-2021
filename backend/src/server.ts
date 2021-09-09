@@ -8,6 +8,7 @@ import discipline from './model/discipline';
 import competition from './model/competition';
 import athlete from './model/athlete';
 import country from './model/country';
+import resultIndivid from './model/resultIndivid';
 
 const app = express();
 
@@ -32,6 +33,22 @@ router.route('/login').post((req, res)=>{
     console.log(password);
 
     user.findOne({'email':email, 'password': password, 'status': 'confirmed'}, (err, user)=>{
+        if(err) console.log(err);
+        else res.json(user);
+    } )
+});
+
+/**
+ * Vraca id usera
+ * 
+ * @param {string} username
+ */
+router.route('/getUserId').post((req, res)=>{
+    let username = req.body.username;
+
+    console.log(username);
+
+    user.findOne({'username':username}, {_id: 1}, (err, user)=>{
         if(err) console.log(err);
         else res.json(user);
     } )
@@ -344,7 +361,26 @@ let c = new competition(req.body);
  * @returns collection of all formed competitions
  */
  router.route('/getAllFormedCompetitions').get((req, res) => {
-    competition.find({'formirano':1}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
+    competition.find({'formirano':1, 'rasporedNapravljen': 0}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+
+/**
+ *  Get all competitions for specific delegate
+ *
+ * @param delegateID
+ * @param competitionType
+ * @returns collection of competitions
+ */
+ router.route('/getAllCompetitionsForSpecificDelegate').post((req, res) => {
+
+    let delegateID = req.body.delegateID;
+
+    competition.find({'formirano':1, 'delegat': delegateID}, (err, disc) => {
         if (err)
             console.log(err);
         else
@@ -415,6 +451,76 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     }).catch(err=>{
         res.status(400).json({'country':'no'});
     })
+});
+
+/***********************************- Raspored takmicenja -************************************************ */
+
+/**
+ * Get all athletes for competition
+ * @param compName
+ * @returns collection of athletes
+ */
+ router.route('/getAllAthletesForCompetition').post((req, res)=>{
+    let compName = req.body.compName;
+
+    athlete.find({'competition':compName}, (err, athletes) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(athletes);
+    });
+});
+
+
+/**
+ * Dodaj individualni rezultat
+ * @param resultIndiv
+ * @returns res.json()
+ */
+ router.route('/addResultIdiv').post((req, res)=>{
+    let r = new resultIndivid(req.body);
+
+    r.save().then(r=>{
+        res.status(200).json({'addResultIdiv':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'addResultIdiv':'no'});
+    })
+});
+
+/**
+ * Setuje rasporedNapravlje na 1
+ *
+ * @param {String} id
+ * @returns status
+ */
+ router.route('/setRasporedNapravljen').post((req, res) => {
+    let id = req.body.id;
+
+    competition.collection.updateOne({'_id': mongoose.Types.ObjectId(id)}, {$set: {'rasporedNapravljen': 1}}).then(a=>{
+        res.status(200).json({'setRasporedNapravljen':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'setRasporedNapravljen':'no'});
+    })
+   
+});
+
+/**
+ * Setuje datum i vreme finala
+ *
+ * @param {String} id
+ * @returns status
+ */
+ router.route('/setDatumVremeFinala').post((req, res) => {
+    let id = req.body.id;
+    let datumFinala = req.body.datumFinala;
+    let vremeFinala = req.body.vremeFinala;
+
+    competition.collection.updateOne({'_id': mongoose.Types.ObjectId(id)}, {$set: {'datumFinala': datumFinala, 'vremeFinala': vremeFinala}}).then(a=>{
+        res.status(200).json({'setDatumVremeFinala':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'setDatumVremeFinala':'no'});
+    })
+   
 });
 
 

@@ -54,6 +54,7 @@ export class AddAthleteComponent implements OnInit {
         }
         else{
             const newAthlete = {
+              _id: null,
               firstname:  this.registrationForm.value.firstname,
               lastname: this.registrationForm.value.lastname,
               competition: this.registrationForm.value.competition.competitionName,
