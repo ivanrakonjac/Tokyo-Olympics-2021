@@ -235,36 +235,6 @@
                 </mat-error>
             </mat-form-field>
         </div>
-
-        <div class="inputFiled">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Datum finala</mat-label>
-              <input
-                type = 'date'
-                formControlName="datumFinala"
-                matInput
-                placeholder="Enter datum finala"
-              />
-              <mat-error *ngIf="!registrationForm.controls['datumFinala'].valid">
-                Datum finala is required required
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="inputFiled">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Vreme finala</mat-label>
-              <input
-                type = 'time'
-                formControlName="vremeFinala"
-                matInput
-                placeholder="Enter vreme finala" required
-              />
-              <mat-error *ngIf="!registrationForm.controls['vremeFinala'].valid">
-                Vreme finala is required
-                </mat-error>
-            </mat-form-field>
-        </div>
         
         <button mat-flat-button color="primary">Add</button>
       </form>

@@ -74,9 +74,7 @@ export class AddCompetitionComponent implements OnInit {
     formatRezultata: ['', [Validators.required]],
     minTakmicara: [''],
     maxTakmicara: [''],
-    maxTakmicaraUFinalu: [''],
-    datumFinala: ['', [Validators.required]],
-    vremeFinala: ['', [Validators.required]]
+    maxTakmicaraUFinalu: ['']
   })
 
   onRegister() {
@@ -118,9 +116,7 @@ export class AddCompetitionComponent implements OnInit {
       formatRezultata: this.registrationForm.value.formatRezultata,
       minTakmicara:this.registrationForm.value.minTakmicara,
       maxTakmicara: this.registrationForm.value.maxTakmicara,
-      maxTakmicaraUFinalu: this.registrationForm.value.maxTakmicaraUFinalu,
-      datumFinala: this.registrationForm.value.datumFinala,
-      vremeFinala: this.registrationForm.value.vremeFinala
+      maxTakmicaraUFinalu: this.registrationForm.value.maxTakmicaraUFinalu
     }
 
     this.userService.addCompetition(newCompetition).subscribe((competition: any)=>{

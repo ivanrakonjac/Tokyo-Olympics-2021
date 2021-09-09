@@ -86,28 +86,27 @@ export class TakmicenjeRasporedComponent implements OnInit {
           this.indiv8TakmicaraSaKvalifikacijama1Pokusaj(this.choosenComp);
           break;
         case 9:
-          alert('Nije jos podrzano');
+          this.indiv8TakmicaraSaKvalifikacijama3Pokusaja(this.choosenComp);
           break;
         case 10:
-          alert('Nije jos podrzano');
+          this.indivXTakmicaraBezKvalifikacija1Pokusaj(this.choosenComp);
           break;
         case 11:
-          alert('Nije jos podrzano');
+          this.indiv8TakmicaraBezKvalifikacija6Pokusaja(this.choosenComp);
           break;
         default:
           alert("default");
       } 
 
+      alert("Raspored napravljen");
+
     })
-
-    
-
-    
-
   }
 
+
+
   indiv8TakmicaraSaKvalifikacijama1Pokusaj(competition){
-    console.log('indiv8TakmicaraSaKvalifikacijama1Pokusaj');
+    // console.log('indiv8TakmicaraSaKvalifikacijama1Pokusaj');
     // console.log(competition);
 
     console.log(this.competitiors.length);
@@ -132,6 +131,88 @@ export class TakmicenjeRasporedComponent implements OnInit {
     this.setRasporedNapravljen(competition._id);
     this.setDatumVremeFinala(competition._id, this.finalsDate, this.finalsTime);
   }
+
+  indiv8TakmicaraSaKvalifikacijama3Pokusaja(competition){
+    // console.log('indiv8TakmicaraSaKvalifikacijama1Pokusaj');
+    // console.log(competition);
+
+    console.log(this.competitiors.length);
+
+    this.competitiors.forEach(comp => {
+        const newIdivResult = {
+            "_id": null,
+            "competition": competition._id,
+            "athlete": comp._id,
+            "res1": "0",
+            "res2": "z",
+            "res3": "z",
+            "res4": "z",
+            "res5": "z",
+            "res6": "z",
+            "sum" : -100
+        }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
+
+        this.addResultIdiv(newIdivResult);
+    })
+
+    this.setRasporedNapravljen(competition._id);
+    this.setDatumVremeFinala(competition._id, this.finalsDate, this.finalsTime);
+  }
+
+  indivXTakmicaraBezKvalifikacija1Pokusaj(competition){
+    // console.log('indiv8TakmicaraSaKvalifikacijama1Pokusaj');
+    // console.log(competition);
+
+    console.log(this.competitiors.length);
+
+    this.competitiors.forEach(comp => {
+        const newIdivResult = {
+            "_id": null,
+            "competition": competition._id,
+            "athlete": comp._id,
+            "res1": "0",
+            "res2": "x",
+            "res3": "x",
+            "res4": "x",
+            "res5": "x",
+            "res6": "x",
+            "sum" : -100
+        }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
+
+        this.addResultIdiv(newIdivResult);
+    })
+
+    this.setRasporedNapravljen(competition._id);
+    this.setDatumVremeFinala(competition._id, this.finalsDate, this.finalsTime);
+  }
+
+  indiv8TakmicaraBezKvalifikacija6Pokusaja(competition){
+    // console.log('indiv8TakmicaraSaKvalifikacijama1Pokusaj');
+    // console.log(competition);
+
+    console.log(this.competitiors.length);
+
+    this.competitiors.forEach(comp => {
+        const newIdivResult = {
+            "_id": null,
+            "competition": competition._id,
+            "athlete": comp._id,
+            "res1": "0",
+            "res2": "z",
+            "res3": "z",
+            "res4": "z",
+            "res5": "z",
+            "res6": "z",
+            "sum" : -1
+        }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
+
+        this.addResultIdiv(newIdivResult);
+    })
+
+    this.setRasporedNapravljen(competition._id);
+    this.setDatumVremeFinala(competition._id, this.finalsDate, this.finalsTime);
+  }
+
 
   //Dodaje dokument u result kolekciju
   addResultIdiv(newIdivResult){

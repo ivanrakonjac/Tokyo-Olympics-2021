@@ -342,7 +342,7 @@ router.route('/getAllUnformedCompetitions').get((req, res) => {
  * @returns collection of all formed competitions
  */
 router.route('/getAllFormedCompetitions').get((req, res) => {
-    competition_1.default.find({ 'formirano': 1, 'rasporedNapravljen': 0 }, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
+    competition_1.default.find({ 'formirano': 1 }, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
         if (err)
             console.log(err);
         else
@@ -358,7 +358,7 @@ router.route('/getAllFormedCompetitions').get((req, res) => {
  */
 router.route('/getAllCompetitionsForSpecificDelegate').post((req, res) => {
     let delegateID = req.body.delegateID;
-    competition_1.default.find({ 'formirano': 1, 'delegat': delegateID }, (err, disc) => {
+    competition_1.default.find({ 'formirano': 1, 'delegat': delegateID, 'rasporedNapravljen': 0 }, (err, disc) => {
         if (err)
             console.log(err);
         else

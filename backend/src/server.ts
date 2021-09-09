@@ -361,7 +361,7 @@ let c = new competition(req.body);
  * @returns collection of all formed competitions
  */
  router.route('/getAllFormedCompetitions').get((req, res) => {
-    competition.find({'formirano':1, 'rasporedNapravljen': 0}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
+    competition.find({'formirano':1}, { competitionName: 1, sport: 1, discipline: 1, sex: 1, _id: 1 }, (err, disc) => {
         if (err)
             console.log(err);
         else
@@ -380,7 +380,7 @@ let c = new competition(req.body);
 
     let delegateID = req.body.delegateID;
 
-    competition.find({'formirano':1, 'delegat': delegateID}, (err, disc) => {
+    competition.find({'formirano':1, 'delegat': delegateID, 'rasporedNapravljen': 0}, (err, disc) => {
         if (err)
             console.log(err);
         else
