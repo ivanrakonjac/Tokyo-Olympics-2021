@@ -2,8 +2,10 @@ import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { Athlete } from '../model/athlete';
 import { Competition } from '../model/competition';
+import { Team } from '../model/team';
 import { User } from '../model/user';
 import { UserServiceService } from '../services/user-service.service';
 
@@ -17,10 +19,13 @@ export class TakmicenjeRasporedComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserServiceService, private router:Router) { }
 
   competitions: Competition[];
+
+  competitiors: Athlete[];
+  teams: Team[];
+
   username: string;
   tempUserId: string;
   choosenComp: Competition;
-  competitiors: Athlete[];
   finalsDate: Date;
   finalsTime: Time;
 
@@ -56,54 +61,78 @@ export class TakmicenjeRasporedComponent implements OnInit {
 
     this.choosenComp = this.competitions.find(comp => comp.competitionName==this.competitionForm.value.competition);
 
-    this.userService.getAllAthletesForCompetition(this.choosenComp.competitionName).subscribe((atl: Athlete[])=>{
-      this.competitiors = atl;
-      console.log(this.competitiors)
+    if(this.choosenComp.format == 1){
+      this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[]) =>{
+          this.teams = teams;
+          // console.log(this.teams);
 
-      switch(this.choosenComp.format) {
-        case 1:
-          alert('Nije jos podrzano');
-          break;
-        case 2:
-          alert('Nije jos podrzano');
-          break;
-        case 3:
-          alert('Nije jos podrzano');
-          break;
-        case 4:
-          alert('Nije jos podrzano');
-          break;
-        case 5:
-          alert('Nije jos podrzano');
-          break;
-        case 6:
-          alert('Nije jos podrzano');
-          break;
-        case 7:
-          alert('Nije jos podrzano');
-          break;
-        case 8:
-          this.indiv8TakmicaraSaKvalifikacijama1Pokusaj(this.choosenComp);
-          break;
-        case 9:
-          this.indiv8TakmicaraSaKvalifikacijama3Pokusaja(this.choosenComp);
-          break;
-        case 10:
-          this.indivXTakmicaraBezKvalifikacija1Pokusaj(this.choosenComp);
-          break;
-        case 11:
-          this.indiv8TakmicaraBezKvalifikacija6Pokusaja(this.choosenComp);
-          break;
-        default:
-          alert("default");
-      } 
+          if(teams.length < 4){
+            alert("Mora biti prijavaljeno bar 4 tima!");
+            return;
+          } 
 
-      alert("Raspored napravljen");
+          if(this.choosenComp.minTakmicara != null ){
+            this.teams.forEach(team => {
+              if(team.numOfPlayers < this.choosenComp.minTakmicara){
+                alert("Za tim " + team.name + " morate prijaviti minimun " + this.choosenComp.minTakmicara + " igraca!");
+                return;
+              }
+            })
+          }
 
-    })
+          if(this.choosenComp.maxTakmicara != null ){
+            this.teams.forEach(team => {
+              if(team.numOfPlayers > this.choosenComp.minTakmicara){
+                alert("Za tim " + team.name + " moze biti prijavljeno max " + this.choosenComp.minTakmicara + " igraca!");
+                return;
+              }
+            })
+          }
+
+          switch(this.teams.length){
+            case 4:
+              break;
+            case 8: 
+              break;
+            case 12:
+              break;
+          }
+
+          console.log("DALJEE");
+      })
+    }else{
+      this.userService.getAllAthletesForCompetition(this.choosenComp.competitionName).subscribe((atl: Athlete[])=>{
+        this.competitiors = atl;
+        // console.log(this.competitiors)
+  
+        switch(this.choosenComp.format) {
+          case 8:
+            this.indiv8TakmicaraSaKvalifikacijama1Pokusaj(this.choosenComp);
+            break;
+          case 9:
+            this.indiv8TakmicaraSaKvalifikacijama3Pokusaja(this.choosenComp);
+            break;
+          case 10:
+            this.indivXTakmicaraBezKvalifikacija1Pokusaj(this.choosenComp);
+            break;
+          case 11:
+            this.indiv8TakmicaraBezKvalifikacija6Pokusaja(this.choosenComp);
+            break;
+          default:
+            alert("default");
+        } 
+  
+        alert("Raspored napravljen");
+  
+      })
+    }
+
+    
   }
 
-
+  ekipno(){
+    console.log("Ekipno");
+  }
 
   indiv8TakmicaraSaKvalifikacijama1Pokusaj(competition){
     // console.log('indiv8TakmicaraSaKvalifikacijama1Pokusaj');
