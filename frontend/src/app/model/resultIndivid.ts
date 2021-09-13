@@ -1,7 +1,9 @@
 export class ResultIndivid{
     _id: Object;
-    competition: string;
-    athlete: string;
+    competitionID: string;
+    athleteID: string;
+    competitionName: string;
+    athleteName: string;
     res1: string;
     res2: string;
     res3: string;
@@ -9,4 +11,6 @@ export class ResultIndivid{
     res5: string;
     res6: string;
     sum: number;
+    mesto: string;
+    competitionFormat: number;
 }

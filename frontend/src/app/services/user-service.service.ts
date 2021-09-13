@@ -345,6 +345,20 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/getAllCompetitionsForSpecificDelegate`, data);
   }
 
+  /**
+ *  Get all competitions for specific delegate where schedule is created
+ *
+ * @param delegateID
+ * @param competitionType
+ * @returns collection of competitions
+ */
+  getAllCompForDelegateWithSchedule(delegateID){
+    const data = {
+      "delegateID" : delegateID
+    }
+    return this.http.post(`${this.uri}/getAllCompForDelegateWithSchedule`, data);
+  }
+
  /**
  * Get all athletes for competition
  * 
@@ -403,6 +417,74 @@ export class UserServiceService {
 
     return this.http.post(`${this.uri}/setDatumVremeFinala`, data);
   }
+
+  /**
+ * Get all results for competition
+ * @param competitionID
+ * @returns collection of athletes
+ */
+  getAllIndivResultsForCompetition(competitionID){
+
+    const data = {
+      "competitionID" : competitionID
+    }
+
+    return this.http.post(`${this.uri}/getAllIndivResultsForCompetition`, data);
+  }
+
+  /**
+ * Unesi rezultat
+ *
+ * @param {String} idRes
+ * @param {String} resultColumnName
+ * @param {String} value
+ * @returns status
+ */
+  unesiRezultat(idRes, resultColumnName, value, format){
+
+    console.log("unesiREz " + idRes + " " + resultColumnName + " " + value + " " + format);
+
+    const data = {
+      "idRes" : idRes,
+      "resultColumnName" : resultColumnName,
+      "value" : value,
+      "format" : format
+    }
+
+    return this.http.post(`${this.uri}/unesiRezultat`, data);
+  }
+
+  /**
+ * Otkljucaj kolonu
+ *
+ * @param {String} idRes
+ * @param {String} resultColumnName
+ * @returns status
+ */
+  otkljucajKolonu(idRes, resultColumnName){
+
+    const data = {
+      "idRes" : idRes,
+      "resultColumnName" : resultColumnName
+    }
+
+    return this.http.post(`${this.uri}/otkljucajKolonu`, data);
+  }
+
+/**
+ * Get result by ID
+ * @param resultID
+ * @returns result
+ */
+ getResult(resultID){
+
+  const data = {
+    "resultID" : resultID
+  }
+
+  return this.http.post(`${this.uri}/getResult`, data);
+}
+
 
 }
 

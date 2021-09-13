@@ -6,10 +6,16 @@ let ResultIndivid = new Schema({
     _id: {
         type: Object
     },
-    competition: {
+    competitionID: {
         type: String
     },
-    athlete: {
+    athleteID: {
+        type: String
+    },
+    competitionName: {
+        type: String
+    },
+    athleteName: {
         type: String
     },
     res1: {
@@ -33,6 +39,12 @@ let ResultIndivid = new Schema({
     sum: {
         type: Number
     },
+    mesto: {
+        type: String
+    },
+    competitionFormat: {
+        type: Number
+    }
 });
 
 export default mongoose.model('ResultIndivid',ResultIndivid,'results');

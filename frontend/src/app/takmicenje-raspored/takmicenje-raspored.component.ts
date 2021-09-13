@@ -114,15 +114,19 @@ export class TakmicenjeRasporedComponent implements OnInit {
     this.competitiors.forEach(comp => {
         const newIdivResult = {
             "_id": null,
-            "competition": competition._id,
-            "athlete": comp._id,
+            "competitionID": competition._id,
+            "athleteID": comp._id,
+            "competitionName": competition.competitionName,
+            "athleteName": comp.firstname + " " + comp.lastname,
             "res1": "0",
             "res2": "z",
             "res3": "x",
             "res4": "x",
             "res5": "x",
             "res6": "x",
-            "sum" : -100
+            "sum" : -100,
+            "mesto" : "z",
+            "competitionFormat": competition.format
         }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
 
         this.addResultIdiv(newIdivResult);
@@ -141,15 +145,19 @@ export class TakmicenjeRasporedComponent implements OnInit {
     this.competitiors.forEach(comp => {
         const newIdivResult = {
             "_id": null,
-            "competition": competition._id,
-            "athlete": comp._id,
+            "competitionID": competition._id,
+            "athleteID": comp._id,
+            "competitionName": competition.competitionName,
+            "athleteName": comp.firstname + " " + comp.lastname,
             "res1": "0",
-            "res2": "z",
-            "res3": "z",
+            "res2": "0",
+            "res3": "0",
             "res4": "z",
             "res5": "z",
             "res6": "z",
-            "sum" : -100
+            "sum" : -100,
+            "mesto" : "z",
+            "competitionFormat": competition.format
         }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
 
         this.addResultIdiv(newIdivResult);
@@ -168,15 +176,19 @@ export class TakmicenjeRasporedComponent implements OnInit {
     this.competitiors.forEach(comp => {
         const newIdivResult = {
             "_id": null,
-            "competition": competition._id,
-            "athlete": comp._id,
+            "competitionID": competition._id,
+            "athleteID": comp._id,
+            "competitionName": competition.competitionName,
+            "athleteName": comp.firstname + " " + comp.lastname,
             "res1": "0",
             "res2": "x",
             "res3": "x",
             "res4": "x",
             "res5": "x",
             "res6": "x",
-            "sum" : -100
+            "sum" : -100,
+            "mesto" : "z",
+            "competitionFormat": competition.format
         }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
 
         this.addResultIdiv(newIdivResult);
@@ -195,15 +207,19 @@ export class TakmicenjeRasporedComponent implements OnInit {
     this.competitiors.forEach(comp => {
         const newIdivResult = {
             "_id": null,
-            "competition": competition._id,
-            "athlete": comp._id,
+            "competitionID": competition._id,
+            "athleteID": comp._id,
+            "competitionName": competition.competitionName,
+            "athleteName": comp.firstname + " " + comp.lastname,
             "res1": "0",
-            "res2": "z",
-            "res3": "z",
-            "res4": "z",
-            "res5": "z",
-            "res6": "z",
-            "sum" : -1
+            "res2": "0",
+            "res3": "0",
+            "res4": "0",
+            "res5": "0",
+            "res6": "0",
+            "sum" : -1,
+            "mesto" : "z",
+            "competitionFormat": competition.format
         }// -100/x -> nece se koristiti; -1/0 -> nije jos upotrebljeno; z -> zakljucano
 
         this.addResultIdiv(newIdivResult);
@@ -254,9 +270,9 @@ formats: any [] = [
   {value: '5', viewValue: 'Tenis - dubl - 4'},
   {value: '6', viewValue: 'Tenis - dubl - 8'},
   {value: '7', viewValue: 'Tenis - dubl - 16'},
-  {value: '8', viewValue: 'Indiv - 8 takmicara - sa kvalifikacijama - 1 pokusaj - [sec:stot]'},
-  {value: '9', viewValue: 'Indiv - do 8 takmicara - sa kvalifikacijama - 3 pokusaja - [m,cm]'},
-  {value: '10', viewValue: 'Indiv - x takmicara - bez kvalifikacija - 1 pokusaj - [h:min:sec]'},
-  {value: '11', viewValue: 'Indiv - do 8 takmicara - bez kvalifikacija - 6 pokusaja - [br. krugova]'}
+  {value: '8', viewValue: 'Indiv - 8 takmicara - sa kvalifikacijama - 1 pokusaj'},
+  {value: '9', viewValue: 'Indiv - do 8 takmicara - sa kvalifikacijama - 3 pokusaja'},
+  {value: '10', viewValue: 'Indiv - x takmicara - bez kvalifikacija - 1 pokusa'},
+  {value: '11', viewValue: 'Indiv - do 8 takmicara - bez kvalifikacija - 6 pokusaja'}
 ];
 */

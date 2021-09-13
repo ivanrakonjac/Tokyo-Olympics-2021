@@ -46,7 +46,7 @@ router.route('/login').post((req, res)=>{
 router.route('/getUserId').post((req, res)=>{
     let username = req.body.username;
 
-    console.log(username);
+    // console.log(username);
 
     user.findOne({'username':username}, {_id: 1}, (err, user)=>{
         if(err) console.log(err);
@@ -389,6 +389,25 @@ let c = new competition(req.body);
 });
 
 /**
+ *  Get all competitions for specific delegate where schedule is created
+ *
+ * @param delegateID
+ * @param competitionType
+ * @returns collection of competitions
+ */
+ router.route('/getAllCompForDelegateWithSchedule').post((req, res) => {
+
+    let delegateID = req.body.delegateID;
+
+    competition.find({'formirano':1, 'delegat': delegateID, 'rasporedNapravljen': 1}, (err, disc) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(disc);
+    });
+});
+
+/**
  * Formira takmicenje za prosledjeni id
  *
  * @param {String} id
@@ -523,9 +542,112 @@ router.route('/getSportOfAthlete').post((req, res)=>{
    
 });
 
+/**
+ * Get all results for competition
+ * @param competitionID
+ * @returns collection of athletes
+ */
+ router.route('/getAllIndivResultsForCompetition').post((req, res)=>{
+    let competitionID = req.body.competitionID;
 
+    resultIndivid.find({'competitionID':competitionID}, (err, results) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(results);
+    });
+});
+
+/**
+ * Get result by ID
+ * @param resultID
+ * @returns result
+ */
+ router.route('/getResult').post((req, res)=>{
+    let resultID = req.body.resultID;
+
+    resultIndivid.findOne({'_id':resultID}, (err, result) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(result);
+    });
+});
+
+/**
+ * Unesi rezultat
+ *
+ * @param {String} idRes
+ * @param {String} resultColumnName
+ * @param {String} value
+ * @returns status
+ */
+ router.route('/unesiRezultat').post((req, res) => {
+    let idRes = req.body.idRes;
+    let resultColumnName = req.body.resultColumnName;
+    let value = req.body.value;
+    let format = req.body.format;
+
+    console.log(idRes + " " + resultColumnName + " " + value + " " + format);
+
+    resultIndivid.collection.updateOne({'_id': mongoose.Types.ObjectId(idRes)}, {$set: {[resultColumnName]: value, 'poslednjaIzmena': resultColumnName}}).then(a=>{
+        res.status(200).json({'status':'200', "poslednjaIzmena": resultColumnName});
+    }).catch(err=>{
+        res.status(400).json({'status':'400'});
+    })
+
+    switch(format) {
+        case 8:
+            if(resultColumnName == "res1"){
+                otkljucajKolonu(idRes, "res2");
+            }
+            else if(resultColumnName == "res1"){
+                otkljucajKolonu(idRes, "mesto");
+            }
+            else if(resultColumnName == "mesto"){
+                //inc broj medalja
+            }
+          break;
+        case 11: 
+            if(resultColumnName == "res6"){
+                otkljucajKolonu(idRes, "mesto");
+            }
+        default:
+          console.log("default");
+      } 
+   
+});
+/**
+ * Otkljucaj kolonu
+ *
+ * @param {String} idRes
+ * @param {String} resultColumnName
+ * @returns status
+ */
+ router.route('/otkljucajKolonu').post((req, res) => {
+    let idRes = req.body.idRes;
+    let resultColumnName = req.body.resultColumnName;
+
+    resultIndivid.collection.updateOne({'_id': mongoose.Types.ObjectId(idRes)}, {$set: {[resultColumnName]: "0"}}).then(a=>{
+        res.status(200).json({'status':'200', "otkljucana": resultColumnName});
+    }).catch(err=>{
+        res.status(400).json({'status':'400'});
+    })
+   
+});
 
 
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
+
+function unesiRezultat(idRes: string, resultColumnName: string, value: string) {
+    resultIndivid.collection.updateOne({'_id': mongoose.Types.ObjectId(idRes)}, {$set: {[resultColumnName]: value, 'poslednjaIzmena': resultColumnName}});
+}
+
+function otkljucajKolonu(idRes: string, resultColumnName: string) {
+    console.log(idRes, resultColumnName);
+    resultIndivid.collection.updateOne({'_id': mongoose.Types.ObjectId(idRes)}, {$set: {[resultColumnName]: "0"}}).then(result =>{
+        console.log(result);
+    });
+}
 

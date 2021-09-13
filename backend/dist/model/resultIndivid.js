@@ -9,10 +9,16 @@ let ResultIndivid = new Schema({
     _id: {
         type: Object
     },
-    competition: {
+    competitionID: {
         type: String
     },
-    athlete: {
+    athleteID: {
+        type: String
+    },
+    competitionName: {
+        type: String
+    },
+    athleteName: {
         type: String
     },
     res1: {
@@ -36,6 +42,12 @@ let ResultIndivid = new Schema({
     sum: {
         type: Number
     },
+    mesto: {
+        type: String
+    },
+    competitionFormat: {
+        type: Number
+    }
 });
 exports.default = mongoose_1.default.model('ResultIndivid', ResultIndivid, 'results');
 //# sourceMappingURL=resultIndivid.js.map

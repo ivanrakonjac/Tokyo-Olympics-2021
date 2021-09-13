@@ -1,0 +1,114 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Unesi rezultate</P>
+      </div>
+      
+      <form (ngSubmit)="napraviRaspored()" name="competitionForm" [formGroup]="competitionForm">
+
+        <div class="inputFiled">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Competition</mat-label>
+                <mat-select
+                formControlName="competition"
+                matSelect
+                placeholder="Choose competition" required
+                (valueChange)="selectChangeHandler($event)"
+                >
+                    <mat-option *ngFor="let com of competitions" [value]="com._id">
+                    {{com.competitionName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!competitionForm.controls['competition'].valid">
+                    Competition is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary">POTVRDI</button>
+      </form>
+
+      <div class="button-row">
+        <p>Napravi raspored</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <table>
+    <tr>
+      <td>competition</td>
+      <td>athlete</td>
+      <td>res1</td>
+      <td>res2</td>
+      <td>res3</td>
+      <td>res4</td>
+      <td>res5</td>
+      <td>res6</td>
+      <td>mesto</td>
+      <td>UNOS</td>
+    </tr>
+    <tr *ngFor='let res of resultsIndiv' ngForm="resultForm" name="resultForm" [formGroup]="resultForm" (ngSubmit)="unesiRezultat()">
+      
+        <td>{{res.competitionName}}</td>
+        <td>{{res.athleteName}}</td>
+        <td>
+            <p *ngIf='res.res1!=0 && res.res1!="z"'>{{res.res1}}</p>
+            <div class="inputFiled" *ngIf='res.res1==0' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res1" matInput/> </mat-form-field>
+            </div>
+            <div class="inputFiled" *ngIf='res.res1=="z"' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res1" matInput disabled=true/> </mat-form-field>
+            </div>
+        </td>
+        <td>
+            <p *ngIf='res.res2!=0 && res.res2!="z"'>{{res.res2}}</p>
+            <div class="inputFiled" *ngIf='res.res2==0' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res2" matInput/> </mat-form-field>
+            </div>
+            <div class="inputFiled" *ngIf='res.res2=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
+        </td>
+        <td>
+            <p *ngIf='res.res3!=0 && res.res3!="z"'>{{res.res3}}</p>
+            <div class="inputFiled" *ngIf='res.res3==0' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res3" matInput/> </mat-form-field>
+            </div>
+            <div class="inputFiled" *ngIf='res.res3=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
+        </td>
+        <td>
+            <p *ngIf='res.res4!=0 && res.res4!="z"'>{{res.res4}}</p>
+            <div class="inputFiled" *ngIf='res.res4==0' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res4" matInput/> </mat-form-field>
+            </div>
+            <div class="inputFiled" *ngIf='res.res4=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
+        </td>
+        <td>
+            <p *ngIf='res.res5!=0 && res.res5!="z"'>{{res.res5}}</p>
+            <div class="inputFiled" *ngIf='res.res5==0' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res5" matInput/> </mat-form-field>
+            </div>
+            <div class="inputFiled" *ngIf='res.res5=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
+        </td>
+        <td>
+            <p *ngIf='res.res6!=0 && res.res6!="z"'>{{res.res6}}</p>
+            <div class="inputFiled" *ngIf='res.res6==0' [formGroup]="resultForm">
+              <mat-form-field  appearance="outline"> <input formControlName="res6" matInput/> </mat-form-field>
+            </div>
+            <div class="inputFiled" *ngIf='res.res6=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
+        </td>
+
+        <td>
+          <p *ngIf='res.mesto!=0 && res.mesto!="z"'>{{res.mesto}}</p>
+          <div class="inputFiled" *ngIf='res.mesto==0' [formGroup]="resultForm">
+            <mat-form-field  appearance="outline"> <input formControlName="mesto" matInput/> </mat-form-field>
+          </div>
+          <div class="inputFiled" *ngIf='res.mesto=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
+        </td>
+        
+        <td>
+          <button type='submit' mat-flat-button color="primary" [formGroup]="resultForm" (click)="unesiRezultat(res)">UNESI</button>
+        </td>
+        
+      </tr>
+  </table>
+<!-- 
+  <p *ngFor='let res of resultsIndiv'>{{res.competition}}</p> -->

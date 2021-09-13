@@ -10,9 +10,11 @@ import { LoginComponent } from './login/login.component';
 import { OrganizatorComponent } from './organizator/organizator.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { TakmicenjeRasporedComponent } from './takmicenje-raspored/takmicenje-raspored.component';
+import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.component';
 import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
 
 const routes: Routes = [
+  {path:"unosRezultata", component: UnosRezultataComponent},
   {path:"takmicenjeRaspored", component: TakmicenjeRasporedComponent},
   {path:"userConfirmation", component: UserConfirmationTableComponent},
   {path:"formCompetition", component: FormCompetitionTableComponent},
