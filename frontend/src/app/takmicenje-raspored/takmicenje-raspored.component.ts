@@ -38,7 +38,7 @@ export class TakmicenjeRasporedComponent implements OnInit {
         // console.log(user._id);
 
         this.userService.getAllCompetitionsForSpecificDelegate(user._id).subscribe((allCompetitions:Competition[])=>{
-          // console.log(allCompetitions);
+          console.log(allCompetitions);
           this.competitions = allCompetitions;
         })
     })

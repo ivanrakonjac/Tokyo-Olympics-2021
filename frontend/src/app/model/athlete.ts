@@ -7,4 +7,5 @@ export class Athlete{
     sport: string;
     discipline: string;
     country: string;
+    team: string;
 }

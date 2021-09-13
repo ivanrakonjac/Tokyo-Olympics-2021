@@ -669,6 +669,38 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     })
 });
 
+/**
+ * Get allTeams for competition
+ * @param competitionID
+ * @returns collection of teams
+ */
+ router.route('/getTeamsForCompetition').post((req, res)=>{
+    let competitionID = req.body.competitionID;
+
+    team.find({'competition': competitionID}, (err, teams) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(teams);
+    });
+});
+
+/**
+ * Inc num of team players
+ * @param teamName
+ * @returns collection of teams
+ */
+ router.route('/incNumOfTeamPlayers').post((req, res)=>{
+    let teamName = req.body.teamName;
+
+    team.updateOne({'name': teamName},{$inc: {numOfPlayers: 1}}, (err, teams) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(teams);
+    });
+});
+
 
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

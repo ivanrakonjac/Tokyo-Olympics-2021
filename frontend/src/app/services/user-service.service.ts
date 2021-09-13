@@ -494,6 +494,34 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/addTeam`, team);
   }
 
+  /**
+   * Get allTeams for competition
+   * @param competitionID
+   * @returns collection of teams
+   */
+  getTeamsForCompetition(competitionID){
+
+    const data = {
+      competitionID: competitionID
+    }
+
+    return this.http.post(`${this.uri}/getTeamsForCompetition`, data);
+  }
+
+  /**
+   * Inc num of team players
+   * @param teamName
+   * @returns collection of teams
+   */
+  incNumOfTeamPlayers(teamName){
+
+    const data = {
+      teamName: teamName
+    }
+
+    return this.http.post(`${this.uri}/incNumOfTeamPlayers`, data);
+  }
+
 
 }
 

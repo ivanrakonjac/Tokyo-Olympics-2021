@@ -26,6 +26,9 @@ let Team = new Schema({
     },
     country: {
         type: String
+    },
+    numOfPlayers: {
+        type: Number
     }
 });
 exports.default = mongoose_1.default.model('Team', Team, 'teams');

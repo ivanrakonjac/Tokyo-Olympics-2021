@@ -29,6 +29,9 @@ let Athlete = new Schema({
     },
     country: {
         type: String
+    },
+    team: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('Athlete', Athlete, 'athletes');

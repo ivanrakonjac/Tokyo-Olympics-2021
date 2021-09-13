@@ -23,6 +23,9 @@ let Team = new Schema({
     },
     country: {
         type: String
+    },
+    numOfPlayers: {
+        type: Number
     }
 });
 

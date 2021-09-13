@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms'
-import { UserServiceService } from '../services/user-service.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Competition } from '../model/competition';
+import { Team } from '../model/team';
+import { UserServiceService } from '../services/user-service.service';
 
 @Component({
-  selector: 'app-add-athlete',
-  templateUrl: './add-athlete.component.html',
-  styleUrls: ['./add-athlete.component.css']
+  selector: 'app-add-athlete-to-team',
+  templateUrl: './add-athlete-to-team.component.html',
+  styleUrls: ['./add-athlete-to-team.component.css']
 })
-export class AddAthleteComponent implements OnInit {
+export class AddAthleteToTeamComponent implements OnInit {
 
   hide: boolean = false;
 
   constructor(private fb: FormBuilder, private userService: UserServiceService, private router: Router) { }
 
   competitions: Competition[];
+  teams: Team[];
 
   ngOnInit(): void {
     this.userService.getAllUnformedCompetitions().subscribe((competitions: Competition[])=>{
@@ -30,7 +32,8 @@ export class AddAthleteComponent implements OnInit {
     lastname: ['', [Validators.required]] ,
     sport: ['', [Validators.required]],
     discipline: ['', [Validators.required]],
-    country: ['', [Validators.required]]    
+    country: ['', [Validators.required]],
+    team: ['', [Validators.required]]    
   })
 
   
@@ -39,6 +42,11 @@ export class AddAthleteComponent implements OnInit {
     this.registrationForm.controls.sport.setValue(event.sport);
     this.registrationForm.controls.discipline.setValue(event.discipline);
     this.registrationForm.controls.country.setValue(localStorage.getItem('country'));
+
+    this.userService.getTeamsForCompetition(event._id).subscribe((teams: Team[]) => {
+      this.teams = teams;
+    })
+
   }
 
   onRegister() {
@@ -62,7 +70,7 @@ export class AddAthleteComponent implements OnInit {
               sport: this.registrationForm.value.sport,
               discipline: this.registrationForm.value.discipline,
               country:  this.registrationForm.value.country,
-              team: "/"
+              team: this.registrationForm.value.team.name,
             }
 
             this.userService.addAthlete(newAthlete).subscribe((res: any)=>{
@@ -71,7 +79,10 @@ export class AddAthleteComponent implements OnInit {
 
               if(res.athlete == "ok"){
                 alert("New athlete added!");
-                this.router.navigate(['/addAthleteOnCompetition']);
+
+                this.userService.incNumOfTeamPlayers(this.registrationForm.value.team.name);
+
+                this.router.navigate(['/addAthleteToTeam']);
               }
               else{
                 alert("Something went wrong...");
@@ -80,6 +91,4 @@ export class AddAthleteComponent implements OnInit {
         }
     });
   }
-
-
 }

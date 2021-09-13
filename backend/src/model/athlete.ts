@@ -26,6 +26,9 @@ let Athlete = new Schema({
     },
     country: {
         type: String
+    },
+    team: {
+        type: String
     }
 });
 

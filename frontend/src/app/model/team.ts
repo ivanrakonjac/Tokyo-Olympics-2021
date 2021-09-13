@@ -6,4 +6,5 @@ export class Team{
     sport: string;
     discipline: string;
     country: string;
+    numOfPlayers: number;
 }

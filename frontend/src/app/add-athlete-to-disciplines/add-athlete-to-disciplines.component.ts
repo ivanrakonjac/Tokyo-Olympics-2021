@@ -85,7 +85,8 @@ export class AddAthleteToDisciplinesComponent implements OnInit {
                   sex: this.registrationForm.value.sex,
                   sport: this.registrationForm.value.sport,
                   discipline: disc,
-                  country:  this.registrationForm.value.country
+                  country:  this.registrationForm.value.country,
+                  team: "/"
                 }
     
                 this.userService.addAthlete(newAthlete).subscribe((res: any)=>{

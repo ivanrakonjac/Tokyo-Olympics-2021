@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddAthleteToDisciplinesComponent } from './add-athlete-to-disciplines/add-athlete-to-disciplines.component';
+import { AddAthleteToTeamComponent } from './add-athlete-to-team/add-athlete-to-team.component';
 import { AddAthleteComponent } from './add-athlete/add-athlete.component';
 import { AddCompetitionComponent } from './add-competition/add-competition.component';
 import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component';
@@ -15,6 +16,7 @@ import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.componen
 import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
 
 const routes: Routes = [
+  {path:"addAthleteToTeam", component: AddAthleteToTeamComponent},
   {path:"addTeam", component: AddTeamComponent},
   {path:"unosRezultata", component: UnosRezultataComponent},
   {path:"takmicenjeRaspored", component: TakmicenjeRasporedComponent},
