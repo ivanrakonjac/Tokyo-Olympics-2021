@@ -34,7 +34,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
 import { TakmicenjeRasporedComponent } from './takmicenje-raspored/takmicenje-raspored.component';
-import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.component'; 
+import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { AddAthleteToTeamComponent } from './add-athlete-to-team/add-athlete-to-team.component'; 
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.componen
     FormCompetitionTableComponent,
     UserConfirmationTableComponent,
     TakmicenjeRasporedComponent,
-    UnosRezultataComponent
+    UnosRezultataComponent,
+    AddTeamComponent,
+    AddAthleteToTeamComponent
   ],
   imports: [
     BrowserModule,

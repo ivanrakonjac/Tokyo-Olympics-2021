@@ -5,6 +5,7 @@ import { AddAthleteComponent } from './add-athlete/add-athlete.component';
 import { AddCompetitionComponent } from './add-competition/add-competition.component';
 import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component';
 import { AddSportComponent } from './add-sport/add-sport.component';
+import { AddTeamComponent } from './add-team/add-team.component';
 import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
 import { LoginComponent } from './login/login.component';
 import { OrganizatorComponent } from './organizator/organizator.component';
@@ -14,6 +15,7 @@ import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.componen
 import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
 
 const routes: Routes = [
+  {path:"addTeam", component: AddTeamComponent},
   {path:"unosRezultata", component: UnosRezultataComponent},
   {path:"takmicenjeRaspored", component: TakmicenjeRasporedComponent},
   {path:"userConfirmation", component: UserConfirmationTableComponent},

@@ -9,6 +9,7 @@ import competition from './model/competition';
 import athlete from './model/athlete';
 import country from './model/country';
 import resultIndivid from './model/resultIndivid';
+import team from './model/team';
 
 const app = express();
 
@@ -650,6 +651,22 @@ router.route('/getSportOfAthlete').post((req, res)=>{
         res.status(400).json({'status':'400'});
     })
    
+});
+
+
+/**
+ * Dodaj tead
+ * @param team
+ * @returns status
+ */
+ router.route('/addTeam').post((req, res)=>{
+    let t = new team(req.body);
+
+    t.save().then(t=>{
+        res.status(200).json({'status':'200'});
+    }).catch(err=>{
+        res.status(400).json({'status':'400'});
+    })
 });
 
 

@@ -485,6 +485,15 @@ export class UserServiceService {
   return this.http.post(`${this.uri}/getResult`, data);
 }
 
+  /**
+   * Dodaj tead
+   * @param team
+   * @returns status
+   */
+  addTeam(team){
+    return this.http.post(`${this.uri}/addTeam`, team);
+  }
+
 
 }
 

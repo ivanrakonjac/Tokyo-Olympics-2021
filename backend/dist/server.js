@@ -14,6 +14,7 @@ const competition_1 = __importDefault(require("./model/competition"));
 const athlete_1 = __importDefault(require("./model/athlete"));
 const country_1 = __importDefault(require("./model/country"));
 const resultIndivid_1 = __importDefault(require("./model/resultIndivid"));
+const team_1 = __importDefault(require("./model/team"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -592,6 +593,19 @@ router.route('/otkljucajKolonu').post((req, res) => {
     let resultColumnName = req.body.resultColumnName;
     resultIndivid_1.default.collection.updateOne({ '_id': mongoose_1.default.Types.ObjectId(idRes) }, { $set: { [resultColumnName]: "0" } }).then(a => {
         res.status(200).json({ 'status': '200', "otkljucana": resultColumnName });
+    }).catch(err => {
+        res.status(400).json({ 'status': '400' });
+    });
+});
+/**
+ * Dodaj tead
+ * @param team
+ * @returns status
+ */
+router.route('/addTeam').post((req, res) => {
+    let t = new team_1.default(req.body);
+    t.save().then(t => {
+        res.status(200).json({ 'status': '200' });
     }).catch(err => {
         res.status(400).json({ 'status': '400' });
     });
