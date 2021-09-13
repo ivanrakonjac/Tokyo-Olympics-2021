@@ -607,13 +607,29 @@ router.route('/getSportOfAthlete').post((req, res)=>{
             else if(resultColumnName == "mesto"){
                 //inc broj medalja
             }
-          break;
+            break;
+        case 9: 
+            if(resultColumnName == "res3"){
+                otkljucajKolonu(idRes, "res4");
+                otkljucajKolonu(idRes, "res5");
+                otkljucajKolonu(idRes, "res6");
+            }
+            else if(resultColumnName == "res6"){
+                otkljucajKolonu(idRes, "mesto");
+            }
+            break;
+        case 10: 
+            if(resultColumnName == "res1"){
+                otkljucajKolonu(idRes, "mesto");
+            }
+            break;
         case 11: 
             if(resultColumnName == "res6"){
                 otkljucajKolonu(idRes, "mesto");
             }
+            break;
         default:
-          console.log("default");
+          break;
       } 
    
 });
