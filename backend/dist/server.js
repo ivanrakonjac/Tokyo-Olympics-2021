@@ -631,6 +631,7 @@ router.route('/getTeamsForCompetition').post((req, res) => {
  */
 router.route('/incNumOfTeamPlayers').post((req, res) => {
     let teamName = req.body.teamName;
+    console.log(teamName);
     team_1.default.updateOne({ 'name': teamName }, { $inc: { numOfPlayers: 1 } }, (err, teams) => {
         if (err)
             console.log(err);

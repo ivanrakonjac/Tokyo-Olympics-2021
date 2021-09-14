@@ -513,13 +513,16 @@ export class UserServiceService {
    * @param teamName
    * @returns collection of teams
    */
-  incNumOfTeamPlayers(teamName){
+   incNumOfTeamPlayers(teamName){
+    
 
     const data = {
-      teamName: teamName
+      "teamName": teamName
     }
 
-    return this.http.post(`${this.uri}/incNumOfTeamPlayers`, data);
+    return this.http.post(`${this.uri}/incNumOfTeamPlayers`, data).subscribe(res=>{
+      console.log(res);
+    });
   }
 
 
