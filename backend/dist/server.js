@@ -15,6 +15,7 @@ const athlete_1 = __importDefault(require("./model/athlete"));
 const country_1 = __importDefault(require("./model/country"));
 const resultIndivid_1 = __importDefault(require("./model/resultIndivid"));
 const team_1 = __importDefault(require("./model/team"));
+const match_1 = __importDefault(require("./model/match"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -631,12 +632,40 @@ router.route('/getTeamsForCompetition').post((req, res) => {
  */
 router.route('/incNumOfTeamPlayers').post((req, res) => {
     let teamName = req.body.teamName;
-    console.log(teamName);
     team_1.default.updateOne({ 'name': teamName }, { $inc: { numOfPlayers: 1 } }, (err, teams) => {
         if (err)
             console.log(err);
         else
             res.json(teams);
+    });
+});
+/**
+ * Set group name of team
+ * @param teamName
+ * @param groupName (grupaA/grupaB)
+ * @returns status
+ */
+router.route('/setTeamGroupName').post((req, res) => {
+    let teamName = req.body.teamName;
+    let groupName = req.body.groupName;
+    team_1.default.updateOne({ 'name': teamName }, { grupa: groupName }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+/**
+ * Dodaj match
+ * @param match
+ * @returns status
+ */
+router.route('/addMatch').post((req, res) => {
+    let m = new match_1.default(req.body);
+    m.save().then(m => {
+        res.status(200).json({ 'status': '200' });
+    }).catch(err => {
+        res.status(400).json({ 'status': '400' });
     });
 });
 app.use('/', router);

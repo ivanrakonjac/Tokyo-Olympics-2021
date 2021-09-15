@@ -525,6 +525,34 @@ export class UserServiceService {
     });
   }
 
+  /**
+ * Set group name of team
+ * @param teamName
+ * @param groupName (grupaA/grupaB)
+ * @returns status
+ */
+  setTeamGroupName(teamName, groupName){
+    
+
+    const data = {
+      "teamName": teamName,
+      "groupName": groupName
+    }
+
+    return this.http.post(`${this.uri}/setTeamGroupName`, data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  /**
+   * Dodaj match
+   * @param match
+   * @returns status
+   */
+  addMatch(match){
+  
+    return this.http.post(`${this.uri}/addMatch`, match);
+  }
 
 }
 

@@ -10,6 +10,7 @@ import athlete from './model/athlete';
 import country from './model/country';
 import resultIndivid from './model/resultIndivid';
 import team from './model/team';
+import match from './model/match';
 
 const app = express();
 
@@ -699,6 +700,39 @@ router.route('/getSportOfAthlete').post((req, res)=>{
         else
             res.json(teams);
     });
+});
+
+/**
+ * Set group name of team
+ * @param teamName
+ * @param groupName (grupaA/grupaB)
+ * @returns status
+ */
+ router.route('/setTeamGroupName').post((req, res)=>{
+    let teamName = req.body.teamName;
+    let groupName = req.body.groupName;
+
+    team.updateOne({'name': teamName},{grupa: groupName}, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+
+/**
+ * Dodaj match
+ * @param match
+ * @returns status
+ */
+ router.route('/addMatch').post((req, res)=>{
+    let m = new match(req.body);
+
+    m.save().then(m=>{
+        res.status(200).json({'status':'200'});
+    }).catch(err=>{
+        res.status(400).json({'status':'400'});
+    })
 });
 
 app.use('/', router);

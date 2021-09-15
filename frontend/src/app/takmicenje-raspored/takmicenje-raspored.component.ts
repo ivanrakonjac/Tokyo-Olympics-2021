@@ -139,8 +139,54 @@ export class TakmicenjeRasporedComponent implements OnInit {
     let grupaB: Team[] = [];
 
     for (let i = 0; i <this.teams.length; i++){
-      if(i%2==0) grupaA.push(this.teams[i]);
-      else grupaB.push(this.teams[i]);
+      if(i%2==0){
+        this.userService.setTeamGroupName(this.teams[i].name, "GrupaA");
+        grupaA.push(this.teams[i]);
+      } 
+      else{
+        this.userService.setTeamGroupName(this.teams[i].name, "GrupaB");
+        grupaB.push(this.teams[i]);
+      } 
+    }
+
+    for (let index = 0; index < grupaA.length; index++) {
+
+      for (let index2 = index+1; index2 < grupaA.length; index2++){
+        const newMatchA = {
+          "_id": null,
+          "competitionName": this.choosenComp.competitionName,
+          "team1": grupaA[index].name,
+          "team2": grupaA[index2].name,
+          "faza" : "GrupaA",
+          "brPoenaTim1" : 0,
+          "brPoenaTim2" : 0
+        }
+
+        this.userService.addMatch(newMatchA).subscribe( (res: any) => {
+            if(res.status != "200"){
+              alert("Problem sa dodavanjem utakmica!");
+            } 
+        })
+
+        const newMatchB = {
+          "_id": null,
+          "competitionName": this.choosenComp.competitionName,
+          "team1": grupaB[index].name,
+          "team2": grupaB[index2].name,
+          "faza" : "GrupaB",
+          "brPoenaTim1" : 0,
+          "brPoenaTim2" : 0
+        }
+
+        this.userService.addMatch(newMatchB).subscribe( (res: any) => {
+            if(res.status != "200"){
+              alert("Problem sa dodavanjem utakmica!");
+            } 
+        })
+
+      }
+
+      
     }
 
     console.log(grupaA);
