@@ -95,7 +95,11 @@ export class TakmicenjeRasporedComponent implements OnInit {
             case 8: 
               break;
             case 12:
+              this.grupnaFaza();
               break;
+            default:
+              alert("Broj timova nije odgovarajuci!");
+              return;
           }
 
           console.log("DALJEE");
@@ -130,8 +134,17 @@ export class TakmicenjeRasporedComponent implements OnInit {
     
   }
 
-  ekipno(){
-    console.log("Ekipno");
+  grupnaFaza(){
+    let grupaA: Team[] = [];
+    let grupaB: Team[] = [];
+
+    for (let i = 0; i <this.teams.length; i++){
+      if(i%2==0) grupaA.push(this.teams[i]);
+      else grupaB.push(this.teams[i]);
+    }
+
+    console.log(grupaA);
+    console.log(grupaB);
   }
 
   indiv8TakmicaraSaKvalifikacijama1Pokusaj(competition){

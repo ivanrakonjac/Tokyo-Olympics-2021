@@ -26,7 +26,13 @@ let Team = new Schema({
     },
     numOfPlayers: {
         type: Number
+    },
+    grupa: {
+        type: String
+    },
+    brojPoena: {
+        type: Number
     }
 });
-
+    
 export default mongoose.model('Team', Team, 'teams');

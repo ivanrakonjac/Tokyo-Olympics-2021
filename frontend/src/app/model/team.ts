@@ -7,4 +7,6 @@ export class Team{
     discipline: string;
     country: string;
     numOfPlayers: number;
+    grupa: string;
+    brojPoena: number;
 }
