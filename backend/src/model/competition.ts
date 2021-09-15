@@ -59,6 +59,9 @@ let Competition = new Schema({
     },
     vremeFinala: {
         type: String
+    },
+    numOfTeams: {
+        type: Number
     }
 });
 

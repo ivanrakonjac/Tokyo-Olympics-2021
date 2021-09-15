@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Athlete } from '../model/athlete';
 import { Competition } from '../model/competition';
+import { Match } from '../model/match';
 import { ResultIndivid } from '../model/resultIndivid';
 import { User } from '../model/user';
 import { UserServiceService } from '../services/user-service.service';
@@ -22,6 +23,8 @@ export class UnosRezultataComponent implements OnInit {
   username: string;
   tempUserId: string;
   resultsIndiv: ResultIndivid[];
+  matches: Match[];
+  numOfTeams: number = 0;
 
   competitionForm: FormGroup = this.fb.group({
     competition: ['', [Validators.required]],
@@ -35,6 +38,11 @@ export class UnosRezultataComponent implements OnInit {
     res5: ['',],
     res6: ['',],
     mesto: ['',],
+  })
+
+  resultFormTeam: FormGroup = this.fb.group({
+    team1: ['',],
+    team2: ['',],
   })
 
 
@@ -55,12 +63,25 @@ export class UnosRezultataComponent implements OnInit {
 
   selectChangeHandler(event){
     console.log(event);
-    this.userService.getAllIndivResultsForCompetition(event).subscribe((results: ResultIndivid[]) =>{
-      this.resultsIndiv = results;
-      this.choosenComp = this.competitions.find(competition => competition._id == this.competitionForm.value.competition);
-      // console.log(this.choosenComp);
-    })
+
+      this.userService.getAllIndivResultsForCompetition(event).subscribe((results: ResultIndivid[]) =>{
+        this.resultsIndiv = results;
+        this.choosenComp = this.competitions.find(competition => competition._id == this.competitionForm.value.competition);
+        this.numOfTeams = this.choosenComp.numOfTeams;
+        console.log(this.choosenComp);
+
+        this.userService.getMatchesForCompetition(this.choosenComp.competitionName).subscribe ((matches: Match[]) =>{
+            this.matches = matches;
+            console.log(matches);
+        })
+
+      })
+
+      // this.userService.getMatchesForCompetition()
+
   }
+
+  
 
   napraviRaspored(){
 
@@ -90,7 +111,15 @@ export class UnosRezultataComponent implements OnInit {
       });
     }
   }
+
+  unesiRezultatTeam(m){
+    console.log(this.resultFormTeam.value.team1);
+    console.log(this.resultFormTeam.value.team2);
+  }
+
 }
+
+
 
 /* Formati podsetnik
 formats: any [] = [

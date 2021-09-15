@@ -110,5 +110,32 @@
         
       </tr>
   </table>
-<!-- 
-  <p *ngFor='let res of resultsIndiv'>{{res.competition}}</p> -->
+
+  <p *ngIf='numOfTeams!=0'>EKIPNI</p>
+
+  <table >
+    <tr>
+      <td>Competition</td>
+      <td>team1</td>
+      <td>team2</td>
+      <td>Poeni1</td>
+      <td>Poeni2</td>
+      <td>Upisi</td>
+    </tr>
+    <tr *ngFor='let m of matches' ngForm="resultForm" name="resultForm" [formGroup]="resultForm" (ngSubmit)="unesiRezultat()">
+      <td>{{m.competitionName}}</td>
+      <td>{{m.team1}}</td>
+      <td>{{m.team2}}</td>
+      <td>
+        <p *ngIf='m.brPoenaTim1!=0'>{{m.brPoenaTim1}}</p>
+        <div  [formGroup]="resultFormTeam"><input *ngIf='m.brPoenaTim1==0' type="number" formControlName="team1"></div>
+      </td>
+      <td>
+        <p *ngIf='m.brPoenaTim2!=0'>{{m.brPoenaTim2}}</p>
+        <div  [formGroup]="resultFormTeam"><input *ngIf='m.brPoenaTim2==0' type="number" formControlName="team2"></div>
+      </td>
+      <td>
+        <button type='submit' [formGroup]="resultFormTeam" (click)="unesiRezultatTeam(m)">UNESI</button>
+      </td>
+    </tr>
+  </table>

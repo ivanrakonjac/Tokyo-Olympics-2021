@@ -20,4 +20,5 @@ export class Competition{
     maxTakmicaraUFinalu: number;
     datumFinala: Date;
     vremeFinala: Time;
+    numOfTeams: number;
 }

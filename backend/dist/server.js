@@ -502,7 +502,7 @@ router.route('/setDatumVremeFinala').post((req, res) => {
 /**
  * Get all results for competition
  * @param competitionID
- * @returns collection of athletes
+ * @returns collection of results
  */
 router.route('/getAllIndivResultsForCompetition').post((req, res) => {
     let competitionID = req.body.competitionID;
@@ -682,6 +682,36 @@ router.route('/getTeamByGroupAndCompetitionID').post((req, res) => {
             console.log(err);
         else
             res.json(team);
+    });
+});
+/**
+ * Get all matches for competition
+ * @param competitionName
+ * @returns collection of matches
+ */
+router.route('/getMatchesForCompetition').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    match_1.default.find({ 'competitionName': competitionName }, (err, matches) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(matches);
+    });
+});
+/**
+ * Set num of teams for competition
+ * @param competitionName
+ * @param numOfTeams
+ * @returns status
+ */
+router.route('/setNumOfTeams').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    let numOfTeams = req.body.numOfTeams;
+    competition_1.default.updateOne({ 'competitionName': competitionName }, { "numOfTeams": numOfTeams }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
     });
 });
 app.use('/', router);

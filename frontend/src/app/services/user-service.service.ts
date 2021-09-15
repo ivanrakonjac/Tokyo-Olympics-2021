@@ -421,7 +421,7 @@ export class UserServiceService {
   /**
  * Get all results for competition
  * @param competitionID
- * @returns collection of athletes
+ * @returns collection of results
  */
   getAllIndivResultsForCompetition(competitionID){
 
@@ -568,6 +568,38 @@ export class UserServiceService {
     }
 
     return this.http.post(`${this.uri}/getTeamByGroupAndCompetitionID`, data);
+  }
+
+  /**
+   * Get all matches for competition
+   * @param competitionName
+   * @returns collection of matches
+   */
+  getMatchesForCompetition(competitionName){
+
+    const data = {
+      "competitionName": competitionName
+    }
+
+    return this.http.post(`${this.uri}/getMatchesForCompetition`, data);
+  }
+
+  /**
+   * Set num of teams for competition
+   * @param competitionName
+   * @param numOfTeams
+   * @returns status
+   */
+   setNumOfTeams(competitionName, numOfTeams){
+
+    const data = {
+      "competitionName": competitionName,
+      "numOfTeams" : numOfTeams
+    }
+
+    return this.http.post(`${this.uri}/setNumOfTeams`, data).subscribe(res=>{
+      console.log(res);
+    });
   }
 
 }

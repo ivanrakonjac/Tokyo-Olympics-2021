@@ -93,13 +93,16 @@ export class TakmicenjeRasporedComponent implements OnInit {
             case 4:
               this.cetvrtOrPoluFinaleRaspored();
               this.dodajMecevePoluFinale();
+              this.userService.setNumOfTeams(this.choosenComp.competitionName, 4);
               break;
             case 8: 
               this.cetvrtOrPoluFinaleRaspored();
               this.dodajMeceveCetvrtFinale();
+              this.userService.setNumOfTeams(this.choosenComp.competitionName, 8);
               break;
             case 12:
               this.grupnaFazaRaspored();
+              this.userService.setNumOfTeams(this.choosenComp.competitionName, 12);
               break;
             default:
               alert("Broj timova nije odgovarajuci!");
