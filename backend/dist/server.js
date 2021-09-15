@@ -668,6 +668,22 @@ router.route('/addMatch').post((req, res) => {
         res.status(400).json({ 'status': '400' });
     });
 });
+/**
+ * Get team by group name
+ * @param teamName
+ * @param competitionID
+ * @returns team
+ */
+router.route('/getTeamByGroupAndCompetitionID').post((req, res) => {
+    let groupName = req.body.groupName;
+    let competitionID = req.body.competitionID;
+    team_1.default.findOne({ 'grupa': groupName, "competition": competitionID }, (err, team) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(team);
+    });
+});
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
 function unesiRezultat(idRes, resultColumnName, value) {

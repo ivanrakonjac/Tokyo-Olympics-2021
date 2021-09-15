@@ -735,6 +735,24 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     })
 });
 
+/**
+ * Get team by group name
+ * @param teamName
+ * @param competitionID
+ * @returns team
+ */
+ router.route('/getTeamByGroupAndCompetitionID').post((req, res)=>{
+    let groupName = req.body.groupName;
+    let competitionID = req.body.competitionID;
+
+    team.findOne({'grupa': groupName, "competition": competitionID}, (err, team) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(team);
+    });
+});
+
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
 

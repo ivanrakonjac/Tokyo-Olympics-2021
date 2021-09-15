@@ -554,6 +554,22 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/addMatch`, match);
   }
 
+  /**
+ * Get team by group name
+ * @param teamName
+ * @param competitionID
+ * @returns team
+ */
+   getTeamByGroupAndCompetitionID(groupName, competitionID){
+
+    const data = {
+      "groupName": groupName,
+      "competitionID" : competitionID
+    }
+
+    return this.http.post(`${this.uri}/getTeamByGroupAndCompetitionID`, data);
+  }
+
 }
 
 

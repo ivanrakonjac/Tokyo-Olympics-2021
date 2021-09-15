@@ -91,20 +91,29 @@ export class TakmicenjeRasporedComponent implements OnInit {
 
           switch(this.teams.length){
             case 4:
+              this.cetvrtOrPoluFinaleRaspored();
+              this.dodajMecevePoluFinale();
               break;
             case 8: 
+              this.cetvrtOrPoluFinaleRaspored();
+              this.dodajMeceveCetvrtFinale();
               break;
             case 12:
-              this.grupnaFaza();
+              this.grupnaFazaRaspored();
               break;
             default:
               alert("Broj timova nije odgovarajuci!");
               return;
           }
 
-          console.log("DALJEE");
+          this.setRasporedNapravljen(this.choosenComp._id);
+          this.setDatumVremeFinala(this.choosenComp._id, this.finalsDate, this.finalsTime);
+          alert("Raspored napravljen");
       })
-    }else{
+
+    }
+    else{
+      
       this.userService.getAllAthletesForCompetition(this.choosenComp.competitionName).subscribe((atl: Athlete[])=>{
         this.competitiors = atl;
         // console.log(this.competitiors)
@@ -125,16 +134,65 @@ export class TakmicenjeRasporedComponent implements OnInit {
           default:
             alert("default");
         } 
-  
         alert("Raspored napravljen");
-  
       })
     }
 
     
   }
 
-  grupnaFaza(){
+  dodajMecevePoluFinale(){
+    this.dodajMec("A1", "B2", this.choosenComp.competitionName, "POLU");
+    this.dodajMec("A2", "B1", this.choosenComp.competitionName, "POLU");
+  }
+
+  dodajMeceveCetvrtFinale(){
+    this.dodajMec("A1", "B4", this.choosenComp.competitionName, "CETVRT");
+    this.dodajMec("B2", "A3", this.choosenComp.competitionName, "CETVRT");
+    this.dodajMec("B1", "A4", this.choosenComp.competitionName, "CETVRT");
+    this.dodajMec("A2", "B3", this.choosenComp.competitionName, "CETVRT");
+  }
+
+  dodajMec(teamGroup1, teamGroup2, competitionName, faza) {
+
+    this.userService.getTeamByGroupAndCompetitionID(teamGroup1, this.choosenComp._id).subscribe((t1: Team)=>{
+
+      this.userService.getTeamByGroupAndCompetitionID(teamGroup2, this.choosenComp._id).subscribe((t2: Team)=>{
+
+        const newMatch = {
+          "_id": null,
+          "competitionName": this.choosenComp.competitionName,
+          "team1": t1.name,
+          "team2": t2.name,
+          "faza" : faza,
+          "brPoenaTim1" : 0,
+          "brPoenaTim2" : 0
+        }
+
+        this.dodajUtakmicuServis(newMatch);
+
+      })
+    })
+
+  }
+
+  cetvrtOrPoluFinaleRaspored(){
+    let grupaA: Team[] = [];
+    let grupaB: Team[] = [];
+
+    for (let i = 0; i <this.teams.length; i++){
+      if(i%2==0) grupaA.push(this.teams[i]); 
+      else grupaB.push(this.teams[i]);
+       
+    }
+
+    for (let index = 0; index < grupaA.length; index++) {
+      this.userService.setTeamGroupName(grupaA[index].name, "A" + (index + 1) );
+      this.userService.setTeamGroupName(grupaB[index].name, "B" + (index + 1) );     
+    }
+  }
+
+  grupnaFazaRaspored(){
     let grupaA: Team[] = [];
     let grupaB: Team[] = [];
 
@@ -148,6 +206,10 @@ export class TakmicenjeRasporedComponent implements OnInit {
         grupaB.push(this.teams[i]);
       } 
     }
+
+    
+    console.log(grupaA);
+    console.log(grupaB);
 
     for (let index = 0; index < grupaA.length; index++) {
 
@@ -188,9 +250,14 @@ export class TakmicenjeRasporedComponent implements OnInit {
 
       
     }
+  }
 
-    console.log(grupaA);
-    console.log(grupaB);
+  dodajUtakmicuServis(utakmica){
+    this.userService.addMatch(utakmica).subscribe( (res: any) => {
+      if(res.status != "200"){
+        alert("Problem sa dodavanjem utakmica!");
+      } 
+    })
   }
 
   indiv8TakmicaraSaKvalifikacijama1Pokusaj(competition){
