@@ -6,6 +6,7 @@ import { Athlete } from '../model/athlete';
 import { Competition } from '../model/competition';
 import { Match } from '../model/match';
 import { ResultIndivid } from '../model/resultIndivid';
+import { Team } from '../model/team';
 import { User } from '../model/user';
 import { UserServiceService } from '../services/user-service.service';
 
@@ -24,7 +25,9 @@ export class UnosRezultataComponent implements OnInit {
   tempUserId: string;
   resultsIndiv: ResultIndivid[];
   matches: Match[];
-  numOfTeams: number = 0;
+  faza: string = "";
+
+  fazeTakmicenja: string[] = ["POLU", "FINALE"];
 
   competitionForm: FormGroup = this.fb.group({
     competition: ['', [Validators.required]],
@@ -58,7 +61,6 @@ export class UnosRezultataComponent implements OnInit {
           this.competitions = allCompetitions;
         })
     })
-
   }
 
   selectChangeHandler(event){
@@ -67,7 +69,7 @@ export class UnosRezultataComponent implements OnInit {
       this.userService.getAllIndivResultsForCompetition(event).subscribe((results: ResultIndivid[]) =>{
         this.resultsIndiv = results;
         this.choosenComp = this.competitions.find(competition => competition._id == this.competitionForm.value.competition);
-        this.numOfTeams = this.choosenComp.numOfTeams;
+        this.faza = this.choosenComp.faza;
         console.log(this.choosenComp);
 
         this.userService.getMatchesForCompetition(this.choosenComp.competitionName).subscribe ((matches: Match[]) =>{
@@ -78,7 +80,6 @@ export class UnosRezultataComponent implements OnInit {
       })
 
       // this.userService.getMatchesForCompetition()
-
   }
 
   
@@ -113,8 +114,149 @@ export class UnosRezultataComponent implements OnInit {
   }
 
   unesiRezultatTeam(m){
+
     console.log(this.resultFormTeam.value.team1);
     console.log(this.resultFormTeam.value.team2);
+    console.log(m);
+
+    if(this.resultFormTeam.value.team1 != "" && this.resultFormTeam.value.team2 != ""){
+
+      let team1 = parseInt(this.resultFormTeam.value.team1);
+      let team2 = parseInt(this.resultFormTeam.value.team2);
+
+      this.userService.entryMatchResult(m._id, team1, team2, this.choosenComp.competitionName).subscribe((res: any) =>{
+          
+          if(team1 > team2){
+            this.userService.unesiBodoveIRazliku(m.team1, 2, team1 - team2, this.choosenComp._id);
+            this.userService.unesiBodoveIRazliku(m.team2, 1, 0, this.choosenComp._id);
+          }
+          else{
+            this.userService.unesiBodoveIRazliku(m.team1, 1, 0, this.choosenComp._id);
+            this.userService.unesiBodoveIRazliku(m.team2, 2, team2 - team1, this.choosenComp._id);
+          }
+
+          this.userService.getCompetitionFazaAndNumOfFinishedMatches(this.choosenComp.competitionName).subscribe((res: any) => {
+              let faza = res.faza;
+              let numOfFinishedMatches = res.numOfFinishedMatches;
+
+              switch (numOfFinishedMatches) {
+                case 2:
+                  console.log("2");
+                  if(faza == "FINALE"){
+                    //inc medalje
+                    this.userService.setCompetitionFaza(this.choosenComp.competitionName, "GOTOVO");
+                  }
+                  else if(faza == "POLU") {
+                    this.formirajFinale();
+                    this.userService.setNumOfFinishedMatches(this.choosenComp.competitionName, 0);
+                    this.userService.setCompetitionFaza(this.choosenComp.competitionName, "FINALE");
+                  }
+                  break;
+                case 4:
+                  if(faza == "POLU"){
+                    // napravi mec za 1. mesto
+                    //napravi mec za 3. mesto
+                   
+                  }
+                  else if(faza == "CETVRT"){
+                    // napravi polu
+                  } 
+                  console.log("4");
+                  break;
+                case 30:
+                  //napravi polu
+                  console.log("30");
+                  break;
+              }
+
+              
+            
+          })
+      })
+    }
+      
+  }
+
+  filterItemsOfType(type){
+    if(this.matches != null){
+      return this.matches.filter(m => m.faza == type);
+    }
+  }
+
+  getTeamsSorted(){
+    this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[]) => {
+     console.log(teams.sort((a: Team,b:Team) => b.bodovi - a.bodovi));
+    })
+  }
+
+  formirajFinale(){
+    this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[]) => {
+        let A1: Team = teams.find(m => m.grupa == "A1");
+        let A2: Team = teams.find(m => m.grupa == "A2");
+
+        let B1: Team = teams.find(m => m.grupa == "B1");
+        let B2: Team = teams.find(m => m.grupa == "B2");
+
+        let finaleA: Team; let finaleB: Team;
+        let treceA: Team; let treceB: Team;
+
+        if(A1.bodovi > A2.bodovi){
+          finaleA = A1;
+          treceA = A2;
+        }
+        else{
+          finaleA = A2;
+          treceA = A1;
+        }
+
+        if(B1.bodovi > B2.bodovi){
+          finaleB = B1;
+          treceB = B2;
+        }
+        else{
+          finaleB = B2;
+          treceB = B1;
+        }
+
+        this.dodajMec(finaleA.grupa, finaleB.grupa, this.choosenComp.competitionName, "FINALE", "PRVO");
+        this.dodajMec(treceA.grupa, treceB.grupa, this.choosenComp.competitionName, "FINALE", "TRECE");
+
+     })
+
+    
+    
+  }
+
+  dodajMec(teamGroup1, teamGroup2, competitionName, faza, mesto) {
+
+    this.userService.getTeamByGroupAndCompetitionID(teamGroup1, this.choosenComp._id).subscribe((t1: Team)=>{
+
+      this.userService.getTeamByGroupAndCompetitionID(teamGroup2, this.choosenComp._id).subscribe((t2: Team)=>{
+
+        const newMatch = {
+          "_id": null,
+          "competitionName": this.choosenComp.competitionName,
+          "team1": t1.name,
+          "team2": t2.name,
+          "faza" : faza,
+          "brPoenaTim1" : 0,
+          "brPoenaTim2" : 0,
+          "mesto": mesto
+        }
+
+        this.dodajUtakmicuServis(newMatch);
+
+      })
+    })
+
+  }
+  
+  dodajUtakmicuServis(utakmica){
+    this.userService.addMatch(utakmica).subscribe( (res: any) => {
+      if(res.status != "200"){
+        alert("Problem sa dodavanjem utakmica!");
+      } 
+    })
   }
 
 }

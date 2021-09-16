@@ -30,7 +30,10 @@ let Team = new Schema({
     grupa: {
         type: String
     },
-    brojPoena: {
+    bodovi: {
+        type: Number
+    },
+    razlika: {
         type: Number
     }
 });

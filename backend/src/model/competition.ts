@@ -60,8 +60,11 @@ let Competition = new Schema({
     vremeFinala: {
         type: String
     },
-    numOfTeams: {
+    numOfFinishedMatches: {
         type: Number
+    },
+    faza: {
+        type: String
     }
 });
 

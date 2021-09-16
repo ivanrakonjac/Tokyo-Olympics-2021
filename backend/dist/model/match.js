@@ -26,6 +26,9 @@ let Match = new Schema({
     },
     brPoenaTim2: {
         type: Number
+    },
+    mesto: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('Match', Match, 'matches');

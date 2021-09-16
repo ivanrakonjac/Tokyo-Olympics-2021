@@ -1,11 +1,30 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const body_parser_1 = __importDefault(require("body-parser"));
+const body_parser_1 = __importStar(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("./model/user"));
 const sport_1 = __importDefault(require("./model/sport"));
@@ -628,7 +647,7 @@ router.route('/getTeamsForCompetition').post((req, res) => {
 /**
  * Inc num of team players
  * @param teamName
- * @returns collection of teams
+ * @returns status
  */
 router.route('/incNumOfTeamPlayers').post((req, res) => {
     let teamName = req.body.teamName;
@@ -699,15 +718,100 @@ router.route('/getMatchesForCompetition').post((req, res) => {
     });
 });
 /**
- * Set num of teams for competition
- * @param competitionName
- * @param numOfTeams
+ * Set faza for competition
+ * @param {string} competitionName
+ * @param {string} faza
  * @returns status
  */
-router.route('/setNumOfTeams').post((req, res) => {
+router.route('/setCompetitionFaza').post((req, res) => {
     let competitionName = req.body.competitionName;
-    let numOfTeams = req.body.numOfTeams;
-    competition_1.default.updateOne({ 'competitionName': competitionName }, { "numOfTeams": numOfTeams }, (err, status) => {
+    let faza = req.body.faza;
+    competition_1.default.updateOne({ 'competitionName': competitionName }, { "faza": faza }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+/**
+ * Get faza of competition
+ * @param {string} competitionName
+ * @returns {_id, numOfFinishedMatches, faza}
+ */
+router.route('/getCompetitionFazaAndNumOfFinishedMatches').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    competition_1.default.findOne({ 'competitionName': competitionName }, { "faza": 1, "numOfFinishedMatches": 1 }, (err, comp) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(comp);
+    });
+});
+/**
+ * Inc num of finished matches
+ * @param {string} competitionName
+ * @returns status
+ */
+router.route('/incNumOfFinishedMatches').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    competition_1.default.updateOne({ 'competitionName': competitionName }, { $inc: { numOfFinishedMatches: 1 } }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+/**
+ * Set num of finished matches
+ * @param {string} competitionName
+ * @param {string} value
+ * @returns status
+ */
+router.route('/setNumOfFinishedMatches').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    let value = req.body.value;
+    competition_1.default.updateOne({ 'competitionName': competitionName }, { "numOfFinishedMatches": value }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+/**
+ * Set num of finished matches
+ * @param {string} matchID
+ * @param {number} resTeam1
+ * @param {number} resTeam2
+ * @param {string} competitionName
+ * @returns status
+ */
+router.route('/entryMatchResult').post((req, res) => {
+    let matchID = req.body.matchID;
+    let resTeam1 = req.body.resTeam1;
+    let resTeam2 = req.body.resTeam2;
+    let competitionName = req.body.competitionName;
+    match_1.default.updateOne({ '_id': mongoose_1.default.Types.ObjectId(matchID) }, { "brPoenaTim1": resTeam1, "brPoenaTim2": resTeam2 }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+    incNumOfFinishedMatches(competitionName);
+});
+/**
+ * Unesi bodove i razliku
+ * @param {string} teamName
+ * @param {number} bodovi
+ * @param {number} razlika
+ * @param {string} commpetitionID
+ * @returns status
+ */
+router.route('/unesiBodoveIRazliku').post((req, res) => {
+    let teamName = req.body.teamName;
+    let bodovi = req.body.bodovi;
+    let razlika = req.body.razlika;
+    let commpetitionID = req.body.commpetitionID;
+    team_1.default.updateOne({ 'name': teamName, "competition": commpetitionID }, { $inc: { "bodovi": bodovi, "razlika": razlika } }, (err, status) => {
         if (err)
             console.log(err);
         else
@@ -723,6 +827,14 @@ function otkljucajKolonu(idRes, resultColumnName) {
     console.log(idRes, resultColumnName);
     resultIndivid_1.default.collection.updateOne({ '_id': mongoose_1.default.Types.ObjectId(idRes) }, { $set: { [resultColumnName]: "0" } }).then(result => {
         console.log(result);
+    });
+}
+function incNumOfFinishedMatches(competitionName) {
+    competition_1.default.updateOne({ 'competitionName': competitionName }, { $inc: { numOfFinishedMatches: 1 } }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            return body_parser_1.json(status);
     });
 }
 //# sourceMappingURL=server.js.map

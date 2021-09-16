@@ -54,7 +54,9 @@ export class AddTeamComponent implements OnInit {
       sport: this.registrationForm.value.sport,
       discipline: this.registrationForm.value.discipline,
       country: this.registrationForm.value.country,
-      numOfPlayers: 0
+      numOfPlayers: 0,
+      bodovi: 0,
+      razlika: 0
     }
 
     this.userService.addTeam(newTeam).subscribe((res: any) => {

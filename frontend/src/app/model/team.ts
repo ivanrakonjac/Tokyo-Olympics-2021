@@ -8,5 +8,6 @@ export class Team{
     country: string;
     numOfPlayers: number;
     grupa: string;
-    brojPoena: number;
+    bodovi: number;
+    razlika: number;
 }

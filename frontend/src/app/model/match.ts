@@ -8,4 +8,5 @@ export class Match{
     faza: string;
     brPoenaTim1: number;
     brPoenaTim2: number;
+    mesto: string;
 }

@@ -63,8 +63,11 @@ let Competition = new Schema({
     vremeFinala: {
         type: String
     },
-    numOfTeams: {
+    numOfFinishedMatches: {
         type: Number
+    },
+    faza: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('Competition', Competition, 'competitions');

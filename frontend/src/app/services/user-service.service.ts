@@ -602,6 +602,113 @@ export class UserServiceService {
     });
   }
 
+  /**
+ * Set num of teams for competition
+ * @param {string} competitionName
+ * @param {string} faza
+ * @returns status
+ */
+  setCompetitionFaza(competitionName, faza){
+
+    const data = {
+      "competitionName": competitionName,
+      "faza" : faza
+    }
+
+    return this.http.post(`${this.uri}/setCompetitionFaza`, data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  /**
+   * Inc num of finished matches
+   * @param {string} competitionName
+   * @returns status
+   */
+  incNumOfFinishedMatches(competitionName){
+
+    const data = {
+      "competitionName": competitionName
+    }
+
+    return this.http.post(`${this.uri}/incNumOfFinishedMatches`, data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  /**
+   * Set num of finished matches
+   * @param {string} competitionName
+   * @param {string} value
+   * @returns status
+   */
+  setNumOfFinishedMatches(competitionName, value){
+
+    const data = {
+      "competitionName": competitionName,
+      "value" : value
+    }
+
+    return this.http.post(`${this.uri}/setNumOfFinishedMatches`, data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  /**
+   * Set num of finished matches
+   * @param {string} matchID
+   * @param {number} resTeam1
+   * @param {number} resTeam2
+   * @param {string} competitionName
+   * @returns status
+   */
+   entryMatchResult(matchID, resTeam1, resTeam2, competitionName){
+
+    const data = {
+      "matchID": matchID,
+      "resTeam1" : resTeam1,
+      "resTeam2" : resTeam2,
+      "competitionName" : competitionName
+    }
+
+    return this.http.post(`${this.uri}/entryMatchResult`, data);
+  }
+
+  /**
+ * Unesi bodove i razliku
+ * @param {string} teamName
+ * @param {number} bodovi
+ * @param {number} razlika
+ * @returns status
+ */
+   unesiBodoveIRazliku(teamName, bodovi, razlika, commpetitionID){
+
+    const data = {
+      "teamName": teamName,
+      "bodovi" : bodovi,
+      "razlika" : razlika,
+      "commpetitionID" : commpetitionID
+    }
+
+    return this.http.post(`${this.uri}/unesiBodoveIRazliku`, data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  /**
+ * Get faza of competition
+ * @param {string} competitionName
+ * @returns status
+ */
+  getCompetitionFazaAndNumOfFinishedMatches(competitionName){
+
+    const data = {
+      "competitionName": competitionName
+    }
+
+    return this.http.post(`${this.uri}/getCompetitionFazaAndNumOfFinishedMatches`, data);
+  }
+
 }
 
 

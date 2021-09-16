@@ -689,7 +689,7 @@ router.route('/getSportOfAthlete').post((req, res)=>{
 /**
  * Inc num of team players
  * @param teamName
- * @returns collection of teams
+ * @returns status
  */
  router.route('/incNumOfTeamPlayers').post((req, res)=>{
     let teamName = req.body.teamName;
@@ -770,20 +770,112 @@ router.route('/getSportOfAthlete').post((req, res)=>{
 });
 
 /**
- * Set num of teams for competition
- * @param competitionName
- * @param numOfTeams
+ * Set faza for competition
+ * @param {string} competitionName
+ * @param {string} faza
  * @returns status
  */
- router.route('/setNumOfTeams').post((req, res)=>{
+ router.route('/setCompetitionFaza').post((req, res)=>{
     let competitionName = req.body.competitionName;
-    let numOfTeams = req.body.numOfTeams;
+    let faza = req.body.faza;
 
-    competition.updateOne({'competitionName': competitionName}, {"numOfTeams": numOfTeams}, (err, status) => {
+    competition.updateOne({'competitionName': competitionName}, {"faza": faza}, (err, status) => {
         if (err)
             console.log(err);
         else
             res.json(status);
+    });
+});
+
+/**
+ * Get faza of competition
+ * @param {string} competitionName
+ * @returns {_id, numOfFinishedMatches, faza}
+ */
+ router.route('/getCompetitionFazaAndNumOfFinishedMatches').post((req, res)=>{
+    let competitionName = req.body.competitionName;
+
+    competition.findOne({'competitionName': competitionName}, {"faza": 1, "numOfFinishedMatches" : 1}, (err, comp) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(comp);
+    });
+});
+
+/**
+ * Inc num of finished matches
+ * @param {string} competitionName
+ * @returns status
+ */
+ router.route('/incNumOfFinishedMatches').post((req, res)=>{
+    let competitionName = req.body.competitionName;
+
+    competition.updateOne({'competitionName': competitionName},{$inc: {numOfFinishedMatches: 1}}, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+
+/**
+ * Set num of finished matches
+ * @param {string} competitionName
+ * @param {string} value
+ * @returns status
+ */
+ router.route('/setNumOfFinishedMatches').post((req, res)=>{
+    let competitionName = req.body.competitionName;
+    let value = req.body.value;
+
+    competition.updateOne({'competitionName': competitionName}, {"numOfFinishedMatches": value}, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+
+/**
+ * Set num of finished matches
+ * @param {string} matchID
+ * @param {number} resTeam1
+ * @param {number} resTeam2
+ * @param {string} competitionName
+ * @returns status
+ */
+ router.route('/entryMatchResult').post((req, res)=>{
+    let matchID = req.body.matchID;
+    let resTeam1 = req.body.resTeam1;
+    let resTeam2 = req.body.resTeam2;
+    let competitionName = req.body.competitionName;
+
+    match.updateOne({'_id':  mongoose.Types.ObjectId(matchID)}, {"brPoenaTim1": resTeam1, "brPoenaTim2" : resTeam2}, (err, status) => {
+        if (err) console.log(err);
+        else res.json(status);
+    });
+
+    incNumOfFinishedMatches(competitionName);
+});
+
+/**
+ * Unesi bodove i razliku
+ * @param {string} teamName
+ * @param {number} bodovi
+ * @param {number} razlika
+ * @param {string} commpetitionID
+ * @returns status
+ */
+ router.route('/unesiBodoveIRazliku').post((req, res)=>{
+    let teamName = req.body.teamName;
+    let bodovi = req.body.bodovi;
+    let razlika = req.body.razlika;
+    let commpetitionID = req.body.commpetitionID;
+
+    team.updateOne({'name': teamName, "competition" : commpetitionID}, {$inc: {"bodovi": bodovi, "razlika" : razlika}}, (err, status) => {
+        if (err) console.log(err);
+        else res.json(status);
     });
 });
 
@@ -798,6 +890,13 @@ function otkljucajKolonu(idRes: string, resultColumnName: string) {
     console.log(idRes, resultColumnName);
     resultIndivid.collection.updateOne({'_id': mongoose.Types.ObjectId(idRes)}, {$set: {[resultColumnName]: "0"}}).then(result =>{
         console.log(result);
+    });
+}
+
+function incNumOfFinishedMatches(competitionName : string){
+    competition.updateOne({'competitionName': competitionName}, {$inc: {numOfFinishedMatches: 1}}, (err, status) => {
+        if (err) console.log(err);
+        else return json(status);
     });
 }
 

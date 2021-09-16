@@ -25,12 +25,8 @@
             </mat-form-field>
         </div>
 
-        <button mat-flat-button color="primary">POTVRDI</button>
+        <button mat-flat-button color="primary">IZABERI</button>
       </form>
-
-      <div class="button-row">
-        <p>Napravi raspored</p>
-      </div>
     </mat-card-content>
   </mat-card>
 
@@ -111,9 +107,14 @@
       </tr>
   </table>
 
-  <p *ngIf='numOfTeams!=0'>EKIPNI</p>
+  <hr/>
+  <p >EKIPNI SPORTOVI</p>
+  <hr/>
 
-  <table >
+  <table *ngFor='let f of fazeTakmicenja'>
+
+    <p>FAZA: {{f}}</p>
+    
     <tr>
       <td>Competition</td>
       <td>team1</td>
@@ -121,8 +122,9 @@
       <td>Poeni1</td>
       <td>Poeni2</td>
       <td>Upisi</td>
+      <td>Mesto</td>
     </tr>
-    <tr *ngFor='let m of matches' ngForm="resultForm" name="resultForm" [formGroup]="resultForm" (ngSubmit)="unesiRezultat()">
+    <tr *ngFor='let m of filterItemsOfType(f)' ngForm="resultForm" name="resultForm" [formGroup]="resultForm" (ngSubmit)="unesiRezultat()">
       <td>{{m.competitionName}}</td>
       <td>{{m.team1}}</td>
       <td>{{m.team2}}</td>
@@ -135,7 +137,8 @@
         <div  [formGroup]="resultFormTeam"><input *ngIf='m.brPoenaTim2==0' type="number" formControlName="team2"></div>
       </td>
       <td>
-        <button type='submit' [formGroup]="resultFormTeam" (click)="unesiRezultatTeam(m)">UNESI</button>
+        <button *ngIf='m.brPoenaTim1==0' type='submit' [formGroup]="resultFormTeam" (click)="unesiRezultatTeam(m)">UNESI</button>
       </td>
+      <td>{{m.mesto}}</td>
     </tr>
   </table>

@@ -116,7 +116,9 @@ export class AddCompetitionComponent implements OnInit {
       formatRezultata: this.registrationForm.value.formatRezultata,
       minTakmicara:this.registrationForm.value.minTakmicara,
       maxTakmicara: this.registrationForm.value.maxTakmicara,
-      maxTakmicaraUFinalu: this.registrationForm.value.maxTakmicaraUFinalu
+      maxTakmicaraUFinalu: this.registrationForm.value.maxTakmicaraUFinalu,
+      numOfFinishedMatches: 0,
+      faza: "/" 
     }
 
     this.userService.addCompetition(newCompetition).subscribe((competition: any)=>{
