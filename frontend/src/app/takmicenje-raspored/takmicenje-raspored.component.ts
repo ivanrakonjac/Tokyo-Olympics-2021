@@ -193,8 +193,8 @@ export class TakmicenjeRasporedComponent implements OnInit {
     }
 
     for (let index = 0; index < grupaA.length; index++) {
-      this.userService.setTeamGroupName(grupaA[index].name, "A" + (index + 1) );
-      this.userService.setTeamGroupName(grupaB[index].name, "B" + (index + 1) );     
+      this.userService.setTeamGroupName(grupaA[index].name, "A" + (index + 1));
+      this.userService.setTeamGroupName(grupaB[index].name, "B" + (index + 1));     
     }
   }
 

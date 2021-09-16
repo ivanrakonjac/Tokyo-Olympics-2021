@@ -27,7 +27,7 @@ export class UnosRezultataComponent implements OnInit {
   matches: Match[];
   faza: string = "";
 
-  fazeTakmicenja: string[] = ["POLU", "FINALE"];
+  fazeTakmicenja: string[] = ["GrupaA", "GrupaB","CETVRT", "POLU", "FINALE"];
 
   competitionForm: FormGroup = this.fb.group({
     competition: ['', [Validators.required]],
@@ -153,19 +153,18 @@ export class UnosRezultataComponent implements OnInit {
                   }
                   break;
                 case 4:
-                  if(faza == "POLU"){
-                    // napravi mec za 1. mesto
-                    //napravi mec za 3. mesto
-                   
+                  if(faza == "CETVRT"){
+                    this.formirajPoluFinale();
+                    this.userService.setNumOfFinishedMatches(this.choosenComp.competitionName, 0);
+                    this.userService.setCompetitionFaza(this.choosenComp.competitionName, "POLU");
+                    console.log("CETVRT INSIDE");
                   }
-                  else if(faza == "CETVRT"){
-                    // napravi polu
-                  } 
-                  console.log("4");
+                  console.log("CETVRT");
                   break;
                 case 30:
-                  //napravi polu
-                  console.log("30");
+                  this.formirajCetvrtFinale();
+                  this.userService.setCompetitionFaza(this.choosenComp.competitionName, "CETVRT");
+                  this.userService.setNumOfFinishedMatches(this.choosenComp.competitionName, 0);
                   break;
               }
 
@@ -189,13 +188,38 @@ export class UnosRezultataComponent implements OnInit {
     })
   }
 
+  formirajCetvrtFinale(){
+    this.userService.getSortedTeams(this.choosenComp._id, "GrupaA").subscribe((teamsA:Team[])=> {
+      this.userService.getSortedTeams(this.choosenComp._id, "GrupaB").subscribe((teamsB:Team[])=> {
+        
+        for (let i = 0; i < 4; i++) {
+          this.userService.setTeamGroupName2(teamsA[i].name, "A" + (i+1)).subscribe(resultA => {
+            this.userService.setTeamGroupName2(teamsB[i].name, "B" + (i+1)).subscribe(resultB => {
+
+              this.userService.resetBodoveIRazliku(teamsA[i].name, this.choosenComp._id);
+              this.userService.resetBodoveIRazliku(teamsB[i].name, this.choosenComp._id);
+
+              if(i==3){
+                this.dodajMec("A1", "B4", this.choosenComp.competitionName, "CETVRT", "");
+                this.dodajMec("B2", "A3", this.choosenComp.competitionName, "CETVRT", "");
+                this.dodajMec("B1", "A4", this.choosenComp.competitionName, "CETVRT", "");
+                this.dodajMec("A2", "B3", this.choosenComp.competitionName, "CETVRT", "");
+              }
+            })
+          })
+          
+        }
+      })
+    })
+  }
+
   formirajFinale(){
     this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[]) => {
-        let A1: Team = teams.find(m => m.grupa == "A1");
-        let A2: Team = teams.find(m => m.grupa == "A2");
+        let A1: Team = teams.find(m => m.grupa == "AA1");
+        let A2: Team = teams.find(m => m.grupa == "AA2");
 
-        let B1: Team = teams.find(m => m.grupa == "B1");
-        let B2: Team = teams.find(m => m.grupa == "B2");
+        let B1: Team = teams.find(m => m.grupa == "BB1");
+        let B2: Team = teams.find(m => m.grupa == "BB2");
 
         let finaleA: Team; let finaleB: Team;
         let treceA: Team; let treceB: Team;
@@ -221,10 +245,70 @@ export class UnosRezultataComponent implements OnInit {
         this.dodajMec(finaleA.grupa, finaleB.grupa, this.choosenComp.competitionName, "FINALE", "PRVO");
         this.dodajMec(treceA.grupa, treceB.grupa, this.choosenComp.competitionName, "FINALE", "TRECE");
 
+        this.userService.resetBodoveIRazliku2(finaleA.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(finaleA.name, "F1");
+        });
+        this.userService.resetBodoveIRazliku2(finaleB.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(finaleB.name, "F2");
+        });
+        this.userService.resetBodoveIRazliku2(treceA.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(treceA.name, "T1");
+        });
+        this.userService.resetBodoveIRazliku2(treceB.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(treceB.name, "T2");
+        });
+
      })
 
-    
-    
+  }
+
+  formirajPoluFinale(){
+    this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[]) => {
+
+        let A1: Team = teams.find(m => m.grupa == "A1"); let A2: Team = teams.find(m => m.grupa == "A2");
+        let A3: Team = teams.find(m => m.grupa == "A3"); let A4: Team = teams.find(m => m.grupa == "A4");
+
+        let B1: Team = teams.find(m => m.grupa == "B1"); let B2: Team = teams.find(m => m.grupa == "B2");
+        let B3: Team = teams.find(m => m.grupa == "B3"); let B4: Team = teams.find(m => m.grupa == "B4");
+
+        let A1B4: Team; let B2A3: Team;
+        let B1A4: Team; let A2B3: Team;
+
+        if(A1.bodovi > B4.bodovi) A1B4 = A1;
+        else A1B4 = B4;  
+
+        if(B2.bodovi > A3.bodovi) B2A3 = B2;
+        else B2A3 = A3;  
+
+        if(B1.bodovi > A4.bodovi) B1A4 = B1;
+        else B1A4 = A4; 
+
+        if(A2.bodovi > B3.bodovi) A2B3 = A2;
+        else A2B3 = B3; 
+
+        console.log(A1B4);
+        console.log(B2A3);
+        console.log(B1A4);
+        console.log(A2B3);
+
+        this.dodajMec(A1B4.grupa, B2A3.grupa, this.choosenComp.competitionName, "POLU", "");
+        this.dodajMec(B1A4.grupa, A2B3.grupa, this.choosenComp.competitionName, "POLU", "");
+
+        this.userService.resetBodoveIRazliku2(A1B4.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(A1B4.name, "AA1");
+        });
+        this.userService.resetBodoveIRazliku2(B2A3.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(B2A3.name, "AA2");
+        });
+        this.userService.resetBodoveIRazliku2(B1A4.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(B1A4.name, "BB1");
+        });
+        this.userService.resetBodoveIRazliku2(A2B3.name, this.choosenComp._id).subscribe(res => {
+          this.userService.setTeamGroupName(A2B3.name, "BB2");
+        });
+
+     })
+
   }
 
   dodajMec(teamGroup1, teamGroup2, competitionName, faza, mesto) {

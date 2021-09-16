@@ -645,6 +645,22 @@ router.route('/getTeamsForCompetition').post((req, res) => {
     });
 });
 /**
+ * Get all teams for competiton and group order by bodovi,razlika
+ * @param {string} competitionID
+ * @param {string} grupa
+ * @returns collection of teams
+ */
+router.route('/getSortedTeams').post((req, res) => {
+    let competitionID = req.body.competitionID;
+    let grupa = req.body.grupa;
+    team_1.default.find({ 'competition': competitionID, grupa: grupa }, (err, teams) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(teams);
+    }).sort({ bodovi: -1, razlika: -1 }).limit(4);
+});
+/**
  * Inc num of team players
  * @param teamName
  * @returns status
@@ -660,7 +676,7 @@ router.route('/incNumOfTeamPlayers').post((req, res) => {
 });
 /**
  * Set group name of team
- * @param teamName
+ * @param {string} teamName
  * @param groupName (grupaA/grupaB)
  * @returns status
  */
@@ -778,7 +794,7 @@ router.route('/setNumOfFinishedMatches').post((req, res) => {
     });
 });
 /**
- * Set num of finished matches
+ * Entry Match Result
  * @param {string} matchID
  * @param {number} resTeam1
  * @param {number} resTeam2
@@ -812,6 +828,22 @@ router.route('/unesiBodoveIRazliku').post((req, res) => {
     let razlika = req.body.razlika;
     let commpetitionID = req.body.commpetitionID;
     team_1.default.updateOne({ 'name': teamName, "competition": commpetitionID }, { $inc: { "bodovi": bodovi, "razlika": razlika } }, (err, status) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(status);
+    });
+});
+/**
+ * Resetuj bodove i razliku
+ * @param {string} teamName
+ * @param {string} commpetitionID
+ * @returns status
+ */
+router.route('/resetBodoveIRazliku').post((req, res) => {
+    let teamName = req.body.teamName;
+    let commpetitionID = req.body.commpetitionID;
+    team_1.default.updateOne({ 'name': teamName, "competition": commpetitionID }, { "bodovi": 0, "razlika": 0 }, (err, status) => {
         if (err)
             console.log(err);
         else

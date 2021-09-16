@@ -509,6 +509,22 @@ export class UserServiceService {
   }
 
   /**
+ * Get all teams for competiton and group order by bodovi,razlika
+ * @param {string} competitionID
+ * @param {string} grupa
+  * @returns collection of teams
+ */
+  getSortedTeams(competitionID, grupa){
+
+    const data = {
+      competitionID: competitionID,
+      grupa : grupa
+    }
+
+    return this.http.post(`${this.uri}/getSortedTeams`, data);
+  }
+
+  /**
    * Inc num of team players
    * @param teamName
    * @returns collection of teams
@@ -525,9 +541,10 @@ export class UserServiceService {
     });
   }
 
-  /**
+/**
  * Set group name of team
- * @param teamName
+ * @param {string} teamName
+ * @param {string} commpetitionID
  * @param groupName (grupaA/grupaB)
  * @returns status
  */
@@ -543,6 +560,23 @@ export class UserServiceService {
       console.log(res);
     });
   }
+
+    /**
+   * Set group name of team
+   * @param teamName
+   * @param {string} commpetitionID
+   * @param groupName (grupaA/grupaB)
+   * @returns status
+   */
+    setTeamGroupName2(teamName, groupName){
+  
+      const data = {
+        "teamName": teamName,
+        "groupName": groupName
+      }
+  
+      return this.http.post(`${this.uri}/setTeamGroupName`, data);
+    }
 
   /**
    * Dodaj match
@@ -694,6 +728,41 @@ export class UserServiceService {
       console.log(res);
     });
   }
+
+  
+/**
+ * Resetuj bodove i razliku
+ * @param {string} teamName
+ * @param {string} commpetitionID
+ * @returns status
+ */
+ resetBodoveIRazliku(teamName, commpetitionID){
+
+    const data = {
+      "teamName": teamName,
+      "commpetitionID" : commpetitionID
+    }
+
+    return this.http.post(`${this.uri}/resetBodoveIRazliku`, data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  /**
+ * Resetuj bodove i razliku
+ * @param {string} teamName
+ * @param {string} commpetitionID
+ * @returns status
+ */
+ resetBodoveIRazliku2(teamName, commpetitionID){
+
+  const data = {
+    "teamName": teamName,
+    "commpetitionID" : commpetitionID
+  }
+
+  return this.http.post(`${this.uri}/resetBodoveIRazliku`, data);
+}
 
   /**
  * Get faza of competition
