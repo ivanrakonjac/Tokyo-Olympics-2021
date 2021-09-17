@@ -14,9 +14,11 @@ import { OrganizatorComponent } from './organizator/organizator.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { TakmicenjeRasporedComponent } from './takmicenje-raspored/takmicenje-raspored.component';
 import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.component';
+import { UnregisterUserComponent } from './unregister-user/unregister-user.component';
 import { UserConfirmationTableComponent } from './user-confirmation-table/user-confirmation-table.component';
 
 const routes: Routes = [
+  {path:"", component: UnregisterUserComponent},
   {path:"addAthletesToTeamFromFile", component: FileUploadComponent},
   {path:"addAthleteToTeam", component: AddAthleteToTeamComponent},
   {path:"addTeam", component: AddTeamComponent},

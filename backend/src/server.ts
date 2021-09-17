@@ -913,6 +913,39 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     });
 });
 
+/**
+ * Pretraga sportista
+ * @params firstname, lastname, sport, discipline, sex
+ * @returns colletcion of athletes
+ */
+ router.route('/searchAthletes').post((req, res)=>{
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    let sport = req.body.sport;
+    let discipline = req.body.discipline;
+    let sex = req.body.sex;
+
+    let query : any = {};
+
+    if(firstname != "") query["firstname"] = firstname;
+    if(lastname != "") query["lastname"] = lastname;
+    if(sport != "") query["sport"] = sport;
+    if(discipline != "") query["discipline"] = discipline;
+    if(sex != "") query["sex"] = sex;
+
+    console.log(firstname);
+    console.log(lastname);
+    console.log(sport);
+    console.log(discipline);
+    console.log(sex);
+    console.log(query);
+
+    athlete.find(query, (err, athletes) => {
+        if (err) console.log(err);
+        else res.json(athletes);
+    });
+});
+
 
 
 app.use('/', router);

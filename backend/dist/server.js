@@ -850,6 +850,41 @@ router.route('/resetBodoveIRazliku').post((req, res) => {
             res.json(status);
     });
 });
+/**
+ * Pretraga sportista
+ * @params firstname, lastname, sport, discipline, sex
+ * @returns colletcion of athletes
+ */
+router.route('/searchAthletes').post((req, res) => {
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    let sport = req.body.sport;
+    let discipline = req.body.discipline;
+    let sex = req.body.sex;
+    let query = {};
+    if (firstname != "")
+        query["firstname"] = firstname;
+    if (lastname != "")
+        query["lastname"] = lastname;
+    if (sport != "")
+        query["sport"] = sport;
+    if (discipline != "")
+        query["discipline"] = discipline;
+    if (sex != "")
+        query["sex"] = sex;
+    console.log(firstname);
+    console.log(lastname);
+    console.log(sport);
+    console.log(discipline);
+    console.log(sex);
+    console.log(query);
+    athlete_1.default.find(query, (err, athletes) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(athletes);
+    });
+});
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
 function unesiRezultat(idRes, resultColumnName, value) {

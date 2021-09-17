@@ -778,6 +778,24 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/getCompetitionFazaAndNumOfFinishedMatches`, data);
   }
 
+  /**
+ * Pretraga sportista
+ * @params firstname, lastname, sport, discipline, sex
+ * @returns colletcion of athletes
+ */
+  searchAthletes(firstname, lastname, sport, discipline, sex){
+
+    const data = {
+      "firstname" : firstname,
+      "lastname" : lastname,
+      "sport" : sport,
+      "discipline" : discipline,
+      "sex" : sex
+    }
+
+    return this.http.post(`${this.uri}/searchAthletes`, data);
+  }
+
 }
 
 
