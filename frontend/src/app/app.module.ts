@@ -38,7 +38,8 @@ import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.componen
 import { AddTeamComponent } from './add-team/add-team.component';
 import { AddAthleteToTeamComponent } from './add-athlete-to-team/add-athlete-to-team.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-import { CountryTableComponent } from './country-table/country-table.component'; 
+import { CountryTableComponent } from './country-table/country-table.component';
+import { AthletesTableComponent } from './athletes-table/athletes-table.component'; 
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CountryTableComponent } from './country-table/country-table.component';
     AddTeamComponent,
     AddAthleteToTeamComponent,
     FileUploadComponent,
-    CountryTableComponent
+    CountryTableComponent,
+    AthletesTableComponent
   ],
   imports: [
     BrowserModule,

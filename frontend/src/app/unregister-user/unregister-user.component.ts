@@ -38,35 +38,4 @@ export class UnregisterUserComponent implements OnInit {
       this.disciplines = disc;
     })
   }
-
-  searchForm: FormGroup = this.fb.group({
-    firstname: [''],
-    lastname: [''],
-    sport: [''],
-    discipline: [''],
-    sex: ['']
-  })
-
-  onRegister() {
-    if (!this.searchForm.valid) {
-      return;
-    }
-
-    this.userService.searchAthletes(
-      this.searchForm.value.firstname,
-      this.searchForm.value.lastname,
-      this.searchForm.value.sport,
-      this.searchForm.value.discipline,
-      this.searchForm.value.sex).subscribe((atls: Athlete[])=>{
-        this.athletes = atls;
-        console.log(this.athletes);
-      });
-
-  }
-
-  selectChangeHandlerSport(event: any){
-    this.userService.getAllDisciplinesForSport(event).subscribe((disc: Discipline[])=>{
-      this.disciplines = disc;
-    })
-  }
 }
