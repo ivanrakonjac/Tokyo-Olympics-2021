@@ -460,6 +460,18 @@ router.route('/addCountry').post((req, res) => {
         res.status(400).json({ 'country': 'no' });
     });
 });
+/**
+ * Get all countries
+ * @returns collection of countries
+ */
+router.route('/getAllCountries').get((req, res) => {
+    country_1.default.find((err, countries) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(countries);
+    });
+});
 /***********************************- Raspored takmicenja -************************************************ */
 /**
  * Get all athletes for competition
@@ -872,12 +884,6 @@ router.route('/searchAthletes').post((req, res) => {
         query["discipline"] = discipline;
     if (sex != "")
         query["sex"] = sex;
-    console.log(firstname);
-    console.log(lastname);
-    console.log(sport);
-    console.log(discipline);
-    console.log(sex);
-    console.log(query);
     athlete_1.default.find(query, (err, athletes) => {
         if (err)
             console.log(err);

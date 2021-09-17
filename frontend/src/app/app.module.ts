@@ -37,7 +37,8 @@ import { TakmicenjeRasporedComponent } from './takmicenje-raspored/takmicenje-ra
 import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { AddAthleteToTeamComponent } from './add-athlete-to-team/add-athlete-to-team.component';
-import { FileUploadComponent } from './file-upload/file-upload.component'; 
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { CountryTableComponent } from './country-table/country-table.component'; 
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     UnosRezultataComponent,
     AddTeamComponent,
     AddAthleteToTeamComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    CountryTableComponent
   ],
   imports: [
     BrowserModule,

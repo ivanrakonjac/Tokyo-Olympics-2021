@@ -474,6 +474,18 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     })
 });
 
+/**
+ * Get all countries
+ * @returns collection of countries
+ */
+ router.route('/getAllCountries').get((req, res)=>{
+
+    country.find((err, countries) => {
+        if (err) console.log(err);
+        else  res.json(countries);
+    });
+});
+
 /***********************************- Raspored takmicenja -************************************************ */
 
 /**
@@ -932,13 +944,6 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     if(sport != "") query["sport"] = sport;
     if(discipline != "") query["discipline"] = discipline;
     if(sex != "") query["sex"] = sex;
-
-    console.log(firstname);
-    console.log(lastname);
-    console.log(sport);
-    console.log(discipline);
-    console.log(sex);
-    console.log(query);
 
     athlete.find(query, (err, athletes) => {
         if (err) console.log(err);

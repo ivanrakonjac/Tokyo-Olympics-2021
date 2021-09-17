@@ -331,6 +331,14 @@ export class UserServiceService {
   }
 
   /**
+ * Get all countries
+ * @returns collection of countries
+ */
+   getAllCountries(){
+    return this.http.get(`${this.uri}/getAllCountries`);
+  }
+
+  /**
    *  Get all competitions for specific delegate
    *
    * @param delegateID

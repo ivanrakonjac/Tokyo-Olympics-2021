@@ -3,31 +3,33 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { UserServiceService } from '../services/user-service.service';
+import { Country } from '../model/country';
 import { Router } from '@angular/router';
 import { Competition } from '../model/competition';
+import { UserServiceService } from '../services/user-service.service';
 
 // TODO: Replace this with your own data model type
-export interface FormCompetitionTableItem extends Competition{}
+export interface CountryTableItem extends Country{}
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: FormCompetitionTableItem[] = [];
+const EXAMPLE_DATA: CountryTableItem[] = [];
 
 /**
- * Data source for the FormCompetitionTable view. This class should
+ * Data source for the CountryTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class FormCompetitionTableDataSource extends DataSource<FormCompetitionTableItem> {
-  data: FormCompetitionTableItem[];
+export class CountryTableDataSource extends DataSource<CountryTableItem> {
+  data: CountryTableItem[];
   paginator: MatPaginator;
   sort: MatSort;
 
   constructor(private userService: UserServiceService, private router: Router) {
     super();
 
-    this.userService.getAllUnformedCompetitions().subscribe((comps : Competition[]) => {
-      this.data = comps;
+    this.userService.getAllCountries().subscribe((coutries : Country[]) => {
+      this.data = coutries;
+      console.log(this.data)
     })
 
   }
@@ -37,7 +39,7 @@ export class FormCompetitionTableDataSource extends DataSource<FormCompetitionTa
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<FormCompetitionTableItem[]> {
+  connect(): Observable<CountryTableItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -61,7 +63,7 @@ export class FormCompetitionTableDataSource extends DataSource<FormCompetitionTa
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: FormCompetitionTableItem[]) {
+  private getPagedData(data: CountryTableItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -70,7 +72,7 @@ export class FormCompetitionTableDataSource extends DataSource<FormCompetitionTa
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: FormCompetitionTableItem[]) {
+  private getSortedData(data: CountryTableItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -78,10 +80,11 @@ export class FormCompetitionTableDataSource extends DataSource<FormCompetitionTa
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.competitionName, b.competitionName, isAsc);
-        case 'sport': return compare(a.sport, b.sport, isAsc);
-        case 'discipline': return compare(a.discipline, b.discipline, isAsc);
-        // case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'name': return compare(a.brojSportista, b.brojSportista, isAsc);
+        case 'name': return compare(a.brojZlatnihMedalja, b.brojZlatnihMedalja, isAsc);
+        case 'name': return compare(a.brojSrebrnihMedalja, b.brojSrebrnihMedalja, isAsc);
+        case 'name': return compare(a.brojBronzanihMedalja, b.brojBronzanihMedalja, isAsc);
         default: return 0;
       }
     });
