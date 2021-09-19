@@ -22,7 +22,7 @@ export class AthletesTableComponent implements AfterViewInit, OnInit {
   dataSource: AthletesTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'firstname', 'lastname', 'competition', 'sex', 'sport', 'discipline' ];
+  displayedColumns = ['id', 'firstname', 'lastname', 'competition', 'sex', 'sport', 'discipline', 'zastava' ];
 
   constructor(private fb: FormBuilder, private userService: UserServiceService, private router: Router) { }
 

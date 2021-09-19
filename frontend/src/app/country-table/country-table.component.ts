@@ -18,7 +18,7 @@ export class CountryTableComponent implements AfterViewInit, OnInit {
   dataSource: CountryTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'brojSportista','brojZlatnihMedalja', 'brojSrebrnihMedalja', 'brojBronzanihMedalja'];
+  displayedColumns = ['id', 'name', 'brojSportista','brojZlatnihMedalja', 'brojSrebrnihMedalja', 'brojBronzanihMedalja', 'zastava'];
 
   constructor(private userService: UserServiceService, private router: Router) {}
 

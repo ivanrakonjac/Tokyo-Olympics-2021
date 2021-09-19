@@ -127,6 +127,13 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Discipline</th>
           <td mat-cell *matCellDef="let row1">{{row1.discipline}}</td>
         </ng-container>
+
+        <ng-container matColumnDef="zastava">
+          <th mat-header-cell *matHeaderCellDef>Zastava</th>
+          <td mat-cell *matCellDef="let row1">
+            <img src="{{'../assets/flags/' + row1.country + '.svg'}}" alt="flag" /> 
+          </td>
+        </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row1; columns: displayedColumns;"></tr>
