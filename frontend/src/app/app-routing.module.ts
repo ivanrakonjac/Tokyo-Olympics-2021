@@ -7,6 +7,7 @@ import { AddCompetitionComponent } from './add-competition/add-competition.compo
 import { AddSportDisciplineComponent } from './add-sport-discipline/add-sport-discipline.component';
 import { AddSportComponent } from './add-sport/add-sport.component';
 import { AddTeamComponent } from './add-team/add-team.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
 import { LoginComponent } from './login/login.component';
@@ -35,7 +36,8 @@ const routes: Routes = [
   {path:"organizator", component: OrganizatorComponent},
   {path:"delegat", component: OrganizatorComponent},
   {path:"vodjaDelegacije", component: OrganizatorComponent},
-  {path:"login", component: LoginComponent}
+  {path:"login", component: LoginComponent},
+  {path:"change-password", component: ChangePasswordComponent}
 ];
 
 @NgModule({

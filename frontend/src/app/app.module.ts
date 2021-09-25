@@ -39,7 +39,8 @@ import { AddTeamComponent } from './add-team/add-team.component';
 import { AddAthleteToTeamComponent } from './add-athlete-to-team/add-athlete-to-team.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { CountryTableComponent } from './country-table/country-table.component';
-import { AthletesTableComponent } from './athletes-table/athletes-table.component'; 
+import { AthletesTableComponent } from './athletes-table/athletes-table.component';
+import { ChangePasswordComponent } from './change-password/change-password.component'; 
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { AthletesTableComponent } from './athletes-table/athletes-table.componen
     AddAthleteToTeamComponent,
     FileUploadComponent,
     CountryTableComponent,
-    AthletesTableComponent
+    AthletesTableComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

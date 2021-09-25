@@ -51,6 +51,24 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/getUserId`, data);
   }
 
+  /**
+ * Update passworda
+ * 
+ * @param {string} username
+ * @param {string} newPassword
+ * 
+ * @returns status
+ */
+  changePassword(username, newPassword){
+    
+    const data = {
+      username: username,
+      newPassword: newPassword
+    }
+
+    return this.http.post(`${this.uri}/changePassword`, data);
+  }
+
 
   /**
    * Proverava da li za prosledjenu zemlju vodja delegacije vec postoji u bazi

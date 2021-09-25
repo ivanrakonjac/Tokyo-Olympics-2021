@@ -57,6 +57,26 @@ router.route('/getUserId').post((req, res)=>{
 });
 
 /**
+ * Update passworda
+ * 
+ * @param {string} username
+ * @param {string} newPassword
+ * 
+ * @returns status
+ */
+ router.route('/changePassword').post((req, res)=>{
+    let username = req.body.username;
+    let newPassword = req.body.newPassword;
+
+    user.collection.updateOne({'username': username}, {$set: {'password': newPassword}}).then(a=>{
+        res.status(200).json({'passwordChanged':'ok'});
+    }).catch(err=>{
+        res.status(400).json({'passwordChanged':'no'});
+    })
+
+});
+
+/**
  * Provera ima li vec vodje za prosledjenu zemlju
  * 
  * @returns res.json()
