@@ -542,6 +542,24 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     });
 });
 
+
+/**
+ * Get athlete's country
+ * 
+ * @param {string} athleteID
+ * @returns athlete
+ */
+ router.route('/getAthletesCountry').post((req, res)=>{
+    let athleteID = req.body.athleteID;
+
+    athlete.findOne({'_id':mongoose.Types.ObjectId(athleteID)}, (err, athlete) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(athlete);
+    });
+});
+
 /**
  * Dodaj individualni rezultat
  * @param resultIndiv
@@ -997,6 +1015,55 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     record.find({}, (err, records) => {
         if (err) console.log(err);
         else res.json(records);
+    });
+});
+
+/**
+ * Inc num of medals for country
+ * @param {string} coutryName
+ * @param {number} medalType
+ * @returns status
+ */
+ router.route('/incCountryNumOfMedals').post((req, res)=>{
+    let coutryName = req.body.coutryName;
+    let medalType = req.body.medalType;
+
+    switch(medalType){
+        case 1: 
+            country.updateOne({'name': coutryName}, {$inc: {brojZlatnihMedalja: 1}}, (err, status) => {
+                if (err) console.log(err);
+                else res.json(status);
+            });
+            break;
+        case 2:
+            country.updateOne({'name': coutryName}, {$inc: {brojSrebrnihMedalja: 1}}, (err, status) => {
+                if (err) console.log(err);
+                else res.json(status);
+            });
+            break;
+        case 3:
+            country.updateOne({'name': coutryName}, {$inc: {brojBronzanihMedalja: 1}}, (err, status) => {
+                if (err) console.log(err);
+                else res.json(status);
+            });
+            break;
+    }
+});
+
+/**
+ * Dohvati mec za medalju
+ *
+ * @param {string} competitionName
+ * @param {string} mesto
+ * @returns collection of records
+ */
+ router.route('/getMatchForMedal').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    let mesto = req.body.mesto;
+
+    match.findOne({competitionName: competitionName, mesto: mesto}, (err, match) => {
+        if (err) console.log(err);
+        else res.json(match);
     });
 });
 

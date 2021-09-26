@@ -513,11 +513,26 @@ router.route('/getAllAthletesForCompetition').post((req, res) => {
  */
 router.route('/getAllSportsForCountry').post((req, res) => {
     let countryName = req.body.countryName;
-    athlete_1.default.find({ 'country': countryName }, { _id: 0, sport: 1 }, (err, athletes) => {
+    athlete_1.default.find({ 'country': countryName }, { _id: 0, sport: 1 }, (err, objects) => {
         if (err)
             console.log(err);
         else
-            res.json(athletes);
+            res.json(objects);
+    });
+});
+/**
+ * Get athlete's country
+ *
+ * @param {string} athleteID
+ * @returns athlete
+ */
+router.route('/getAthletesCountry').post((req, res) => {
+    let athleteID = req.body.athleteID;
+    athlete_1.default.findOne({ '_id': mongoose_1.default.Types.ObjectId(athleteID) }, (err, athlete) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(athlete);
     });
 });
 /**
@@ -935,6 +950,59 @@ router.route('/getAllRecords').get((req, res) => {
             console.log(err);
         else
             res.json(records);
+    });
+});
+/**
+ * Inc num of medals for country
+ * @param {string} coutryName
+ * @param {number} medalType
+ * @returns status
+ */
+router.route('/incCountryNumOfMedals').post((req, res) => {
+    let coutryName = req.body.coutryName;
+    let medalType = req.body.medalType;
+    switch (medalType) {
+        case 1:
+            country_1.default.updateOne({ 'name': coutryName }, { $inc: { brojZlatnihMedalja: 1 } }, (err, status) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(status);
+            });
+            break;
+        case 2:
+            country_1.default.updateOne({ 'name': coutryName }, { $inc: { brojSrebrnihMedalja: 1 } }, (err, status) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(status);
+            });
+            break;
+        case 3:
+            country_1.default.updateOne({ 'name': coutryName }, { $inc: { brojBronzanihMedalja: 1 } }, (err, status) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(status);
+            });
+            break;
+    }
+});
+/**
+ * Dohvati mec za medalju
+ *
+ * @param {string} competitionName
+ * @param {string} mesto
+ * @returns collection of records
+ */
+router.route('/getMatchForMedal').post((req, res) => {
+    let competitionName = req.body.competitionName;
+    let mesto = req.body.mesto;
+    match_1.default.findOne({ competitionName: competitionName, mesto: mesto }, (err, match) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(match);
     });
 });
 app.use('/', router);

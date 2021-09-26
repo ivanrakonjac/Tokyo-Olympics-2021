@@ -23,16 +23,10 @@ export class AddCompetitionComponent implements OnInit {
 
   formats: any [] = [
     {value: '1', viewValue: 'Ekipno - 2 grupe - po 6 ekipa'},
-    {value: '2', viewValue: 'Tenis - singl - 4'},
-    {value: '3', viewValue: 'Tenis - singl - 8'},
-    {value: '4', viewValue: 'Tenis - singl - 16'},
-    {value: '5', viewValue: 'Tenis - dubl - 4'},
-    {value: '6', viewValue: 'Tenis - dubl - 8'},
-    {value: '7', viewValue: 'Tenis - dubl - 16'},
-    {value: '8', viewValue: 'Indiv - 8 takmicara - sa kvalifikacijama - 1 pokusaj - [sec:stot]'},
-    {value: '9', viewValue: 'Indiv - do 8 takmicara - sa kvalifikacijama - 3 pokusaja - [m,cm]'},
-    {value: '10', viewValue: 'Indiv - x takmicara - bez kvalifikacija - 1 pokusaj - [h:min:sec]'},
-    {value: '11', viewValue: 'Indiv - do 8 takmicara - bez kvalifikacija - 6 pokusaja - [br. krugova]'}
+    {value: '8', viewValue: 'Individualno - 8 takmicara - sa kvalifikacijama - 1 pokusaj'},
+    {value: '9', viewValue: 'Individualno - do 8 takmicara - sa kvalifikacijama - 3 pokusaja'},
+    {value: '10', viewValue: 'Individualno - x takmicara - bez kvalifikacija - 1 pokusaj'},
+    {value: '11', viewValue: 'Individualno - do 8 takmicara - bez kvalifikacija - 6 pokusaja'}
   ];
 
   sexes: any [] = [

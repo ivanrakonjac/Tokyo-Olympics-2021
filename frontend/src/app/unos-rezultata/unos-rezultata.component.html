@@ -35,17 +35,22 @@
     </mat-card-content>
   </mat-card>
 
+  
+  <hr/>
+  <p >INDIVIDUALNI SPORTOVI</p>
+  <hr/>
+
   <table>
     <tr>
-      <td>competition</td>
-      <td>athlete</td>
-      <td>res1</td>
-      <td>res2</td>
-      <td>res3</td>
-      <td>res4</td>
-      <td>res5</td>
-      <td>res6</td>
-      <td>mesto</td>
+      <td>Takmicenje</td>
+      <td>Takmicar</td>
+      <td>REZULTAT 1</td>
+      <td>REZULTAT 2</td>
+      <td>REZULTAT 3</td>
+      <td>REZULTAT 4</td>
+      <td>REZULTAT 5</td>
+      <td>REZULTAT 6</td>
+      <td>MESTO</td>
       <td>UNOS</td>
     </tr>
     <tr *ngFor='let res of resultsIndiv' ngForm="resultForm" name="resultForm" [formGroup]="resultForm" (ngSubmit)="unesiRezultat()">
@@ -55,44 +60,44 @@
         <td>
             <p *ngIf='res.res1!=0 && res.res1!="z"'>{{res.res1}}</p>
             <div class="inputFiled" *ngIf='res.res1==0' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res1" matInput/> </mat-form-field>
+               <input formControlName="res1" type="number"/> 
             </div>
             <div class="inputFiled" *ngIf='res.res1=="z"' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res1" matInput disabled=true/> </mat-form-field>
+               <input formControlName="res1" type="number" disabled=true/> 
             </div>
         </td>
         <td>
             <p *ngIf='res.res2!=0 && res.res2!="z"'>{{res.res2}}</p>
             <div class="inputFiled" *ngIf='res.res2==0' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res2" matInput/> </mat-form-field>
+               <input formControlName="res2" type="number"/> 
             </div>
             <div class="inputFiled" *ngIf='res.res2=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
         </td>
         <td>
             <p *ngIf='res.res3!=0 && res.res3!="z"'>{{res.res3}}</p>
             <div class="inputFiled" *ngIf='res.res3==0' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res3" matInput/> </mat-form-field>
+               <input formControlName="res3" type="number"/> 
             </div>
             <div class="inputFiled" *ngIf='res.res3=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
         </td>
         <td>
             <p *ngIf='res.res4!=0 && res.res4!="z"'>{{res.res4}}</p>
             <div class="inputFiled" *ngIf='res.res4==0' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res4" matInput/> </mat-form-field>
+               <input formControlName="res4" type="number"/> 
             </div>
             <div class="inputFiled" *ngIf='res.res4=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
         </td>
         <td>
             <p *ngIf='res.res5!=0 && res.res5!="z"'>{{res.res5}}</p>
             <div class="inputFiled" *ngIf='res.res5==0' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res5" matInput/> </mat-form-field>
+               <input formControlName="res5" type="number"/> 
             </div>
             <div class="inputFiled" *ngIf='res.res5=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
         </td>
         <td>
             <p *ngIf='res.res6!=0 && res.res6!="z"'>{{res.res6}}</p>
             <div class="inputFiled" *ngIf='res.res6==0' [formGroup]="resultForm">
-              <mat-form-field  appearance="outline"> <input formControlName="res6" matInput/> </mat-form-field>
+               <input formControlName="res6" type="number"/> 
             </div>
             <div class="inputFiled" *ngIf='res.res6=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
         </td>
@@ -100,7 +105,7 @@
         <td>
           <p *ngIf='res.mesto!=0 && res.mesto!="z"'>{{res.mesto}}</p>
           <div class="inputFiled" *ngIf='res.mesto==0' [formGroup]="resultForm">
-            <mat-form-field  appearance="outline"> <input formControlName="mesto" matInput/> </mat-form-field>
+             <input formControlName="mesto" type="number"/> 
           </div>
           <div class="inputFiled" *ngIf='res.mesto=="z"' [formGroup]="resultForm">ZAKLJUCANO</div>
         </td>

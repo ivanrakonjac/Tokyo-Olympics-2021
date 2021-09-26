@@ -847,6 +847,54 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/getAllSportsForCountry`, data);
   }
 
+  /**
+ * Get athlete's country
+ * 
+ * @param {string} athleteID
+ * @returns athlete
+ */
+  getAthletesCountry(athleteID){
+
+    const data = {
+      "athleteID" : athleteID
+    }
+
+    return this.http.post(`${this.uri}/getAthletesCountry`, data);
+  }
+
+  /**
+ * Inc num of medals for country
+ * @param {string} coutryName
+ * @param {number} medalType
+ * @returns status
+ */
+  incCountryNumOfMedals(coutryName, medalType){
+
+    const data = {
+      "coutryName" : coutryName,
+      "medalType" : medalType
+    }
+
+    return this.http.post(`${this.uri}/incCountryNumOfMedals`, data);
+  }
+
+  /**
+ * Dohvati mec za medalju
+ *
+ * @param {string} competitionName
+ * @param {string} mesto
+ * @returns collection of records
+ */
+   getMatchForMedal(competitionName, mesto){
+
+    const data = {
+      "competitionName" : competitionName,
+      "mesto" : mesto
+    }
+
+    return this.http.post(`${this.uri}/getMatchForMedal`, data);
+  }
+
 }
 
 

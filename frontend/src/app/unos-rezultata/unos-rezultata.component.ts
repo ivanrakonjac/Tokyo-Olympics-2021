@@ -107,7 +107,24 @@ export class UnosRezultataComponent implements OnInit {
     if(inputFieldValue != "") {
       this.userService.unesiRezultat(resID, columnName, inputFieldValue, competitionFormat).subscribe((res: any) => {
         console.log(res);
-        if(res.status == "200") alert("Rezultat je unet!");
+        if(res.status == "200"){
+
+          if(columnName == "mesto" && (inputFieldValue==1 || inputFieldValue==2 || inputFieldValue==3)){
+
+            let idTakmicara = this.resultsIndiv.find(elem => elem._id == resID).athleteID;
+            
+            console.log("idTakmicara");
+            console.log(idTakmicara);
+
+            this.userService.getAthletesCountry(idTakmicara).subscribe((res: Athlete) => {
+              this.userService.incCountryNumOfMedals(res.country, inputFieldValue).subscribe((res: any) => {
+                  console.log(res);
+              })
+            })
+          }
+
+          alert("Rezultat je unet!");
+        } 
         else alert("Trenutno nije moguce uneti rezultat"); 
       });
     }
@@ -145,6 +162,48 @@ export class UnosRezultataComponent implements OnInit {
                   if(faza == "FINALE"){
                     //inc medalje
                     this.userService.setCompetitionFaza(this.choosenComp.competitionName, "GOTOVO");
+
+
+                    this.userService.getMatchForMedal(this.choosenComp.competitionName, "PRVO").subscribe((match: Match) =>{                      
+                        if(match!=null){
+
+                          
+                          let team1Name = ""; let team2Name = "";
+                          if(match.brPoenaTim1>match.brPoenaTim2){
+                            team1Name = match.team1
+                            team2Name = match.team2
+                          } 
+                          else {
+                            team1Name = match.team2
+                            team2Name = match.team1
+                          }
+
+                          this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[])=>{
+                            let team1 = teams.find(t=>t.name == team1Name)
+                            let team2 = teams.find(t=>t.name == team2Name)
+
+                            this.userService.incCountryNumOfMedals(team1.country, 1);
+                            this.userService.incCountryNumOfMedals(team1.country, 2);
+                          })
+                        }
+                    });
+
+                    this.userService.getMatchForMedal(this.choosenComp.competitionName, "TRECE").subscribe((match: Match) =>{                      
+                      if(match!=null){
+
+                        
+                        let teamName = "";
+                        if(match.brPoenaTim1>match.brPoenaTim2) teamName = match.team1
+                        else teamName = match.team2
+
+                        this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[])=>{
+                          let team = teams.find(t=>t.name == teamName)
+
+                          this.userService.incCountryNumOfMedals(team.country, 3);
+
+                        })
+                      }
+                  })
                   }
                   else if(faza == "POLU") {
                     this.formirajFinale();
