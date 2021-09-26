@@ -1,0 +1,130 @@
+
+<mat-card>
+  <mat-card-content>
+    <div class="header">
+      <P>Pregled takmicara</P>
+    </div>
+    
+    <form (ngSubmit)="onRegister()" name="searchForm" [formGroup]="searchForm">
+
+      <div class="inputFiled">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Sport</mat-label>
+              <mat-select
+              formControlName="sport"
+              matSelect
+              placeholder="Choose sport"
+              (valueChange)="selectChangeHandlerSport($event)"
+              >
+                  <mat-option *ngFor="let sport of sports" [value]="sport.sport">
+                  {{sport.sport}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+
+      <div class="inputFiled">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Discipline</mat-label>
+              <mat-select
+              formControlName="discipline"
+              matSelect
+              placeholder="Choose discipline"
+              >
+                  <mat-option *ngFor="let discipline of disciplines" [value]="discipline.name"> 
+                  {{discipline.name}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+
+      <div class="inputFiled">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Sex</mat-label>
+              <mat-select
+              formControlName="sex"
+              matSelect
+              placeholder="Choose sex"
+              >
+                  <mat-option *ngFor="let sex of sexes" [value]="sex.value"> 
+                  {{sex.value}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+      
+      <button mat-flat-button color="primary">SEARCH</button>
+    </form>
+
+    <div class="button-row">
+      <p>Search for athletes</p>
+    </div>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+
+    <div class="mat-elevation-z8">
+      <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</th>
+          <td mat-cell *matCellDef="let row1">{{row1.firstname}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</th>
+          <td mat-cell *matCellDef="let row1">{{row1.lastname}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="competition">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Competition</th>
+          <td mat-cell *matCellDef="let row1">{{row1.competition}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="sex">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sex</th>
+          <td mat-cell *matCellDef="let row1">{{row1.sex}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sport">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sport</th>
+          <td mat-cell *matCellDef="let row1">{{row1.sport}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="discipline">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Discipline</th>
+          <td mat-cell *matCellDef="let row1">{{row1.discipline}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="zastava">
+          <th mat-header-cell *matHeaderCellDef>Zastava</th>
+          <td mat-cell *matCellDef="let row1">
+            <img src="{{'../assets/flags/' + row1.country + '.svg'}}" alt="flag" /> 
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row1; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator #paginator
+          [length]="dataSource?.data.length"
+          [pageIndex]="0"
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 50, 100]">
+      </mat-paginator>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+

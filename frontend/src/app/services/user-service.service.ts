@@ -832,6 +832,21 @@ export class UserServiceService {
     return this.http.get(`${this.uri}/getAllRecords`);
   }
 
+  /**
+ * Get all athletes for country
+ * 
+ * @param {string} countryName
+ * @returns collection of athletes
+ */
+   getAllSportsForCountry(countryName){
+
+    const data = {
+      "countryName" : countryName
+    }
+
+    return this.http.post(`${this.uri}/getAllSportsForCountry`, data);
+  }
+
 }
 
 

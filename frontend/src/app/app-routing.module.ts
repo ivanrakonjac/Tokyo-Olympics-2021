@@ -10,6 +10,7 @@ import { AddTeamComponent } from './add-team/add-team.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
+import { GetAthletesComponent } from './get-athletes/get-athletes.component';
 import { LoginComponent } from './login/login.component';
 import { OrganizatorComponent } from './organizator/organizator.component';
 import { RecordsTableComponent } from './records-table/records-table.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path:"login", component: LoginComponent},
   {path:"change-password", component: ChangePasswordComponent},
   {path:"rekordi", component: RecordsTableComponent},
+  {path:"pregledClanova", component: GetAthletesComponent},
 ];
 
 @NgModule({

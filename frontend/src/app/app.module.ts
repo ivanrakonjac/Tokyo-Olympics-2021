@@ -41,7 +41,9 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { CountryTableComponent } from './country-table/country-table.component';
 import { AthletesTableComponent } from './athletes-table/athletes-table.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { RecordsTableComponent } from './records-table/records-table.component'; 
+import { RecordsTableComponent } from './records-table/records-table.component';
+import { GetAthletesComponent } from './get-athletes/get-athletes.component';
+import { GetAthletesTableComponent } from './get-athletes-table/get-athletes-table.component'; 
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { RecordsTableComponent } from './records-table/records-table.component';
     CountryTableComponent,
     AthletesTableComponent,
     ChangePasswordComponent,
-    RecordsTableComponent
+    RecordsTableComponent,
+    GetAthletesComponent,
+    GetAthletesTableComponent
   ],
   imports: [
     BrowserModule,

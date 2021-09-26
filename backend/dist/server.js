@@ -506,6 +506,21 @@ router.route('/getAllAthletesForCompetition').post((req, res) => {
     });
 });
 /**
+ * Get all athletes for country
+ *
+ * @param {string} countryName
+ * @returns collection of athletes
+ */
+router.route('/getAllSportsForCountry').post((req, res) => {
+    let countryName = req.body.countryName;
+    athlete_1.default.find({ 'country': countryName }, { _id: 0, sport: 1 }, (err, athletes) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(athletes);
+    });
+});
+/**
  * Dodaj individualni rezultat
  * @param resultIndiv
  * @returns res.json()
