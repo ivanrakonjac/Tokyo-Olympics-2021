@@ -822,6 +822,16 @@ export class UserServiceService {
     return this.http.post(`${this.uri}/searchAthletes`, data);
   }
 
+  /**
+ * Dohvata sve rekorde
+ *
+ * @returns collection of records
+ */
+  getAllRecords(){
+
+    return this.http.get(`${this.uri}/getAllRecords`);
+  }
+
 }
 
 

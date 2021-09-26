@@ -40,7 +40,8 @@ import { AddAthleteToTeamComponent } from './add-athlete-to-team/add-athlete-to-
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { CountryTableComponent } from './country-table/country-table.component';
 import { AthletesTableComponent } from './athletes-table/athletes-table.component';
-import { ChangePasswordComponent } from './change-password/change-password.component'; 
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { RecordsTableComponent } from './records-table/records-table.component'; 
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     FileUploadComponent,
     CountryTableComponent,
     AthletesTableComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    RecordsTableComponent
   ],
   imports: [
     BrowserModule,

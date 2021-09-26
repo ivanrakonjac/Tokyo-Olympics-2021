@@ -1,0 +1,68 @@
+
+
+<mat-card>
+  <mat-card-content>
+
+    <div class="mat-elevation-z8">
+      <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="disciplina">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Disciplina</th>
+          <td mat-cell *matCellDef="let row">{{row.discipline}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="takmicar">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Takmicar</th>
+          <td mat-cell *matCellDef="let row">{{row.athlete}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nacionalnost">
+          <th mat-header-cell *matHeaderCellDef>Nacionalnost</th>
+          <td mat-cell *matCellDef="let row1">
+            <img src="{{'../assets/flags/' + row1.nationality + '.svg'}}" alt="flag" /> 
+          </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="godina">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Godina</th>
+          <td mat-cell *matCellDef="let row">{{row.year}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="grad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Grad</th>
+          <td mat-cell *matCellDef="let row">{{row.city}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="drzava">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Drzava</th>
+          <td mat-cell *matCellDef="let row">{{row.country}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rekord">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rekord</th>
+          <td mat-cell *matCellDef="let row">{{row.record}}</td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator #paginator
+          [length]="dataSource?.data.length"
+          [pageIndex]="0"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20, 50]">
+      </mat-paginator>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+
+<!-- Link za zastave: https://flagicons.lipis.dev/?continent=Europe -->

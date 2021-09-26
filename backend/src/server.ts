@@ -11,6 +11,7 @@ import country from './model/country';
 import resultIndivid from './model/resultIndivid';
 import team from './model/team';
 import match from './model/match';
+import record from './model/record';
 
 const app = express();
 
@@ -971,6 +972,17 @@ router.route('/getSportOfAthlete').post((req, res)=>{
     });
 });
 
+/**
+ * Dohvata sve rekorde
+ *
+ * @returns collection of records
+ */
+ router.route('/getAllRecords').get((req, res) => {
+    record.find({}, (err, records) => {
+        if (err) console.log(err);
+        else res.json(records);
+    });
+});
 
 
 app.use('/', router);

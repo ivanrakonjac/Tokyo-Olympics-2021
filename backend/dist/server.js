@@ -35,6 +35,7 @@ const country_1 = __importDefault(require("./model/country"));
 const resultIndivid_1 = __importDefault(require("./model/resultIndivid"));
 const team_1 = __importDefault(require("./model/team"));
 const match_1 = __importDefault(require("./model/match"));
+const record_1 = __importDefault(require("./model/record"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -906,6 +907,19 @@ router.route('/searchAthletes').post((req, res) => {
             console.log(err);
         else
             res.json(athletes);
+    });
+});
+/**
+ * Dohvata sve rekorde
+ *
+ * @returns collection of records
+ */
+router.route('/getAllRecords').get((req, res) => {
+    record_1.default.find({}, (err, records) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(records);
     });
 });
 app.use('/', router);

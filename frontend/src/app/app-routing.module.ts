@@ -12,6 +12,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormCompetitionTableComponent } from './form-competition-table/form-competition-table.component';
 import { LoginComponent } from './login/login.component';
 import { OrganizatorComponent } from './organizator/organizator.component';
+import { RecordsTableComponent } from './records-table/records-table.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { TakmicenjeRasporedComponent } from './takmicenje-raspored/takmicenje-raspored.component';
 import { UnosRezultataComponent } from './unos-rezultata/unos-rezultata.component';
@@ -37,7 +38,8 @@ const routes: Routes = [
   {path:"delegat", component: OrganizatorComponent},
   {path:"vodjaDelegacije", component: OrganizatorComponent},
   {path:"login", component: LoginComponent},
-  {path:"change-password", component: ChangePasswordComponent}
+  {path:"change-password", component: ChangePasswordComponent},
+  {path:"rekordi", component: RecordsTableComponent},
 ];
 
 @NgModule({
