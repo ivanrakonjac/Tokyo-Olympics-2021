@@ -179,11 +179,17 @@ export class UnosRezultataComponent implements OnInit {
                           }
 
                           this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[])=>{
-                            let team1 = teams.find(t=>t.name == team1Name)
-                            let team2 = teams.find(t=>t.name == team2Name)
+                            let team1 = teams.find(t=>t.name == team1Name);
+                            let team2 = teams.find(t=>t.name == team2Name);
 
-                            this.userService.incCountryNumOfMedals(team1.country, 1);
-                            this.userService.incCountryNumOfMedals(team1.country, 2);
+                            // console.log('-------------------------------------------1');
+                            // console.log(team1Name);
+                            // console.log(team1.country);
+                            // console.log(team2Name);
+                            // console.log(team2.country);
+
+                            this.userService.incCountryNumOfMedals(team1.country, 1).subscribe(result => {});
+                            this.userService.incCountryNumOfMedals(team1.country, 2).subscribe(result => {});
                           })
                         }
                     });
@@ -197,9 +203,13 @@ export class UnosRezultataComponent implements OnInit {
                         else teamName = match.team2
 
                         this.userService.getTeamsForCompetition(this.choosenComp._id).subscribe((teams: Team[])=>{
-                          let team = teams.find(t=>t.name == teamName)
+                          let team = teams.find(t=>t.name == teamName);
 
-                          this.userService.incCountryNumOfMedals(team.country, 3);
+                          // console.log('-------------------------------------------3');
+                          // console.log(teamName);
+                          // console.log(team.country);
+
+                          this.userService.incCountryNumOfMedals(team.country, 3).subscribe(result => {});
 
                         })
                       }

@@ -91,13 +91,13 @@ export class TakmicenjeRasporedComponent implements OnInit {
 
           switch(this.teams.length){
             case 4:
-              this.cetvrtOrPoluFinaleRaspored();
+              this.poluFinaleRaspored();
               this.dodajMecevePoluFinale();
               this.userService.setCompetitionFaza(this.choosenComp.competitionName, "POLU");
               this.userService.setNumOfFinishedMatches(this.choosenComp.competitionName, 0);
               break;
             case 8: 
-              this.cetvrtOrPoluFinaleRaspored();
+              this.cetvrtFinaleRaspored();
               this.dodajMeceveCetvrtFinale();
               this.userService.setCompetitionFaza(this.choosenComp.competitionName, "CETVRT");
               this.userService.setNumOfFinishedMatches(this.choosenComp.competitionName, 0);
@@ -148,8 +148,8 @@ export class TakmicenjeRasporedComponent implements OnInit {
   }
 
   dodajMecevePoluFinale(){
-    this.dodajMec("A1", "B2", this.choosenComp.competitionName, "POLU");
-    this.dodajMec("A2", "B1", this.choosenComp.competitionName, "POLU");
+    this.dodajMec("AA1", "AA2", this.choosenComp.competitionName, "POLU");
+    this.dodajMec("BB1", "BB2", this.choosenComp.competitionName, "POLU");
   }
 
   dodajMeceveCetvrtFinale(){
@@ -182,7 +182,7 @@ export class TakmicenjeRasporedComponent implements OnInit {
 
   }
 
-  cetvrtOrPoluFinaleRaspored(){
+  cetvrtFinaleRaspored(){
     let grupaA: Team[] = [];
     let grupaB: Team[] = [];
 
@@ -195,6 +195,22 @@ export class TakmicenjeRasporedComponent implements OnInit {
     for (let index = 0; index < grupaA.length; index++) {
       this.userService.setTeamGroupName(grupaA[index].name, "A" + (index + 1));
       this.userService.setTeamGroupName(grupaB[index].name, "B" + (index + 1));     
+    }
+  }
+
+  poluFinaleRaspored(){
+    let grupaA: Team[] = [];
+    let grupaB: Team[] = [];
+
+    for (let i = 0; i <this.teams.length; i++){
+      if(i%2==0) grupaA.push(this.teams[i]); 
+      else grupaB.push(this.teams[i]);
+       
+    }
+
+    for (let index = 0; index < grupaA.length; index++) {
+      this.userService.setTeamGroupName(grupaA[index].name, "AA" + (index + 1));
+      this.userService.setTeamGroupName(grupaB[index].name, "BB" + (index + 1));     
     }
   }
 
